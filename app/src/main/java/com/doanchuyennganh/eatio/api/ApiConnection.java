@@ -1,5 +1,6 @@
 package com.doanchuyennganh.eatio.api;
 
+import com.doanchuyennganh.eatio.BuildConfig;
 import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,7 +24,7 @@ public class ApiConnection {
                 .create();
 
         mRetroifit = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl(BuildConfig.HOST)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

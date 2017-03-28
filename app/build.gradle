@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'android-apt'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -10,17 +11,42 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "4g"
     }
     buildTypes {
         release {
+            buildConfigField "String", "HOST", "\"http://127.0.0.1\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "String", "HOST", "\"http://127.0.0.1\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
 def AAVersion = '4.3.0'
+apt {
+    arguments {
+        //androidManifestFile variant.processResources.manifestFile
+
+        // If you're using Android NBS flavors you should use the following line instead of hard-coded packageName
+        //resourcePackageName android.defaultConfig.packageName
+        resourcePackageName "com.doanchuyennganh.eatio"
+
+        // You can set optional annotation processing options here, like these commented options:
+        // logLevel 'INFO'
+        // logFile '/var/log/aa.log'
+    }
+}
 
 dependencies {
+    apt "org.androidannotations:androidannotations:$AAVersion"
     annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -39,9 +65,13 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
+    apt 'com.google.dagger:dagger-compiler:2.10'
+    provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.google.dagger:dagger:2.10'
     compile 'com.google.android.gms:play-services:10.2.0'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:design:25.3.0'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
     testCompile 'junit:junit:4.12'
 }
