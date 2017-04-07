@@ -1,6 +1,6 @@
 package com.doanchuyennganh.eatio.feature.login.interactor;
 
-import com.doanchuyennganh.eatio.data.model.UserModel;
+import com.doanchuyennganh.eatio.data.response.LoginResponse;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 
 /**
@@ -8,5 +8,5 @@ import com.doanchuyennganh.eatio.feature.base.Interactor;
  */
 
 public interface LoginInteractor extends Interactor {
-    void login(String username, String password, InteractorCallback<UserModel> callback);
+    void login(String username, String password, InteractorCallback<LoginResponse> callback);
 }

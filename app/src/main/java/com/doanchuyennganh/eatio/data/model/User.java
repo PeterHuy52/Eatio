@@ -5,15 +5,14 @@ import java.io.Serializable;
 /**
  * Created by Nguyen Tan Luan on 3/25/2017.
  */
-
-public class UserModel implements Serializable {
+public class User implements Serializable {
     private int id;
     private String userName;
     private String temporaryPassword;
     private String email;
     private String createDate;
 
-    public UserModel(int id, String userName, String temporaryPassword, String email, String createDate) {
+    public User(int id, String userName, String temporaryPassword, String email, String createDate) {
         this.id = id;
         this.userName = userName;
         this.temporaryPassword = temporaryPassword;
@@ -21,7 +20,7 @@ public class UserModel implements Serializable {
         this.createDate = createDate;
     }
 
-    public UserModel() {
+    public User() {
     }
 
     public int getId() {

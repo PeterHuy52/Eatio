@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:fitsSystemWindows="true"
-tools:context="com.doanchuyennganh.eatio.feature.signup.view.impl.SignUpActivity_">
+tools:context="com.doanchuyennganh.eatio.feature.signup.view.SignUpActivity_">
 
 <LinearLayout
     android:layout_width="fill_parent"
@@ -23,6 +23,19 @@ tools:context="com.doanchuyennganh.eatio.feature.signup.view.impl.SignUpActivity
         android:layout_marginBottom="30dp"
         android:src="@mipmap/ic_launcher" />
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/username"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@android:color/white" />
+    </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -50,7 +63,7 @@ tools:context="com.doanchuyennganh.eatio.feature.signup.view.impl.SignUpActivity
             android:focusableInTouchMode="true"
             android:hint="@string/hint_password"
             android:imeActionId="@+id/login"
-            android:imeOptions="actionUnspecified"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true"

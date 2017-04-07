@@ -2,57 +2,57 @@ package com.doanchuyennganh.eatio.feature.login.presenter;
 
 import android.text.TextUtils;
 
-import com.doanchuyennganh.eatio.data.model.UserModel;
+import com.doanchuyennganh.eatio.data.response.LoginResponse;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
-import com.doanchuyennganh.eatio.feature.base.PView;
 import com.doanchuyennganh.eatio.feature.base.impl.MainPresenter;
 import com.doanchuyennganh.eatio.feature.login.interactor.LoginInteractor;
+import com.doanchuyennganh.eatio.feature.login.interactor.LoginInteractorImp;
 import com.doanchuyennganh.eatio.feature.login.view.LoginNavigator;
 import com.doanchuyennganh.eatio.feature.login.view.LoginView;
+import com.doanchuyennganh.eatio.services.Impl.SessionServiceImpl;
+import com.doanchuyennganh.eatio.services.SessionService;
+
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
+import java.io.IOException;
 
 /**
  * Created by Nguyen Tan Luan on 3/28/2017.
  */
-
-public class LoginPresenterImpl<V extends LoginView, N extends LoginNavigator,I extends LoginInteractor>
-        extends MainPresenter <V,N,I>
+@EBean
+public class LoginPresenterImpl<V extends LoginView, N extends LoginNavigator>
+        extends MainPresenter <V,N,LoginInteractor>
         implements LoginPresenter<V,N> {
-    private String mUsername;
-    private String mPassword;
-    public LoginPresenterImpl(I interactor) {
-        super(interactor);
-    }
+    @Bean(LoginInteractorImp.class)
+    LoginInteractor interactor;
+
+    @Bean(SessionServiceImpl.class)
+    SessionService mSessionService;
+
+    LoginView view;
     @Override
-    public void excuteLogin(String usename, String password) {
-        if(canLogin(usename,password)){
-            mView.showWaitingDialog();
-            getLoginInteractor().login(mUsername, mPassword, new Interactor.InteractorCallback<UserModel>() {
+    public void excuteLogin(String username, String password) {
+        if (canLogin(username, password)) {
+            view.showWaitingDialog();
+            interactor.login(username, password, new Interactor.InteractorCallback<LoginResponse>() {
                 @Override
-                public void onSuccess(UserModel data) {
-                    mView.dismissWaitingDialog();
+                public void onSuccess(LoginResponse data) {
+                    view.dismissWaitingDialog();
                     onLoginSucccess(data);
                 }
 
                 @Override
-                public void onError(Throwable error) {
-                    String errorMessage = error.getMessage();
-                    mView.dismissWaitingDialog();
-                    PView.ViewDialogAction action = new PView.ViewDialogAction() {
-                        @Override
-                        public String getTitle() {
-                            return "";
-                        }
-
-                        @Override
-                        public void onClick() {
-
-                        }
-                    };
-                    mView.showDialog("", errorMessage, action, null);
+                public void onError(Throwable error) throws IOException {
+                    String errorMessage = getErrorMessage(error);
+                    view.dismissWaitingDialog();
+                    view.showDialog("Login error!!!", errorMessage);
                 }
             });
+
         }
     }
+
 
     @Override
     public boolean canLogin(String username, String password) {
@@ -61,10 +61,13 @@ public class LoginPresenterImpl<V extends LoginView, N extends LoginNavigator,I 
         }
         return false;
     }
-    private LoginInteractor getLoginInteractor(){
-        return (LoginInteractor) mInteractor;
+
+    @Override
+    public void setView(LoginView view) {
+        this.view=view;
     }
-    private void onLoginSucccess(UserModel data) {
-        mNavigator.goToHome();
+
+    private void onLoginSucccess(LoginResponse data) {
+        view.goToHome();
     }
 }

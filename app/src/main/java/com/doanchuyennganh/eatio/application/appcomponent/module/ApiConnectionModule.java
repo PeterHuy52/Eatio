@@ -5,10 +5,6 @@ import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Nguyen Tan Luan on 3/26/2017.
  */
-@Module
+
 public class ApiConnectionModule {
     private Retrofit mRetrofit;
 
@@ -45,8 +41,7 @@ public class ApiConnectionModule {
         return mRetrofit;
     }
 
-    @Provides
-    @Singleton
+
     public Retrofit providesRetrofit() {
         Gson gson = new GsonBuilder()
                 .setDateFormat(AppConstants.DateFormatter.SERVER_FORMAT)

@@ -1,24 +1,26 @@
 package com.doanchuyennganh.eatio.data.builder;
 
 import com.doanchuyennganh.eatio.data.entity.UserEntity;
-import com.doanchuyennganh.eatio.data.model.UserModel;
+import com.doanchuyennganh.eatio.data.model.User;
+
+import org.androidannotations.annotations.EBean;
 
 /**
  * Created by Nguyen Tan Luan on 3/25/2017.
  */
-
-public class UserBuilder extends BaseModelBuilder<UserModel,UserEntity> {
+@EBean
+public class UserBuilder extends BaseModelBuilder<User,UserEntity> {
     @Override
-    public UserModel buildFrom(UserEntity userEntity) {
+    public User buildFrom(UserEntity userEntity) {
         if(userEntity==null)
         return null;
-        UserModel userModel=new UserModel();
-        userModel.setId(userEntity.id);
-        userModel.setUserName(userEntity.userName);
-        userModel.setTemporaryPassword(userEntity.temporaryPassword);
-        userModel.setEmail(userEntity.email);
-        userModel.setCreateDate(userEntity.createDate);
-        return userModel;
+        User user =new User();
+        user.setId(userEntity.id);
+        user.setUserName(userEntity.userName);
+        user.setTemporaryPassword(userEntity.temporaryPassword);
+        user.setEmail(userEntity.email);
+        user.setCreateDate(userEntity.createDate);
+        return user;
     }
 
 

@@ -1,17 +1,9 @@
 package com.doanchuyennganh.eatio.application.appcomponent.module;
 
-import com.doanchuyennganh.eatio.api.UserApi;
-
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
-import retrofit2.Retrofit;
-
 /**
  * Created by Nguyen Tan Luan on 3/26/2017.
  */
-@Module
+/*@Module
 public class ApiModule {
     @Provides
     @Singleton
@@ -19,4 +11,4 @@ public class ApiModule {
         return retrofit.create(UserApi.class);
     }
 
-}
+}*/

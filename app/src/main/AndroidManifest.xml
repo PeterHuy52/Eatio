@@ -2,25 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.doanchuyennganh.eatio">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".application.MainApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity_">
-        </activity>
-        <activity android:name=".feature.signup.view.impl.SignUpActivity_"></activity>
+        <activity android:name=".feature.base.impl.MainActivity_" />
+        <activity android:name=".feature.signup.view.SignUpActivity_" />
         <activity android:name=".feature.login.view.LoginActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.verifyaccount.view.VerifyAccountActivity_"></activity>
-
+        <activity android:name=".feature.verifyaccount.view.VerifyAccountActivity_" />
+        <activity android:name=".feature.home.view.HomeActivity_"></activity>
     </application>
 
 </manifest>

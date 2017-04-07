@@ -7,6 +7,7 @@ import com.doanchuyennganh.eatio.feature.base.PView;
  */
 
 public interface LoginView extends PView{
-    void showWaitingDialog();
-    void dismissWaitingDialog();
+
+    void goToHome();
+    void gotoSignUp();
 }
