@@ -7,5 +7,4 @@ import com.doanchuyennganh.eatio.feature.base.PView;
  */
 
 public interface SignUpView extends PView {
-    void goToVerifyActivity();
 }

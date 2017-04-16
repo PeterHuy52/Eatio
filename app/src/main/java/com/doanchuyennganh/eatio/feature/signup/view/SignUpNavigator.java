@@ -7,4 +7,5 @@ import com.doanchuyennganh.eatio.feature.base.Navigator;
  */
 
 public interface SignUpNavigator extends Navigator {
+    void goToVerifyActivity();
 }

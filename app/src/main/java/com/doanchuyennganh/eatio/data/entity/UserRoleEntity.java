@@ -10,12 +10,12 @@ import java.io.Serializable;
 
 public class UserRoleEntity implements Serializable {
 
-    @SerializedName("Id")
+    @SerializedName("id")
     public int id;
 
-    @SerializedName("Code")
+    @SerializedName("code")
     public String code;
 
-    @SerializedName("Name")
+    @SerializedName("name")
     public String name;
 }

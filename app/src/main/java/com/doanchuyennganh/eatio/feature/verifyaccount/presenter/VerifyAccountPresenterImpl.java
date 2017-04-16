@@ -1,6 +1,8 @@
 package com.doanchuyennganh.eatio.feature.verifyaccount.presenter;
 
-import com.doanchuyennganh.eatio.data.model.VerifyInfo;
+import android.text.TextUtils;
+
+import com.doanchuyennganh.eatio.data.model.VerifyStatusModel;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 import com.doanchuyennganh.eatio.feature.base.impl.MainPresenter;
 import com.doanchuyennganh.eatio.feature.verifyaccount.interactor.VerifyAccountInteractor;
@@ -19,33 +21,45 @@ import java.io.IOException;
  * Created by Nguyen Tan Luan on 4/7/2017.
  */
 @EBean
-public class VerifyAccountPresenterImpl<V extends VerifyAccountView, N extends VerifyAccountNavigator>
-            extends MainPresenter<V,N,VerifyAccountInteractor> implements VerifyAccountPresenter<V,N> {
-    @Bean(VerifyAccountInteractorImpl.class)
-    VerifyAccountInteractor interactor;
+public class VerifyAccountPresenterImpl
+            extends MainPresenter<VerifyAccountView,VerifyAccountNavigator,VerifyAccountInteractor>
+            implements VerifyAccountPresenter {
 
     @Bean(SessionServiceImpl.class)
     SessionService sessionService;
 
-    VerifyAccountView verifyAccountView;
+    @Bean
+    void setBean(VerifyAccountInteractorImpl interactor){
+        this.mInteractor=interactor;
+    }
 
     @Override
     public void verifyAccount(String code) {
-        verifyAccountView.showWaitingDialog();
-        interactor.verifyAccount(getUserId(), code, new Interactor.InteractorCallback<VerifyInfo>() {
-            @Override
-            public void onSuccess(VerifyInfo data) {
-                verifyAccountView.dismissWaitingDialog();
-                verifyAccountView.goToHome();
-            }
+        mView.showWaitingDialog();
+        if(canVerifyAccount(code)) {
+            mInteractor.verifyAccount(getUserId(), code, new Interactor.InteractorCallback<VerifyStatusModel>() {
+                @Override
+                public void onSuccess(VerifyStatusModel data) {
+                    mView.dismissWaitingDialog();
+                    mNavigator.goToHome();
+                }
 
-            @Override
-            public void onError(Throwable error) throws IOException {
-                verifyAccountView.dismissWaitingDialog();
-                String message=getErrorMessage(error);
-                verifyAccountView.showDialog("Error",message);
-            }
-        });
+                @Override
+                public void onError(Throwable error) throws IOException {
+                    mView.dismissWaitingDialog();
+                    String message = getErrorMessage(error);
+                    mView.showDialog("Error", message);
+                }
+            });
+        }
+    }
+
+    private boolean canVerifyAccount(String code){
+        if(TextUtils.isEmpty(code)){
+            mView.showDialog("Error input","Please enter code.");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -55,6 +69,12 @@ public class VerifyAccountPresenterImpl<V extends VerifyAccountView, N extends V
 
     @Override
     public void setView(VerifyAccountView view) {
-        this.verifyAccountView=view;
+        super.setView(view);
     }
+
+    @Override
+    public void setNavigator(VerifyAccountNavigator navigator) {
+        super.setNavigator(navigator);
+    }
+
 }

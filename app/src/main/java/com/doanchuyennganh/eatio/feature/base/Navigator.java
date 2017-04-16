@@ -6,4 +6,5 @@ package com.doanchuyennganh.eatio.feature.base;
 
 public interface Navigator {
     void goToSignUp();
+    void goToHome();
 }

@@ -1,11 +1,12 @@
 package com.doanchuyennganh.eatio.feature.login.interactor;
 
-import com.doanchuyennganh.eatio.api.ApiConnection;
-import com.doanchuyennganh.eatio.api.UserApi;
-import com.doanchuyennganh.eatio.data.response.LoginResponse;
+import com.doanchuyennganh.eatio.api.response.LoginResponse;
+import com.doanchuyennganh.eatio.data.entity.AccessTokenEntity;
 import com.doanchuyennganh.eatio.feature.base.impl.BaseInteractor;
 import com.doanchuyennganh.eatio.services.Impl.SessionServiceImpl;
+import com.doanchuyennganh.eatio.services.Impl.UserServiceImpl;
 import com.doanchuyennganh.eatio.services.SessionService;
+import com.doanchuyennganh.eatio.services.UserService;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
@@ -23,20 +24,16 @@ import rx.schedulers.Schedulers;
 @EBean
 public class LoginInteractorImp extends BaseInteractor implements LoginInteractor {
 
-    UserApi mUserApi;
+    @Bean(UserServiceImpl.class)
+    UserService mUserService;
 
     @Bean(SessionServiceImpl.class)
     SessionService mSessionService;
 
-
-
-    public LoginInteractorImp() {
-        mUserApi = ApiConnection.getRetroifit().create(UserApi.class);
-    }
     @Background
     @Override
     public void login(String username, String password, final InteractorCallback<LoginResponse> callback) {
-        mUserApi.loginUser(username, password)
+        mUserService.login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<LoginResponse>() {
@@ -58,8 +55,10 @@ public class LoginInteractorImp extends BaseInteractor implements LoginInteracto
 
                     @Override
                     public void onNext(LoginResponse response) {
-                        int userId = response.token.userId;
-                        mSessionService.saveCurrentUserId(userId);
+                        int userId = response.accessTokenEntity.userId;
+                        AccessTokenEntity accessToken=response.accessTokenEntity;
+                        //mSessionService.saveCurrentUserId(userId);
+                        mSessionService.saveAccessToken(accessToken);
                         callback.onSuccess(response);
                     }
                 });

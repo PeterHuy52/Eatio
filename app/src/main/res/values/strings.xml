@@ -8,7 +8,7 @@
     <string name="change_email">Change Email</string>
     <string name="change_password">Change Password</string>
     <string name="send_password_reset_email">Send Password reset email</string>
-    <string name="remove_user">Remove user</string>
+    <string name="remove_user">Remove userModel</string>
     <string name="new_pass">New Password</string>
     <string name="title_activity_profile">Firebase</string>
     <string name="title_activity_login">Sign in</string>
@@ -17,6 +17,7 @@
     <string name="hint_verify_code">Verify code</string>
     <string name="hint_name">Username</string>
     <string name="btn_login">LOGIN</string>
+    <string name="btn_resend_password">RESEND PASSWORD</string>
     <string name="btn_link_to_register">Not a member? Get registered now!</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
@@ -27,4 +28,34 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="verify_code">You must enter verify code that was sent to your email recently</string>
+    <string name="welcome_flash">Welcome to Eatio</string>
+    <string name="resend_password">Your new password will be sent to your email, please check it!</string>
+
+    <!--left menu title-->
+    <string name="left_menu_home">Home</string>
+    <string name="left_menu_profile">Profile</string>
+    <string name="left_menu_my_shop">My shop</string>
+    <string name="left_menu_setting">Setting</string>
+    <string name="left_menu_about">About</string>
+    <string name="left_menu_sign_out">Sign out</string>
+    <string name="left_menu_contact">Contact</string>
+    <string name="left_menu_open">Open</string>
+    <string name="left_menu_close">Close</string>
+
+    <!--Profile user-->
+    <string name="first_name">Firstname</string>
+    <string name="last_name">Lastname</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="birth_day">Birthday:</string>
+    <string name="gender">Gender:</string>
+    <string name="update_profile">submit profile</string>
+
+    <!--Error connection-->
+    <string name="wrong_username_or_password">Username hoặc Password không đúng, vui lòng kiểm tra lại!</string>
+    <string name="email_exist">Email đã tồn tại!</string>
+    <string name="activation_code_invalid">Tài khoản này chưa được kích hoạt, vui lòng kích hoạt tài khoản!</string>
+    <string name="email_invalid">Email không tồn tại, vui lòng kiểm tra lại!</string>
+    <string name="username_exist">Username đã tồn tại!</string>
+    <string name="username_invalid">Username không tồn tại, vui lòng kiểm tra lại!</string>
 </resources>

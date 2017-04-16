@@ -4,4 +4,22 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="logo_w_h">100dp</dimen>
+
+    <dimen name="view_left_menu_width">280dp</dimen>
+    <dimen name="item_left_menu_height">48dp</dimen>
+    <dimen name="item_left_menu_icon">24dp</dimen>
+
+    <!--nav_header-->
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_spacing">16dp</dimen>
+    <dimen name="nav_header_spacing_small">8dp</dimen>
+    <dimen name="nav_header_avatar_width">75dp</dimen>
+    <dimen name="nav_header_avatar_border">2dp</dimen>
+
+    <dimen name="text_size_small">16sp</dimen>
+    <dimen name="text_size_normal">20sp</dimen>
+    <dimen name="text_size_large">24sp</dimen>
+
+
+
 </resources>

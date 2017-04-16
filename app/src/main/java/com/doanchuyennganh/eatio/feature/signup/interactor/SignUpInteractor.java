@@ -1,6 +1,6 @@
 package com.doanchuyennganh.eatio.feature.signup.interactor;
 
-import com.doanchuyennganh.eatio.data.model.VerifyInfo;
+import com.doanchuyennganh.eatio.data.model.VerifyStatusModel;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 
 /**
@@ -8,5 +8,5 @@ import com.doanchuyennganh.eatio.feature.base.Interactor;
  */
 
 public interface SignUpInteractor extends Interactor {
-    void signUp(String username,String email, String password, InteractorCallback<VerifyInfo> callback);
+    void signUp(String username,String email, String password, InteractorCallback<VerifyStatusModel> callback);
 }

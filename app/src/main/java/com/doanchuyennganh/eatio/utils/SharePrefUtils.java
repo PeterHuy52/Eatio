@@ -3,7 +3,8 @@ package com.doanchuyennganh.eatio.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.doanchuyennganh.eatio.data.model.User;
+import com.doanchuyennganh.eatio.data.entity.AccessTokenEntity;
+import com.doanchuyennganh.eatio.data.model.UserModel;
 import com.google.gson.Gson;
 
 /**
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
  */
 
 public class SharePrefUtils {
+
     private static final String PREFERENCES_NAME = "EATIO_PREF";
     private static SharedPreferences mPreferences;
     private static SharedPreferences.Editor mEditor;
@@ -21,6 +23,7 @@ public class SharePrefUtils {
         mEditor.putInt(key, userId);
         mEditor.commit();
     }
+
     public static int loadUserId(Context context, String key, int defaultId){
         mPreferences=context.getSharedPreferences(PREFERENCES_NAME,context.MODE_PRIVATE);
         if(mPreferences!=null){
@@ -28,22 +31,45 @@ public class SharePrefUtils {
         }
         return defaultId;
     }
-    public static void saveUserJson(Context context, String key, User user){
-        if(user!=null)
+
+    public static void saveUserJson(Context context, String key, UserModel userModel){
+        if(userModel !=null)
             return;
         Gson gson=new Gson();
-        String json=gson.toJson(user);
+        String json=gson.toJson(userModel);
         mPreferences=context.getSharedPreferences(PREFERENCES_NAME,context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
         mEditor.putString(key, json);
         mEditor.commit();
     }
-    public static User getUserJson(Context context, String key, String defaultUser){
+
+    public static UserModel getUserJson(Context context, String key, String defaultUser){
         mPreferences=context.getSharedPreferences(PREFERENCES_NAME,context.MODE_PRIVATE);
         if(mPreferences==null)
             return null;
         String userJson=mPreferences.getString(key,defaultUser);
         Gson gson=new Gson();
-        return gson.fromJson(userJson,User.class);
+        return gson.fromJson(userJson,UserModel.class);
+    }
+
+    public static void saveAccessTokenJson(Context context, String key, AccessTokenEntity entity) {
+        if(entity ==null) {
+            return;
+        }
+        mPreferences=context.getSharedPreferences(PREFERENCES_NAME,context.MODE_PRIVATE);
+        Gson gson=new Gson();
+        String json=gson.toJson(entity);
+        mEditor = mPreferences.edit();
+        mEditor.putString(key, json);
+        mEditor.commit();
+    }
+
+    public static AccessTokenEntity getAccessTokenJson(Context context, String key, String defaultAccessToken){
+        mPreferences=context.getSharedPreferences(PREFERENCES_NAME,context.MODE_PRIVATE);
+        if(mPreferences==null)
+            return null;
+        String accessTokenJson=mPreferences.getString(key,defaultAccessToken);
+        Gson gson=new Gson();
+        return gson.fromJson(accessTokenJson,AccessTokenEntity.class);
     }
 }

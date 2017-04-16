@@ -10,17 +10,15 @@ import java.io.Serializable;
 
 public class AccessTokenEntity implements Serializable {
 
-   /* @SerializedName("Id")
-    public int id;*/
+    @SerializedName("id")
+    public int id;
 
-    @SerializedName("UserId")
+    @SerializedName("userId")
     public int userId;
-   /* @SerializedName("User")
-    public UserEntity user;*/
 
-    @SerializedName("Token")
+    @SerializedName("token")
     public String token;
 
-    @SerializedName("Expired")
+    @SerializedName("expired")
     public int expired;
 }

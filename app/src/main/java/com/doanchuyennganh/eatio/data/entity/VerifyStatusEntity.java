@@ -9,17 +9,23 @@ import java.io.Serializable;
  */
 //cai entity de sau di, h dung trong model thoi
 public class VerifyStatusEntity implements Serializable {
-    @SerializedName("Id")
+
+    @SerializedName("id")
     public int id;
-    @SerializedName("User")
-    public UserEntity user;
-    @SerializedName("Code")
+
+    @SerializedName("code")
     public String code;
-    @SerializedName("Expired")
-    public String expired;
-    @SerializedName("TriedTime")
+
+    @SerializedName("expired")
+    public double expired;
+
+    @SerializedName("tried_time")
     public int triedTime;
-    @SerializedName("Status")
+
+    @SerializedName("status")
     public int status;
+
+    @SerializedName("user_id")
+    public int userId;
 
 }

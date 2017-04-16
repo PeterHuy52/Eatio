@@ -9,19 +9,23 @@ import java.io.Serializable;
  */
 
 public class UserEntity implements Serializable {
-    @SerializedName("Id")
+
+    @SerializedName("id")
     public int id;
 
-    @SerializedName("UserName")
-    public String userName;
+    @SerializedName("username")
+    public String username;
 
-    @SerializedName("TemporaryPassword")
-    public String temporaryPassword;
+    @SerializedName("password")
+    public String password;
 
-    @SerializedName("Email")
+    @SerializedName("email")
     public String email;
 
-    @SerializedName("CreateDate")
+    @SerializedName("create_date")
     public String createDate;
+
+    @SerializedName("user_role_id")
+    public int userRoleId;
 
 }

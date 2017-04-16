@@ -1,8 +1,6 @@
 package com.doanchuyennganh.eatio.feature.signup.view;
 
-import android.view.View;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.feature.base.impl.MainActivity;
@@ -17,7 +15,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_sign_up)
-public class SignUpActivity extends MainActivity
+public class SignUpActivity extends MainActivity<SignUpPresenter>
                 implements SignUpView,SignUpNavigator{
 
     @ViewById(R.id.username)
@@ -29,15 +27,15 @@ public class SignUpActivity extends MainActivity
     @ViewById(R.id.password)
     EditText mEdtPassword;
 
-    @ViewById(R.id.progressBar)
-    ProgressBar mProgressBar;
-
-    @Bean(SignUpPresenterImpl.class)
-    SignUpPresenter mSignUpPresenter;
+    @Bean
+    void setBean(SignUpPresenterImpl presenter){
+        this.mPresenter=presenter;
+    }
 
     @AfterViews
     void initView(){
-        mSignUpPresenter.setView(this);
+        mPresenter.setView(this);
+        mPresenter.setNavigator(this);
     }
 
     @Click(R.id.btn_sign_up)
@@ -45,9 +43,13 @@ public class SignUpActivity extends MainActivity
         String username=mEdtUsername.getText().toString();
         String email=mEdtEmail.getText().toString();
         String password=mEdtPassword.getText().toString();
-        mSignUpPresenter.excuteSignUp(username,email,password);
+        mPresenter.excuteSignUp(username,email,password);
     }
 
+    @Click(R.id.btn_sign_in)
+    void signIn(){
+        this.finish();
+    }
 
     @Override
     public void goToVerifyActivity() {
@@ -56,12 +58,12 @@ public class SignUpActivity extends MainActivity
 
     @Override
     public void showWaitingDialog() {
-        mProgressBar.setVisibility(View.VISIBLE);
+        super.showWaitingDialog();
     }
 
     @Override
     public void dismissWaitingDialog() {
-        mProgressBar.setVisibility(View.GONE);
+       super.dismissWaitingDialog();
     }
 
     @Override

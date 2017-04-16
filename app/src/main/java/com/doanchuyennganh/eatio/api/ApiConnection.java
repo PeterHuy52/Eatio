@@ -25,14 +25,15 @@ public class ApiConnection {
     public ApiConnection() {
         Gson gson = new GsonBuilder()
                 .setDateFormat(AppConstants.DateFormatter.SERVER_FORMAT)
+                .setLenient()
                 .create();
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.connectTimeout(10, TimeUnit.SECONDS);
-        httpClient.readTimeout(10, TimeUnit.SECONDS);
+        httpClient.connectTimeout(20, TimeUnit.SECONDS);
+        httpClient.readTimeout(20, TimeUnit.SECONDS);
         httpClient.addInterceptor(logging);
 
         mRetroifit=new Retrofit.Builder()

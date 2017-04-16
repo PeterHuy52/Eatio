@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorBackground"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -22,8 +22,6 @@
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:padding="@dimen/activity_horizontal_margin"
-            android:imeActionId="@+id/login"
-            android:imeOptions="actionUnspecified"
             android:text="@string/verify_code"
             android:textColor="@android:color/white"
             android:textSize="14dp" />
@@ -39,7 +37,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"
                 android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
+                android:imeOptions="actionDone"
+                android:inputType="number"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
@@ -51,9 +50,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:text="@string/btn_verify_code"
-            android:textColor="@android:color/black" />
+            android:textColor="@color/textColorPrimary" />
 
         <Button
             android:id="@+id/btn_back"
@@ -62,7 +61,7 @@
             android:layout_marginTop="10dp"
             android:background="@null"
             android:text="@string/btn_back"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 

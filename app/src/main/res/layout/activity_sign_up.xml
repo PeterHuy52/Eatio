@@ -10,8 +10,8 @@ tools:context="com.doanchuyennganh.eatio.feature.signup.view.SignUpActivity_">
 <LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/colorPrimaryDark"
-    android:gravity="center"
+    android:background="@color/colorBackground"
+    android:gravity="center|top"
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin">
 
@@ -77,20 +77,10 @@ tools:context="com.doanchuyennganh.eatio.feature.signup.view.SignUpActivity_">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         android:text="@string/action_sign_in_short"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textColorPrimary"
         android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btn_reset_password"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="@null"
-        android:text="@string/btn_forgot_password"
-        android:textAllCaps="false"
-        android:textColor="@color/colorAccent" />
 
     <!-- Link to Login Screen -->
 

@@ -7,5 +7,6 @@ import com.doanchuyennganh.eatio.feature.base.Navigator;
  */
 
 public interface LoginNavigator extends Navigator {
-    void goToHome();
+    void goToResendPasswordAcivity();
+    void goToVerifyAccount();
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ItemInputInfoView_">
+        <attr name="icon" format="reference" />
+        <attr name="texthint" format="string" />
+        <attr name="icon_nav" format="reference" />
+    </declare-styleable>
+</resources>

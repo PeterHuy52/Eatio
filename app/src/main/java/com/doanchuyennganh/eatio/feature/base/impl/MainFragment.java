@@ -1,6 +1,16 @@
 package com.doanchuyennganh.eatio.feature.base.impl;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.doanchuyennganh.eatio.feature.base.Navigator;
 import com.doanchuyennganh.eatio.feature.base.PView;
@@ -12,6 +22,28 @@ import com.doanchuyennganh.eatio.feature.base.Presenter;
 
 public class MainFragment<P extends Presenter>
         extends Fragment implements PView, Navigator{
+
+    protected P mPresenter;
+    protected Dialog mDialog;
+    protected ProgressDialog mProgressDialog;
+
+    protected Context mContext;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        initProgressDialog();
+        return super.onCreateView(inflater, container, savedInstanceState);
+
+    }
+    void initProgressDialog(){
+        mProgressDialog=new ProgressDialog(getContext());
+        mProgressDialog.setTitle("Please wait...");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setMessage("Loading...");
+    }
+
     @Override
     public void showDialog(String title, String message, ViewDialogAction leftAction, ViewDialogAction rightAction) {
 
@@ -19,7 +51,20 @@ public class MainFragment<P extends Presenter>
 
     @Override
     public void showDialog(String title, String message) {
-
+        final AlertDialog.Builder dialog=new AlertDialog.Builder(getContext());
+        dialog.setMessage(message);
+        dialog.setTitle(title);
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(mDialog!=null && mDialog.isShowing()){
+                    mDialog.cancel();
+                }
+            }
+        });
+        mDialog=dialog.create();
+        mDialog.show();
     }
 
     @Override
@@ -44,16 +89,25 @@ public class MainFragment<P extends Presenter>
 
     @Override
     public void showWaitingDialog() {
-
+        if(mProgressDialog!=null) {
+            mProgressDialog.show();
+        }
     }
 
     @Override
     public void dismissWaitingDialog() {
-
+        if(mProgressDialog!=null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
     }
 
     @Override
     public void goToSignUp() {
+
+    }
+
+    @Override
+    public void goToHome() {
 
     }
 }

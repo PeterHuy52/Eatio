@@ -1,6 +1,6 @@
 package com.doanchuyennganh.eatio.feature.verifyaccount.interactor;
 
-import com.doanchuyennganh.eatio.data.model.VerifyInfo;
+import com.doanchuyennganh.eatio.data.model.VerifyStatusModel;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 
 /**
@@ -8,5 +8,5 @@ import com.doanchuyennganh.eatio.feature.base.Interactor;
  */
 
 public interface VerifyAccountInteractor extends Interactor {
-    void verifyAccount(int userId, String code, InteractorCallback<VerifyInfo> callback);
+    void verifyAccount(int userId, String code, InteractorCallback<VerifyStatusModel> callback);
 }

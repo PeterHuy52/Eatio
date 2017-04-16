@@ -3,7 +3,7 @@
     package="com.doanchuyennganh.eatio">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -12,17 +12,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".feature.base.impl.MainActivity_" />
+        <activity android:name=".feature.base.impl.MainActivity" />
         <activity android:name=".feature.signup.view.SignUpActivity_" />
         <activity android:name=".feature.login.view.LoginActivity_">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".feature.verifyaccount.view.VerifyAccountActivity_" />
-        <activity android:name=".feature.home.view.HomeActivity_"></activity>
+        <activity android:name=".feature.home.view.HomeActivity_">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity android:name=".feature.splash.view.SplashActivity_">
+
+        </activity>
+        <activity android:name=".feature.resendpassword.view.ResendPasswordActivity_"></activity>
     </application>
 
 </manifest>

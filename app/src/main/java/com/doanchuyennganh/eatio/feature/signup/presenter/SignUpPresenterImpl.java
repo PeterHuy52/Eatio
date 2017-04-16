@@ -1,14 +1,14 @@
 package com.doanchuyennganh.eatio.feature.signup.presenter;
 
-import android.text.TextUtils;
-
-import com.doanchuyennganh.eatio.data.model.VerifyInfo;
+import com.doanchuyennganh.eatio.data.model.VerifyStatusModel;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 import com.doanchuyennganh.eatio.feature.base.impl.MainPresenter;
 import com.doanchuyennganh.eatio.feature.signup.interactor.SignUpInteractor;
 import com.doanchuyennganh.eatio.feature.signup.interactor.SignUpInteractorImpl;
 import com.doanchuyennganh.eatio.feature.signup.view.SignUpNavigator;
 import com.doanchuyennganh.eatio.feature.signup.view.SignUpView;
+import com.doanchuyennganh.eatio.utils.AppConstants;
+import com.doanchuyennganh.eatio.utils.RegexUtils;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -19,52 +19,82 @@ import java.io.IOException;
  * Created by Nguyen Tan Luan on 4/6/2017.
  */
 @EBean
-public class SignUpPresenterImpl <V extends SignUpView, N extends SignUpNavigator>
-        extends MainPresenter <V,N,SignUpInteractor> implements SignUpPresenter<V,N> {
+public class SignUpPresenterImpl
+        extends MainPresenter<SignUpView, SignUpNavigator, SignUpInteractor>
+        implements SignUpPresenter {
 
-    @Bean(SignUpInteractorImpl.class)
-    SignUpInteractor mSignUpInteractor;
+    @Bean
+    void setBean(SignUpInteractorImpl interactor) {
+        this.mInteractor = interactor;
+    }
 
-    SignUpView mSignUpView;
+    private String mUsername;
+    private String mEmail;
+    private String mPassword;
 
     @Override
     public void excuteSignUp(String username, String email, String password) {
-        if(canLogin(username, email, password)) {
-            mSignUpView.showWaitingDialog();
-            mSignUpInteractor.signUp(username, email, password, new Interactor.InteractorCallback<VerifyInfo>() {
+        this.mUsername = username;
+        this.mEmail = email;
+        this.mPassword = password;
+
+        if (canLogin()) {
+            mView.showWaitingDialog();
+            mInteractor.signUp(username, email, password, new Interactor.InteractorCallback<VerifyStatusModel>() {
                 @Override
-                public void onSuccess(VerifyInfo data) {
-                    mSignUpView.dismissWaitingDialog();
+                public void onSuccess(VerifyStatusModel data) {
+                    mView.dismissWaitingDialog();
                     onSignUpSuccess();
                 }
 
                 @Override
                 public void onError(Throwable error) throws IOException {
-                    String message=getErrorMessage(error);
-                    mSignUpView.dismissWaitingDialog();
-                    mSignUpView.showDialog("Error!",message);
+                    String message = getErrorMessage(error);
+                    mView.dismissWaitingDialog();
+                    mView.showDialog("Error!", message);
                 }
             });
-        }else {
-            mSignUpView.showDialog("Error!","Please enter textfield!");
         }
     }
 
     private void onSignUpSuccess() {
-        mSignUpView.goToVerifyActivity();
+        mNavigator.goToVerifyActivity();
     }
 
-    @Override
-    public boolean canLogin(String username,String email, String password) {
-        if(!TextUtils.isEmpty(username) || !TextUtils.isEmpty(password) || !TextUtils.isEmpty(email)){
-            return true;
+    public boolean canLogin() {
+        if (!RegexUtils.invalidUsername(mUsername) || !RegexUtils.invalidEmail(mEmail) || !RegexUtils.invalidPassword(mPassword)) {
+            handleErrorInput();
+            return false;
         }
-        return false;
+        return true;
+    }
+
+    public void handleErrorInput() {
+        String title="Error input";
+        if(!RegexUtils.invalidUsername(mUsername)){
+            mView.showDialog(title, AppConstants.ErrorInput.USERNAME_INVALID);
+            return;
+        }
+
+        if(!RegexUtils.invalidEmail(mEmail)){
+            mView.showDialog(title, AppConstants.ErrorInput.EMAIL_INVALID);
+            return;
+        }
+
+        if(!RegexUtils.invalidPassword(mPassword)){
+            mView.showDialog(title, AppConstants.ErrorInput.PASSWORD_INVALID);
+            return;
+        }
+
     }
 
     @Override
     public void setView(SignUpView view) {
-       this.mSignUpView=view;
+        super.setView(view);
+    }
 
+    @Override
+    public void setNavigator(SignUpNavigator navigator) {
+        super.setNavigator(navigator);
     }
 }

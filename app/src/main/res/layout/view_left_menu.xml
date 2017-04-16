@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/nav_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/nav_header_spacing"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/nav_header_avatar_width"
+            android:layout_height="@dimen/nav_header_avatar_width"
+            app:civ_border_color="#FF000000"
+            android:src="@mipmap/ic_launcher_round"
+            app:civ_border_width="@dimen/nav_header_avatar_border" />
+
+        <TextView
+            android:id="@+id/txt_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/nav_header_spacing"
+            android:textColor="@color/black"
+            android:text="Nguyen Tan Luan"
+            android:textSize="@dimen/text_size_small"/>
+        <TextView
+            android:id="@+id/txt_shop_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/nav_header_spacing_small"
+            android:textColor="@color/black"
+            android:text="@string/app_name"
+            android:textSize="@dimen/text_size_small"/>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

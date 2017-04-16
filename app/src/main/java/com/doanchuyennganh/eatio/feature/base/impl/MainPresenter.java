@@ -1,7 +1,9 @@
 package com.doanchuyennganh.eatio.feature.base.impl;
 
-import com.doanchuyennganh.eatio.data.response.BaseResponse;
-import com.doanchuyennganh.eatio.exception.RetrofitException;
+import com.doanchuyennganh.eatio.api.response.BaseResponse;
+import com.doanchuyennganh.eatio.exception.ApiException;
+import com.doanchuyennganh.eatio.exception.NetworkException;
+import com.doanchuyennganh.eatio.exception.UnknownException;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 import com.doanchuyennganh.eatio.feature.base.Navigator;
 import com.doanchuyennganh.eatio.feature.base.PView;
@@ -11,8 +13,6 @@ import com.doanchuyennganh.eatio.utils.AppConstants;
 import org.androidannotations.annotations.EBean;
 
 import java.io.IOException;
-
-import retrofit2.adapter.rxjava.HttpException;
 
 /**
  * Created by Nguyen Tan Luan on 3/28/2017.
@@ -29,16 +29,12 @@ public class MainPresenter
     protected I mInteractor;
 
     protected String getErrorMessage(Throwable error) throws IOException {
-        if (error instanceof RetrofitException) {
-            RetrofitException ex = (RetrofitException) error;
-            BaseResponse response = ex.getErrorBodyAs(BaseResponse.class);
-            int code=response.getError().getCode();
-            String errorMessage = "common.error.unknown";
-            boolean showErrorCode = false;
+        if (error instanceof ApiException) {
+            ApiException ex=(ApiException)error;
+            BaseResponse response=ex.getmResponse();
+            int code=response.error.code;
+            String errorMessage = "";
             switch (code) {
-              /*  case AppConstants.ResponseCode.WRONG_PASSWORD:
-                    errorKey = "login.error.wrong_account";
-                    break;*/
                 case AppConstants.ResponseCode.WRONG_USERNAME_OR_PASSWORD:
                     errorMessage = "Username hoặc Password không đúng, vui lòng kiểm tra lại!";
                     break;
@@ -57,14 +53,32 @@ public class MainPresenter
                 case AppConstants.ResponseCode.USERNAME_INVALID:
                     errorMessage = "Username không tồn tại, vui lòng kiểm tra lại!";
                     break;
+                case AppConstants.ResponseCode.TOKEN_INVALID:
+                    errorMessage="Sai mã xác thực!";
+                    break;
+                case AppConstants.ResponseCode.USER_NOT_FOUND:
+                    errorMessage="Người dùng không tồn tại!";
+                    break;
+                case AppConstants.ResponseCode.IMAGE_NOT_FOUND:
+                    errorMessage="Không thể tìm thấy ảnh đại diện";
+                    break;
+
                 default:
-                    showErrorCode = true;
                     break;
             }
             return errorMessage;
         }
-        if(error instanceof HttpException)
-            return "Can't connect Network";
+        if (error instanceof NetworkException) {
+            return "Please check your internet connection.";
+        }
+        if(error instanceof UnknownException){
+            return "Lỗi không xác định!";
+        }
+
+        /*if (error instanceof Exception) {
+            return "Lỗi không xác định!";
+        }*/
+
         return "Lỗi không xác định!";
     }
 

@@ -7,6 +7,4 @@ import com.doanchuyennganh.eatio.feature.base.PView;
  */
 
 public interface VerifyAccountView extends PView {
-
-    void goToHome();
 }

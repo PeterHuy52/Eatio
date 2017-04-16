@@ -1,6 +1,6 @@
 package com.doanchuyennganh.eatio.feature.login.interactor;
 
-import com.doanchuyennganh.eatio.data.response.LoginResponse;
+import com.doanchuyennganh.eatio.api.response.LoginResponse;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 
 /**

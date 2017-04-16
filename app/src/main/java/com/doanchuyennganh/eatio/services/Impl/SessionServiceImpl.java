@@ -2,7 +2,8 @@ package com.doanchuyennganh.eatio.services.Impl;
 
 import android.content.Context;
 
-import com.doanchuyennganh.eatio.data.model.User;
+import com.doanchuyennganh.eatio.data.entity.AccessTokenEntity;
+import com.doanchuyennganh.eatio.data.model.UserModel;
 import com.doanchuyennganh.eatio.services.SessionService;
 import com.doanchuyennganh.eatio.utils.SharePrefUtils;
 
@@ -16,6 +17,7 @@ import org.androidannotations.annotations.RootContext;
 public class SessionServiceImpl implements SessionService {
     private static final String PREF_USER="PREF_USER";
     private static final String PREF_USERID="PREF_USERID";
+    private static final String PREF_ACCESSTOKEN="PREF_ACCESSTOKEN";
     @RootContext
     Context mContext;
 
@@ -24,14 +26,14 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void setCurrentUser(User user) {
-        if(user!=null){
-            SharePrefUtils.saveUserJson(mContext,PREF_USER,user);
+    public void setCurrentUser(UserModel userModel) {
+        if(userModel !=null){
+            SharePrefUtils.saveUserJson(mContext,PREF_USER, userModel);
         }
     }
 
     @Override
-    public User getCurrentUser() {
+    public UserModel getCurrentUser() {
         return SharePrefUtils.getUserJson(mContext,PREF_USER,"");
     }
 
@@ -43,5 +45,17 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public int loadCurrentUserId() {
         return SharePrefUtils.loadUserId(mContext,PREF_USERID,0);
+    }
+
+    @Override
+    public void saveAccessToken(AccessTokenEntity entity) {
+        if(entity !=null){
+            SharePrefUtils.saveAccessTokenJson(mContext,PREF_ACCESSTOKEN, entity);
+        }
+    }
+
+    @Override
+    public AccessTokenEntity getAccessToken() {
+        return SharePrefUtils.getAccessTokenJson(mContext,PREF_ACCESSTOKEN,"");
     }
 }

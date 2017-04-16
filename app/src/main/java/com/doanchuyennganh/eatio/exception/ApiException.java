@@ -1,18 +1,28 @@
 package com.doanchuyennganh.eatio.exception;
 
+import com.doanchuyennganh.eatio.api.response.BaseResponse;
+
 /**
  * Created by Nguyen Tan Luan on 4/6/2017.
  */
 
 public class ApiException extends RuntimeException {
-    private final int mErrorCode;
-
-    public ApiException(int apiErrorType, String detailMessage) {
+    //private final int mStatus;
+    private final BaseResponse mResponse;
+   /* public ApiException(int apiErrorType, String detailMessage) {
         super(detailMessage);
-        mErrorCode = apiErrorType;
+        mStatus = apiErrorType;
+    }*/
+    public ApiException(BaseResponse response) {
+        super(response.error.message);
+        mResponse=response;
     }
 
-    public int getErrorCode() {
-        return mErrorCode;
+    public BaseResponse getmResponse() {
+        return mResponse;
     }
+
+    /*public int getmStatus() {
+        return mStatus;
+    }*/
 }

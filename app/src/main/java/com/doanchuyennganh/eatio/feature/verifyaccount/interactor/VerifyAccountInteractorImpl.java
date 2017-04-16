@@ -1,11 +1,13 @@
 package com.doanchuyennganh.eatio.feature.verifyaccount.interactor;
 
-import com.doanchuyennganh.eatio.api.ApiConnection;
-import com.doanchuyennganh.eatio.api.UserApi;
-import com.doanchuyennganh.eatio.data.model.VerifyInfo;
-import com.doanchuyennganh.eatio.data.response.VerifyAccountResponse;
+import com.doanchuyennganh.eatio.api.response.VerifyAccountResponse;
+import com.doanchuyennganh.eatio.data.builder.VerifyStatusBuilder;
+import com.doanchuyennganh.eatio.data.model.VerifyStatusModel;
 import com.doanchuyennganh.eatio.feature.base.impl.BaseInteractor;
+import com.doanchuyennganh.eatio.services.Impl.UserServiceImpl;
+import com.doanchuyennganh.eatio.services.UserService;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import java.io.IOException;
@@ -20,15 +22,12 @@ import rx.schedulers.Schedulers;
 @EBean
 public class VerifyAccountInteractorImpl extends BaseInteractor implements VerifyAccountInteractor {
 
-    UserApi mUserApi;
-
-    public VerifyAccountInteractorImpl() {
-        mUserApi= ApiConnection.getRetroifit().create(UserApi.class);
-    }
+    @Bean(UserServiceImpl.class)
+    UserService mUserService;
 
     @Override
-    public void verifyAccount(int userId, String code, final InteractorCallback<VerifyInfo> callback) {
-        mUserApi.verifyCodeUser(userId,code)
+    public void verifyAccount(int userId, String code, final InteractorCallback<VerifyStatusModel> callback) {
+        mUserService.verifyAccount(userId,code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<VerifyAccountResponse>() {
@@ -49,8 +48,9 @@ public class VerifyAccountInteractorImpl extends BaseInteractor implements Verif
 
                     @Override
                     public void onNext(VerifyAccountResponse verifyAccountResponse) {
-                        VerifyInfo verifyInfo=verifyAccountResponse.verifyInfo;
-                        callback.onSuccess(verifyInfo);
+                        VerifyStatusBuilder builder=new VerifyStatusBuilder();
+                        VerifyStatusModel verifyStatusModel =builder.buildFrom(verifyAccountResponse.verifyStatusEntity);
+                        callback.onSuccess(verifyStatusModel);
                     }
                 });
     }
