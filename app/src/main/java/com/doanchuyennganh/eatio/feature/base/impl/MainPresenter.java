@@ -36,6 +36,7 @@ public class MainPresenter
             String errorMessage = "";
             switch (code) {
                 case AppConstants.ResponseCode.WRONG_USERNAME_OR_PASSWORD:
+                    //errorMessage=mContext.getString(R.string.wrong_username_or_password);
                     errorMessage = "Username hoặc Password không đúng, vui lòng kiểm tra lại!";
                     break;
                 case AppConstants.ResponseCode.EMAIL_EXIST:

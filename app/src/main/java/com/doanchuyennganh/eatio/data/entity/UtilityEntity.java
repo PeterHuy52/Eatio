@@ -8,18 +8,19 @@ import java.io.Serializable;
  * Created by Nguyen Tan Luan on 4/16/2017.
  */
 
-public class StoreGroupEntity implements Serializable {
-
+public class UtilityEntity implements Serializable {
     @SerializedName("id")
     public int id;
 
     @SerializedName("name")
     public String name;
 
-    @SerializedName("fonda_count")
-    public String store_count;
+    @SerializedName("description")
+    public String description;
 
     //Foreign Key
     @SerializedName("fonda_id")
     public int storeId;
+
+
 }

@@ -3,6 +3,7 @@ package com.doanchuyennganh.eatio.data.entity;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Nguyen Tan Luan on 4/16/2017.
@@ -14,9 +15,6 @@ public class StoreEntity implements Serializable{
 
     @SerializedName("name")
     public String name;
-
-    @SerializedName("group_id")
-    public int category_id;
 
     @SerializedName("scale")
     public int scale;
@@ -36,10 +34,6 @@ public class StoreEntity implements Serializable{
     @SerializedName("phone_2")
     public String phone_2;
 
-
-    @SerializedName("user_id")
-    public int userId;
-
     @SerializedName("active")
     public int active;
 
@@ -55,5 +49,20 @@ public class StoreEntity implements Serializable{
     @SerializedName("group")
     public StoreGroupEntity groupEntity;
 
+    @SerializedName("utilities")
+    public ArrayList<UtilityEntity> utilityEntities;
+
+    @SerializedName("culinaries")
+    public ArrayList<CulinaryEntity> culinaryEntities;
+
+    @SerializedName("sales")
+    public ArrayList<SaleEntity> saleEntities;
+
+    //Foreign key..........
+    @SerializedName("user_id")
+    public int userId;
+
+    @SerializedName("group_id")
+    public int category_id;
 
 }

@@ -22,10 +22,11 @@ public class ImageEntity implements Serializable{
     @SerializedName("upload_date")
     public double uploadDate;
 
+    //Foreign Key
     @SerializedName("user_id")
     public int userId;
 
     @SerializedName("fonda_id")
-    public int fondaId;
+    public int storeId;
 
 }

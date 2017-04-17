@@ -43,6 +43,8 @@ public class LeftMenuFragment extends MainFragment<LeftMenuPresenter> implements
     @Bean
     LeftMenuAdapter mAdapter;
 
+    RecycleViewItemClickListener mItemClickListener;
+
     ArrayList<ItemLeftMenu> itemLeftMenus;
 
     @Bean
@@ -54,10 +56,12 @@ public class LeftMenuFragment extends MainFragment<LeftMenuPresenter> implements
     void initView(){
         setupItemLeftMenu();
         mAdapter.setItems(itemLeftMenus);
+        mAdapter.setmListener(mItemClickListener);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         mRcvMenu.setLayoutManager(mLayoutManager);
         mRcvMenu.setItemAnimator(new DefaultItemAnimator());
         mRcvMenu.setAdapter(mAdapter);
+
     }
 
     private void setupItemLeftMenu() {
@@ -81,6 +85,9 @@ public class LeftMenuFragment extends MainFragment<LeftMenuPresenter> implements
         itemLeftMenus.add(item_signout);
 
 
+    }
+    public void setOnClickListener(RecycleViewItemClickListener listener){
+        mItemClickListener=listener;
     }
 
     @Override

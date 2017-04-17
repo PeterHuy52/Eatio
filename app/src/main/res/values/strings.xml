@@ -43,8 +43,8 @@
     <string name="left_menu_close">Close</string>
 
     <!--Profile user-->
-    <string name="first_name">Firstname</string>
-    <string name="last_name">Lastname</string>
+    <string name="first_name">Firstname: </string>
+    <string name="last_name">Lastname: </string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="birth_day">Birthday:</string>

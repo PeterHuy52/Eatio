@@ -22,62 +22,83 @@
             android:src="@mipmap/ic_launcher"
             app:civ_border_color="@color/colorAccent"
             app:civ_border_width="@dimen/nav_header_avatar_border" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/firstname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/first_name"
-                android:inputType="textPersonName"
-                android:textColor="@color/primaryText"
-                android:textColorHint="@android:color/white"
-                android:enabled="false"
-                android:focusable="false"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/lastname"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/last_name"
-                android:inputType="textPersonName"
-                android:textColor="@color/primaryText"
-                android:textColorHint="@android:color/white"
-                android:enabled="false"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
-            android:text="@string/birth_day"
-            android:textSize="@dimen/text_size_normal" />
-
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:text="@string/first_name"
+                android:textSize="@dimen/text_size_small" />
+                <EditText
+                    android:id="@+id/firstname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:hint="Enter your firstname"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/primaryText"
+                    android:textColorHint="@color/secondaryText"
+                    android:textSize="@dimen/text_size_small"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
             android:weightSum="10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:text="@string/last_name"
+                android:textSize="@dimen/text_size_small" />
+
+            <EditText
+                android:id="@+id/lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="Enter your lastname"
+                android:inputType="textPersonName"
+                android:textColor="@color/primaryText"
+                android:textColorHint="@color/secondaryText"
+                android:textSize="@dimen/text_size_small"/>
+        </LinearLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="4dp"
+                android:text="@string/birth_day"
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/txt_birthday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/nav_header_spacing_small"
-                android:layout_weight="9"
+                android:layout_weight="8"
                 android:paddingLeft="4dp"
                 android:text="29/09/1995"
-                android:textSize="@dimen/text_size_normal" />
+                android:textSize="@dimen/text_size_small" />
 
             <ImageButton
                 android:id="@+id/btn_birthday"
@@ -89,47 +110,58 @@
                 android:src="@drawable/ic_birthday" />
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/nav_header_spacing_small"
-            android:paddingLeft="4dp"
-            android:text="@string/gender"
-            android:textSize="@dimen/text_size_normal" />
-
-        <RadioGroup
-            android:id="@+id/radiogroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/nav_header_spacing_small"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:paddingLeft="@dimen/nav_header_spacing_small"
-            android:paddingRight="@dimen/nav_header_spacing_small">
+            android:weightSum="10">
 
-            <RadioButton
-                android:id="@+id/rb_male"
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/gender_male"
-                android:textColor="@color/secondaryText"
-                android:textSize="@dimen/text_size_small"
-                android:checked="true"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/primaryText" />
-
-            <RadioButton
-                android:id="@+id/rb_female"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/gender_female"
-                android:textColor="@color/secondaryText"
+                android:layout_weight="2"
+                android:paddingLeft="4dp"
+                android:text="@string/gender"
                 android:textSize="@dimen/text_size_small" />
-        </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/nav_header_spacing_small"
+                android:paddingRight="@dimen/nav_header_spacing_small">
+
+                <RadioButton
+                    android:id="@+id/rb_male"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/gender_male"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="@dimen/text_size_small" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/primaryText" />
+
+                <RadioButton
+                    android:id="@+id/rb_female"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/gender_female"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="@dimen/text_size_small" />
+            </RadioGroup>
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <Button

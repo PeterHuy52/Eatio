@@ -10,6 +10,9 @@ import java.io.Serializable;
 
 public class LocationEntity implements Serializable{
 
+    @SerializedName("id")
+    public int id;
+
     @SerializedName("longitude")
     public double longitude;
 
@@ -22,6 +25,7 @@ public class LocationEntity implements Serializable{
     @SerializedName("profile_id")
     public int profileId;
 
+    //Foreign Key
     @SerializedName("fonda_id")
     public int fondaId;
 }

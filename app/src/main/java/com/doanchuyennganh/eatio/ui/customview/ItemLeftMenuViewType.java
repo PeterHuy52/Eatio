@@ -4,10 +4,12 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.data.common.ItemLeftMenu;
 
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
@@ -30,6 +32,10 @@ public class ItemLeftMenuViewType extends LinearLayout {
     public void bind(ItemLeftMenu item){
         icon.setImageResource(item.icon);
         title.setText(item.title);
+    }
+    @Click
+    public void titleClicked(){
+        Toast.makeText(getContext(), "aaaa", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Nguyen Tan Luan on 4/16/2017.
  */
 
-public class Culinary implements Serializable {
+public class CulinaryEntity implements Serializable {
 
     @SerializedName("id")
     public int id;
