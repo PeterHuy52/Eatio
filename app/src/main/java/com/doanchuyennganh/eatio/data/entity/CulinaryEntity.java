@@ -15,4 +15,7 @@ public class CulinaryEntity implements Serializable {
 
     @SerializedName("name")
     public String name;
+
+    @SerializedName("fonda_id")
+    public int fondaId;
 }

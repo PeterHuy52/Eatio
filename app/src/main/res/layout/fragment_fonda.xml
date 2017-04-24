@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ItemInputInfoView_="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:orientation="vertical"
+        android:gravity="center|top">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/unselected"
+            android:padding="4dp"
+            android:text="Information:"
+            android:textColor="@color/secondaryText" />
+
+        <com.doanchuyennganh.eatio.ui.customview.ItemInputInfoView_
+            android:id="@+id/view_fondaname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.doanchuyennganh.eatio.ui.customview.CustomViewInputSpinner_
+            android:id="@+id/view_fonda_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.doanchuyennganh.eatio.ui.customview.CustomViewInputSpinner_
+            android:id="@+id/view_fonda_scale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.doanchuyennganh.eatio.ui.customview.ItemInputInfoView_
+            android:id="@+id/view_fonda_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/unselected"
+            android:padding="4dp"
+            android:text="Another: "
+            android:textColor="@color/secondaryText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_time" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="Open time: "
+                android:inputType="text"
+                android:paddingLeft="@dimen/nav_header_spacing_small"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/fonda_open_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="8 : 00 "
+                android:textColor="@color/primaryText"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="to"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/fonda_close_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="21 : 00"
+                android:textColor="@color/primaryText"
+                android:textSize="@dimen/text_size_small" />
+        </LinearLayout>
+
+        <com.doanchuyennganh.eatio.ui.customview.ItemInputInfoView_
+            android:id="@+id/view_fonda_phonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.doanchuyennganh.eatio.ui.customview.ItemInputInfoView_
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            ItemInputInfoView_:icon="@drawable/ic_phone_number"
+            ItemInputInfoView_:texthint="Phonenumber 2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_map" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Map location: "
+                android:inputType="text"
+                android:paddingLeft="@dimen/nav_header_spacing_small"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/txt_fonda_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Lat 0 - Long 0 "
+                android:inputType="text"
+                android:paddingLeft="@dimen/nav_header_spacing_small"
+                android:textSize="@dimen/text_size_small" />
+
+            <ImageView
+                android:id="@+id/btn_gotomap"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_navigator" />
+
+        </LinearLayout>
+
+        <com.doanchuyennganh.eatio.ui.customview.ItemInputInfoView_
+            android:id="@+id/view_fonda_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:layout_gravity="bottom"
+        android:background="@drawable/button_selector"
+        android:enabled="true"
+        android:gravity="center"
+        android:text="submit fonda"
+        android:textColor="@color/secondaryText"
+        android:textSize="@dimen/text_size_normal" />
+</LinearLayout>

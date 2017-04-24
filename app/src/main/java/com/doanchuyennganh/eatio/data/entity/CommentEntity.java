@@ -1,5 +1,7 @@
 package com.doanchuyennganh.eatio.data.entity;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -7,4 +9,20 @@ import java.io.Serializable;
  */
 
 public class CommentEntity implements Serializable {
+    @SerializedName("id")
+    public int id;
+
+    @SerializedName("datetime")
+    public String datetime;
+
+    @SerializedName("content")
+    public String content;
+
+    //Foreign key
+
+    @SerializedName("user_id")
+    public int userId;
+
+    @SerializedName("fonda_id")
+    public int fondaId;
 }

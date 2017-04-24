@@ -9,11 +9,11 @@ import android.view.View;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.feature.base.impl.MainActivity;
+import com.doanchuyennganh.eatio.feature.createfonda.view.FondaFragment_;
 import com.doanchuyennganh.eatio.feature.leftmenu.view.LeftMenuFragment;
 import com.doanchuyennganh.eatio.feature.leftmenu.view.LeftMenuFragment_;
 import com.doanchuyennganh.eatio.feature.leftmenu.view.RecycleViewItemClickListener;
 import com.doanchuyennganh.eatio.feature.profile.view.ProfileFragment_;
-import com.doanchuyennganh.eatio.feature.store.view.StoreFragment_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -35,8 +35,7 @@ public class HomeActivity extends MainActivity implements DrawerLocker,RecycleVi
     @AfterViews
     void initView(){
         setupLeftMenu();
-
-        //setDefaultFragment();
+        setDefaultFragment();
     }
 
     private void setDefaultFragment() {
@@ -86,7 +85,7 @@ public class HomeActivity extends MainActivity implements DrawerLocker,RecycleVi
                 currentFragment=ProfileFragment_.builder().build();
                 break;
             case 2:
-                currentFragment= StoreFragment_.builder().build();
+                currentFragment= FondaFragment_.builder().build();
                 break;
             case 3:
                 break;

@@ -42,6 +42,10 @@ public class AppConstants {
         int IMAGE_EMPTY= 40007;
         int IMAGE_FORMAT_WRONG=40008;
 
+        //Location error
+        int LOCATION_NOT_FOUND=40405;
+        int LOCATION_NOT_BELONG_TO_USER=40905;
+
     }
 
     public interface VerifyStatus {
@@ -70,7 +74,7 @@ public class AppConstants {
         String FEMALE = "Female";
     }
 
-    public static enum ScaleStore {
+    public static enum ScaleFonda {
         SMALL("Vừa và nhỏ, số chỗ < 50", 1),
         NORMAL("vừa và lớn, số chỗ từ 50-100", 2),
         LARGE("Lớn, số chỗ >100", 3);
@@ -78,7 +82,7 @@ public class AppConstants {
         private String stringValue;
         private int intValue;
 
-        private ScaleStore(String toString, int value) {
+        private ScaleFonda(String toString, int value) {
             stringValue = toString;
             intValue = value;
         }

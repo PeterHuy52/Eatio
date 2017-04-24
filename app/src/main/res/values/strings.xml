@@ -58,4 +58,5 @@
     <string name="email_invalid">Email không tồn tại, vui lòng kiểm tra lại!</string>
     <string name="username_exist">Username đã tồn tại!</string>
     <string name="username_invalid">Username không tồn tại, vui lòng kiểm tra lại!</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
