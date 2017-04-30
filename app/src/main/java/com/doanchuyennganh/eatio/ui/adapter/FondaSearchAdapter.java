@@ -8,7 +8,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.doanchuyennganh.eatio.data.model.FondaModel;
-import com.doanchuyennganh.eatio.feature.leftmenu.view.RecycleViewItemClickListener;
+import com.doanchuyennganh.eatio.ui.listener.RecycleViewItemClickListener;
 import com.doanchuyennganh.eatio.ui.customview.ViewFondaSearch;
 import com.doanchuyennganh.eatio.ui.customview.ViewFondaSearch_;
 

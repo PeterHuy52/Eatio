@@ -9,4 +9,5 @@ import com.doanchuyennganh.eatio.feature.fondalist.view.FondaListView;
  */
 
 public interface FondaListPresenter extends Presenter<FondaListView,Navigator> {
+    void getListFonda(String keyword);
 }

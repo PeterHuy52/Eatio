@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.feature.leftmenu.view;
+package com.doanchuyennganh.eatio.ui.listener;
 
 import android.view.View;
 

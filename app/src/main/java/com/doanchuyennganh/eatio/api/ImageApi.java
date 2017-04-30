@@ -35,21 +35,21 @@ public interface ImageApi {
 
     @FormUrlEncoded
     @GET("/fonda/{id}/image")
-    Observable<ImageResponse> getImagesStore(@Path("id") int storeId);
+    Observable<ImageResponse> getImagesFonda(@Path("id") int fondaId);
 
     @FormUrlEncoded
     @GET("/fonda/{id}/image/{image_id}")
-    Observable<ImageResponse> getSingleImageStore(@Path("id") int storeId, @Path("image_id") int imageId);
+    Observable<ImageResponse> getSingleImageFonda(@Path("id") int fondaId, @Path("image_id") int imageId);
 
     @FormUrlEncoded
     @POST("/fonda/{id}/image")
-    Observable<ImageResponse> uploadImageStore(@Path("id") int storeId, @Field("token") String token, @Field("image_base64") String imageBase64,@Field("description") String description);
+    Observable<ImageResponse> uploadImageFonda(@Path("id") int fondaId, @Field("token") String token, @Field("image_base64") String imageBase64,@Field("description") String description);
 
     @FormUrlEncoded
     @PUT("/fonda/{id}/image/{image}")
-    Observable<ImageResponse> updateImageStore(@Path("id") int storeId, @Field("token") String token, @Path("image_id") int imageId,@Field("description") String description);
+    Observable<ImageResponse> updateImageFonda(@Path("id") int fondaId, @Field("token") String token, @Path("image_id") int imageId,@Field("description") String description);
 
     @FormUrlEncoded
     @DELETE("/fonda/{id}/image/{image_id}")
-    Observable<BaseResponse> deleteImageStore(@Path("id") int storeId, @Path("image_id") int imageId,@Field("token") String token);
+    Observable<BaseResponse> deleteImageFonda(@Path("id") int fondaId, @Path("image_id") int imageId,@Field("token") String token);
 }

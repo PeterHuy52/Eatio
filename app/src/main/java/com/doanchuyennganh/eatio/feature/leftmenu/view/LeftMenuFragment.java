@@ -12,6 +12,7 @@ import com.doanchuyennganh.eatio.feature.base.impl.MainFragment;
 import com.doanchuyennganh.eatio.feature.leftmenu.presenter.LeftMenuPresenter;
 import com.doanchuyennganh.eatio.feature.leftmenu.presenter.LeftMenuPresenterImpl;
 import com.doanchuyennganh.eatio.ui.adapter.LeftMenuAdapter;
+import com.doanchuyennganh.eatio.ui.listener.RecycleViewItemClickListener;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;

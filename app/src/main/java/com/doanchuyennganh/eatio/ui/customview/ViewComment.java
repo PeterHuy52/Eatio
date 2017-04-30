@@ -40,9 +40,11 @@ public class ViewComment extends LinearLayout{
         txtContent.setText(content);
     }
     public void bind(FondaModel fonda){
-        imgAvatar.setImageResource(R.mipmap.ic_launcher);
+        //imgAvatar.setImageResource(R.mipmap.ic_launcher);
         txtUsername.setText("William");
-        txtContent.setText(fonda.getCommentModel().content);
+        /*if(fonda.getCommentModels()!=null) {
+            txtContent.setText(fonda.getCommentModels().get(0).content);
+        }else txtContent.setText("Cung dc do");*/
     }
 
 }

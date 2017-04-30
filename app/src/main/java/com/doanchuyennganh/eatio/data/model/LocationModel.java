@@ -16,6 +16,15 @@ public class LocationModel implements Serializable {
 
     public String city;
 
+    private String fullAddress;
+
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
+    }
 
     public int getId() {
         return id;

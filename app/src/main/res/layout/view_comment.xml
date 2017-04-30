@@ -17,7 +17,7 @@
                 android:id="@+id/img_avatar"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/fakeavatar" />
 
             <TextView
                 android:id="@+id/txt_username"

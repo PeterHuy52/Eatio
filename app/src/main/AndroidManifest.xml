@@ -24,7 +24,9 @@
         <activity android:name=".feature.signup.view.SignUpActivity_" />
         <activity android:name=".feature.login.view.LoginActivity_"></activity>
         <activity android:name=".feature.verifyaccount.view.VerifyAccountActivity_" />
-        <activity android:name=".feature.fondadetail.view.FondaDetailActivity_"/>
+        <activity android:name=".feature.fondadetail.view.FondaDetailActivity_">
+
+        </activity>
         <activity android:name=".feature.home.view.HomeActivity_">
 
         </activity>

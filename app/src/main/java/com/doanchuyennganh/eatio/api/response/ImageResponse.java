@@ -40,7 +40,7 @@ public class ImageResponse extends BaseResponse implements Serializable {
     public ImageEntity singleImage;
 
     @SerializedName("image_fonda")
-    public ImageEntity singleImageStore;
+    public ImageEntity singleImageFonda;
 
     @SerializedName("data")
     ArrayList<ImageEntity> imageEntities;

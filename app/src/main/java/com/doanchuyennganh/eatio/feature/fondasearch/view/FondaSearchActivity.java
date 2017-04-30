@@ -15,7 +15,8 @@ import com.doanchuyennganh.eatio.data.model.FondaModel;
 import com.doanchuyennganh.eatio.data.model.LocationModel;
 import com.doanchuyennganh.eatio.feature.base.Navigator;
 import com.doanchuyennganh.eatio.feature.base.impl.MainActivity;
-import com.doanchuyennganh.eatio.feature.leftmenu.view.RecycleViewItemClickListener;
+import com.doanchuyennganh.eatio.feature.fondadetail.view.FondaDetailActivity_;
+import com.doanchuyennganh.eatio.ui.listener.RecycleViewItemClickListener;
 import com.doanchuyennganh.eatio.ui.adapter.FondaSearchAdapter;
 
 import org.androidannotations.annotations.AfterViews;
@@ -108,10 +109,10 @@ public class FondaSearchActivity extends MainActivity implements FondaSearchView
             fondaModel.setName("E"+i+"atio");
             LocationModel locationModel=new LocationModel();
             locationModel.setCity("KTX khu B" +i);
-            fondaModel.setLocationModel(locationModel);
+            fondaModel.setLocation(locationModel);
             FondaGroupModel fondaGroupModel=new FondaGroupModel();
             fondaGroupModel.setName("Buffe/Dessert" +i);
-            fondaModel.setFondaGroupModel(fondaGroupModel);
+            fondaModel.setFondaGroup(fondaGroupModel);
             fakeDataList.add(fondaModel);
         }
     }
@@ -125,6 +126,7 @@ public class FondaSearchActivity extends MainActivity implements FondaSearchView
 
     @Override
     public void onItemClick(View view, int position) {
+        FondaDetailActivity_.intent(this).start();
         Toast.makeText(this, "position= "+position, Toast.LENGTH_SHORT).show();
     }
 

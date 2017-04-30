@@ -19,5 +19,7 @@ public class BaseResponse implements Serializable {
     @SerializedName("error")
     public Error error;
 
+
+
     
 }

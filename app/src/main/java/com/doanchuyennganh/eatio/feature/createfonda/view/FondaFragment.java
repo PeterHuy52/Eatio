@@ -137,7 +137,7 @@ public class FondaFragment extends MainFragment<FondaPresenter>
         }
 
         mFondaViews.get(0).bind(fonda.getName());
-        mFondaCategory.setCurrentItem(fonda.getFondaGroupModel());
+        mFondaCategory.setCurrentItem(fonda.getFondaGroup());
         mFondaScale.setCurrentItem(scaleFonda);
         mTextViews.get(0).setText(fonda.getOpenTime());
         mTextViews.get(1).setText(fonda.getCloseTime());

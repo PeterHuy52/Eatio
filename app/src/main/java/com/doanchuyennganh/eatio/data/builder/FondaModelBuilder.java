@@ -3,6 +3,7 @@ package com.doanchuyennganh.eatio.data.builder;
 import com.doanchuyennganh.eatio.data.entity.FondaEntity;
 import com.doanchuyennganh.eatio.data.model.FondaModel;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 /**
@@ -10,6 +11,11 @@ import org.androidannotations.annotations.EBean;
  */
 @EBean
 public class FondaModelBuilder extends BaseModelBuilder<FondaEntity, FondaModel> {
+
+    @Bean ImageBuilder mImageBuilder;
+    @Bean UtilityBuilder mUtilityBuilder;
+    @Bean CulinaryBuilder mCulinaryBuilder;
+
     @Override
     public FondaEntity buildFrom(FondaModel model) {
         if (model == null)

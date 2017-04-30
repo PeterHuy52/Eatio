@@ -19,7 +19,7 @@
             android:layout_width="@dimen/nav_header_avatar_width"
             android:layout_height="@dimen/nav_header_avatar_width"
             app:civ_border_color="#FF000000"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/fakeavatar"
             app:civ_border_width="@dimen/nav_header_avatar_border" />
 
         <TextView

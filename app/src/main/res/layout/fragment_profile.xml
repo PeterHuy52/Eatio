@@ -19,7 +19,7 @@
             android:layout_width="135dp"
             android:layout_height="135dp"
             android:layout_marginBottom="@dimen/nav_header_spacing"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/fakeavatar"
             app:civ_border_color="@color/colorAccent"
             app:civ_border_width="@dimen/nav_header_avatar_border" />
         <LinearLayout

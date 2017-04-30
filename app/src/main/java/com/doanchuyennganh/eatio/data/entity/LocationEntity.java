@@ -22,6 +22,9 @@ public class LocationEntity implements Serializable{
     @SerializedName("city")
     public String city;
 
+    @SerializedName("address")
+    public String fullAddress;
+
     @SerializedName("profile_id")
     public int profileId;
 

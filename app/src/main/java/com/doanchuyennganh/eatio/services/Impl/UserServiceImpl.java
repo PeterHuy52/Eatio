@@ -2,7 +2,12 @@ package com.doanchuyennganh.eatio.services.Impl;
 
 import com.doanchuyennganh.eatio.api.ApiConnection;
 import com.doanchuyennganh.eatio.api.UserApi;
+import com.doanchuyennganh.eatio.api.request.CreateLocationRequest;
 import com.doanchuyennganh.eatio.api.request.UpdateProfileRequest;
+import com.doanchuyennganh.eatio.api.response.BaseResponse;
+import com.doanchuyennganh.eatio.api.response.CommentResponse;
+import com.doanchuyennganh.eatio.api.response.ImageResponse;
+import com.doanchuyennganh.eatio.api.response.LocationResponse;
 import com.doanchuyennganh.eatio.api.response.LoginResponse;
 import com.doanchuyennganh.eatio.api.response.ProfileResponse;
 import com.doanchuyennganh.eatio.api.response.ResendPasswordResponse;
@@ -54,5 +59,60 @@ public class UserServiceImpl implements UserService {
     @Override
     public Observable<ProfileResponse> updateProfileUser(int userId, UpdateProfileRequest request) {
         return mUserApi.updateProfileUser(userId,request);
+    }
+
+    @Override
+    public Observable<LocationResponse> getLocationUser(int userId) {
+        return null;
+    }
+
+    @Override
+    public Observable<LocationResponse> getSingleLocationUser(int userId, int locationId) {
+        return null;
+    }
+
+    @Override
+    public Observable<BaseResponse> deleteLocationUser(int userId, int locationId, String token) {
+        return null;
+    }
+
+    @Override
+    public Observable<LocationResponse> createLocationUser(int userId, CreateLocationRequest request) {
+        return null;
+    }
+
+    @Override
+    public Observable<CommentResponse> createUserComment(int userId, String token, String content) {
+        return null;
+    }
+
+    @Override
+    public Observable<CommentResponse> updateUserComment(int userId, String token, String content) {
+        return null;
+    }
+
+    @Override
+    public Observable<BaseResponse> deleteUserComment(int userId, int commentId, String token) {
+        return null;
+    }
+
+    @Override
+    public Observable<ImageResponse> getImagesUser(int userId) {
+        return null;
+    }
+
+    @Override
+    public Observable<ImageResponse> getSingleImageUser(int userId, int imageId) {
+        return null;
+    }
+
+    @Override
+    public Observable<ImageResponse> updateImageUser(int userId, int imageId) {
+        return null;
+    }
+
+    @Override
+    public Observable<BaseResponse> deleteImageUser(int userId, int imageId) {
+        return null;
     }
 }

@@ -12,7 +12,7 @@ import com.doanchuyennganh.eatio.feature.base.impl.MainActivity;
 import com.doanchuyennganh.eatio.feature.createfonda.view.FondaFragment_;
 import com.doanchuyennganh.eatio.feature.leftmenu.view.LeftMenuFragment;
 import com.doanchuyennganh.eatio.feature.leftmenu.view.LeftMenuFragment_;
-import com.doanchuyennganh.eatio.feature.leftmenu.view.RecycleViewItemClickListener;
+import com.doanchuyennganh.eatio.ui.listener.RecycleViewItemClickListener;
 import com.doanchuyennganh.eatio.feature.profile.view.ProfileFragment_;
 
 import org.androidannotations.annotations.AfterViews;

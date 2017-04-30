@@ -30,8 +30,8 @@ public class ViewFondaSearch extends LinearLayout {
     public void bind(FondaModel fonda){
         //imgFonda.setImageBitmap(fonda.getImageModel().getUrl());
         txtsFonda.get(0).setText(fonda.getName());
-        txtsFonda.get(1).setText(fonda.getLocationModel().getCity());
-        txtsFonda.get(2).setText(fonda.getFondaGroupModel().getName());
+        txtsFonda.get(1).setText(fonda.getLocation().getFullAddress());
+        txtsFonda.get(2).setText(fonda.getFondaGroup().getName());
         //txtsFonda.get(3).setText(fonda.getRate());
         //txtsFonda.get(3).setText();
     }

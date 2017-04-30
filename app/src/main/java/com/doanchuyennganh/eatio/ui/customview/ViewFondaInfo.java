@@ -40,8 +40,10 @@ public class ViewFondaInfo extends LinearLayout {
         txtFondaInfos.get(3).setText(fondaRate);
     }
     public void bind(FondaModel fonda){
-        imgFonda.setImageResource(R.mipmap.ic_launcher);
+        imgFonda.setImageResource(R.drawable.images);
         txtFondaInfos.get(0).setText(fonda.getName());
-        txtFondaInfos.get(1).setText(fonda.getLocationModel().city);
+        if(fonda.getLocation()!=null) {
+            txtFondaInfos.get(1).setText(fonda.getLocation().getFullAddress());
+        }
     }
 }

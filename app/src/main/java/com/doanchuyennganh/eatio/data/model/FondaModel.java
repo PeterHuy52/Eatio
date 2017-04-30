@@ -3,6 +3,7 @@ package com.doanchuyennganh.eatio.data.model;
 import org.androidannotations.annotations.EBean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Nguyen Tan Luan on 4/16/2017.
@@ -34,13 +35,21 @@ public class FondaModel implements Serializable {
 
     private int commentCount;
 
-    private ImageModel imageModel;
+    private ImageModel fondaAvatar;
 
-    private  LocationModel locationModel;
+    private ArrayList<ImageModel> fondaImage;
 
-    private FondaGroupModel fondaGroupModel;
+    private LocationModel location;
 
-    private CommentModel commentModel;
+    private FondaGroupModel fondaGroup;
+
+    private ArrayList<UtilityModel> fondaUtilities;
+
+    private ArrayList<CulinaryModel> fondaCulinaries;
+
+    private ArrayList<SaleModel> fondaSales;
+
+    private ArrayList<CommentModel> commentModels;
 
 
     public int getId() {
@@ -139,35 +148,67 @@ public class FondaModel implements Serializable {
         this.commentCount = commentCount;
     }
 
-    public ImageModel getImageModel() {
-        return imageModel;
+    public ImageModel getFondaAvatar() {
+        return fondaAvatar;
     }
 
-    public void setImageModel(ImageModel imageModel) {
-        this.imageModel = imageModel;
+    public void setFondaAvatar(ImageModel fondaAvatar) {
+        this.fondaAvatar = fondaAvatar;
     }
 
-    public LocationModel getLocationModel() {
-        return locationModel;
+    public ArrayList<ImageModel> getFondaImage() {
+        return fondaImage;
     }
 
-    public void setLocationModel(LocationModel locationModel) {
-        this.locationModel = locationModel;
+    public void setFondaImage(ArrayList<ImageModel> fondaImage) {
+        this.fondaImage = fondaImage;
     }
 
-    public FondaGroupModel getFondaGroupModel() {
-        return fondaGroupModel;
+    public LocationModel getLocation() {
+        return location;
     }
 
-    public void setFondaGroupModel(FondaGroupModel fondaGroupModel) {
-        this.fondaGroupModel = fondaGroupModel;
+    public void setLocation(LocationModel location) {
+        this.location = location;
     }
 
-    public CommentModel getCommentModel() {
-        return commentModel;
+    public FondaGroupModel getFondaGroup() {
+        return fondaGroup;
     }
 
-    public void setCommentModel(CommentModel commentModel) {
-        this.commentModel = commentModel;
+    public void setFondaGroup(FondaGroupModel fondaGroup) {
+        this.fondaGroup = fondaGroup;
+    }
+
+    public ArrayList<CommentModel> getCommentModels() {
+        return commentModels;
+    }
+
+    public void setCommentModels(ArrayList<CommentModel> commentModels) {
+        this.commentModels = commentModels;
+    }
+
+    public ArrayList<UtilityModel> getFondaUtilities() {
+        return fondaUtilities;
+    }
+
+    public void setFondaUtilities(ArrayList<UtilityModel> fondaUtilities) {
+        this.fondaUtilities = fondaUtilities;
+    }
+
+    public ArrayList<CulinaryModel> getFondaCulinaries() {
+        return fondaCulinaries;
+    }
+
+    public void setFondaCulinaries(ArrayList<CulinaryModel> fondaCulinaries) {
+        this.fondaCulinaries = fondaCulinaries;
+    }
+
+    public ArrayList<SaleModel> getFondaSales() {
+        return fondaSales;
+    }
+
+    public void setFondaSales(ArrayList<SaleModel> fondaSales) {
+        this.fondaSales = fondaSales;
     }
 }

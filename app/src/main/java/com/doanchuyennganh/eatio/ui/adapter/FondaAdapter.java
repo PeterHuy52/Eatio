@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.doanchuyennganh.eatio.data.model.FondaModel;
-import com.doanchuyennganh.eatio.feature.leftmenu.view.RecycleViewItemClickListener;
+import com.doanchuyennganh.eatio.ui.listener.RecycleViewItemClickListener;
 import com.doanchuyennganh.eatio.ui.customview.ViewFonda;
 import com.doanchuyennganh.eatio.ui.customview.ViewFonda_;
 
