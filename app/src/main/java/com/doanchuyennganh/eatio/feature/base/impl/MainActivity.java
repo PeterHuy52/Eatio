@@ -117,4 +117,5 @@ public class MainActivity<P extends Presenter> extends AppCompatActivity impleme
     public void goToHome() {
 
     }
+
 }

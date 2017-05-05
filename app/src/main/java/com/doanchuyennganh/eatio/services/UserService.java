@@ -32,28 +32,30 @@ public interface UserService {
     Observable<ProfileResponse> updateProfileUser(int userId, UpdateProfileRequest request);
 
     //Location
-    Observable<LocationResponse> getLocationUser(int userId);
+    Observable<LocationResponse> getLocationUser();
 
-    Observable<LocationResponse> getSingleLocationUser(int userId, int locationId);
+    Observable<LocationResponse> getSingleLocationUser(int locationId);
 
-    Observable<BaseResponse> deleteLocationUser(int userId, int locationId, String token);
+    Observable<BaseResponse> deleteLocationUser(int locationId);
 
-    Observable<LocationResponse> createLocationUser(int userId, CreateLocationRequest request);
+    Observable<LocationResponse> createLocationUser(CreateLocationRequest request);
 
     //Comment
-    Observable<CommentResponse> createUserComment(int userId, String token, String content);
+    Observable<CommentResponse> createUserComment(String content);
 
-    Observable<CommentResponse> updateUserComment(int userId, String token, String content);
+    Observable<CommentResponse> updateUserComment(String content);
 
-    Observable<BaseResponse> deleteUserComment(int userId, int commentId, String token);
+    Observable<BaseResponse> deleteUserComment(int commentId);
 
     //Image
-    Observable<ImageResponse>  getImagesUser( int userId);
+    Observable<ImageResponse> uploadAvatarUser(String imageBase64, String description);
 
-    Observable<ImageResponse> getSingleImageUser( int userId, int imageId);
+    Observable<ImageResponse> getImagesUser();
 
-    Observable<ImageResponse> updateImageUser(int userId, int imageId);
+    Observable<ImageResponse> getSingleImageUser(int imageId);
 
-    Observable<BaseResponse> deleteImageUser(int userId, int imageId);
+    Observable<ImageResponse> updateImageUser(int imageId);
+
+    Observable<BaseResponse> deleteImageUser(int imageId);
 
 }

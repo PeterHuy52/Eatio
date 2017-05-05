@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.doanchuyennganh.eatio.feature.base.Navigator;
 import com.doanchuyennganh.eatio.feature.base.PView;
@@ -33,6 +34,7 @@ public class MainFragment<P extends Presenter>
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initProgressDialog();
+        mContext=getContext();
         return super.onCreateView(inflater, container, savedInstanceState);
 
     }
@@ -69,7 +71,7 @@ public class MainFragment<P extends Presenter>
 
     @Override
     public void showToast(String message) {
-
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

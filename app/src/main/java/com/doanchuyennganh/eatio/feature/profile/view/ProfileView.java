@@ -1,5 +1,6 @@
 package com.doanchuyennganh.eatio.feature.profile.view;
 
+import com.doanchuyennganh.eatio.data.model.ImageModel;
 import com.doanchuyennganh.eatio.data.model.ProfileModel;
 import com.doanchuyennganh.eatio.feature.base.PView;
 
@@ -9,6 +10,7 @@ import com.doanchuyennganh.eatio.feature.base.PView;
 
 public interface ProfileView extends PView {
     void showProfileInfo(ProfileModel profileModel);
+    void showAvatar(ImageModel imageModel);
     //void enableSubmitButton(boolean enable);
 
 

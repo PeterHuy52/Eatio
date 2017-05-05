@@ -13,7 +13,6 @@ import com.doanchuyennganh.eatio.feature.createfonda.view.FondaFragment_;
 import com.doanchuyennganh.eatio.feature.leftmenu.view.LeftMenuFragment;
 import com.doanchuyennganh.eatio.feature.leftmenu.view.LeftMenuFragment_;
 import com.doanchuyennganh.eatio.ui.listener.RecycleViewItemClickListener;
-import com.doanchuyennganh.eatio.feature.profile.view.ProfileFragment_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -81,17 +80,17 @@ public class HomeActivity extends MainActivity implements DrawerLocker,RecycleVi
             case 0:
                 currentFragment=HomeFragment_.builder().build();
                 break;
-            case 1:
+            /*case 1:
                 currentFragment=ProfileFragment_.builder().build();
+                break;*/
+            case 1:
+                currentFragment= FondaFragment_.builder().build();
                 break;
             case 2:
-                currentFragment= FondaFragment_.builder().build();
                 break;
             case 3:
                 break;
             case 4:
-                break;
-            case 5:
                 break;
             default:
                 setDefaultFragment();

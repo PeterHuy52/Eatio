@@ -66,7 +66,7 @@ public class FondaServiceImpl implements FondaService {
     @Override
     public Observable<FondaCollectionResponse> getListFonda(String param) {
         Map<String,String> query=new HashMap<>();
-        query.put("name","");
+        query.put("name",param);
         return mFondaApi.getListFonda(query);
     }
 

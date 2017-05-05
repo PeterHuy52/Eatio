@@ -9,4 +9,5 @@ import com.doanchuyennganh.eatio.feature.leftmenu.view.LeftMenuView;
  */
 
 public interface LeftMenuPresenter extends Presenter<LeftMenuView,Navigator> {
+    void getProfileUserInfo();
 }

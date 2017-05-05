@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.doanchuyennganh.eatio.data.entity.AccessTokenEntity;
-import com.doanchuyennganh.eatio.data.model.UserModel;
+import com.doanchuyennganh.eatio.data.model.ProfileModel;
 import com.google.gson.Gson;
 
 /**
@@ -32,24 +32,24 @@ public class SharePrefUtils {
         return defaultId;
     }
 
-    public static void saveUserJson(Context context, String key, UserModel userModel){
-        if(userModel !=null)
+    public static void saveUserJson(Context context, String key, ProfileModel profileModel){
+        if(profileModel !=null)
             return;
         Gson gson=new Gson();
-        String json=gson.toJson(userModel);
+        String json=gson.toJson(profileModel);
         mPreferences=context.getSharedPreferences(PREFERENCES_NAME,context.MODE_PRIVATE);
         mEditor = mPreferences.edit();
         mEditor.putString(key, json);
         mEditor.commit();
     }
 
-    public static UserModel getUserJson(Context context, String key, String defaultUser){
+    public static ProfileModel getUserJson(Context context, String key, String defaultUser){
         mPreferences=context.getSharedPreferences(PREFERENCES_NAME,context.MODE_PRIVATE);
         if(mPreferences==null)
             return null;
         String userJson=mPreferences.getString(key,defaultUser);
         Gson gson=new Gson();
-        return gson.fromJson(userJson,UserModel.class);
+        return gson.fromJson(userJson,ProfileModel.class);
     }
 
     public static void saveAccessTokenJson(Context context, String key, AccessTokenEntity entity) {

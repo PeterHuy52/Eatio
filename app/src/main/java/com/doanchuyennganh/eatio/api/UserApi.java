@@ -77,6 +77,10 @@ public interface UserApi {
     //API Image of User
 
     @FormUrlEncoded
+    @POST("/users/{id}/image")
+    Observable<ImageResponse> uploadImageUser(@Path("id") int userId, @Field("token") String token, @Field("image_base64") String imageBase64,@Field("description") String description);
+
+    @FormUrlEncoded
     @GET("/users/{id}/image")
     Observable<ImageResponse>  getImagesUser(@Path("id") int userId);
 

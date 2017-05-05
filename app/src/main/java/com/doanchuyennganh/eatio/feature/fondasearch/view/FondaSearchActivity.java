@@ -16,6 +16,8 @@ import com.doanchuyennganh.eatio.data.model.LocationModel;
 import com.doanchuyennganh.eatio.feature.base.Navigator;
 import com.doanchuyennganh.eatio.feature.base.impl.MainActivity;
 import com.doanchuyennganh.eatio.feature.fondadetail.view.FondaDetailActivity_;
+import com.doanchuyennganh.eatio.feature.fondasearch.presenter.FondaSearchPresenter;
+import com.doanchuyennganh.eatio.feature.fondasearch.presenter.FondaSearchPresenterImpl;
 import com.doanchuyennganh.eatio.ui.listener.RecycleViewItemClickListener;
 import com.doanchuyennganh.eatio.ui.adapter.FondaSearchAdapter;
 
@@ -33,7 +35,7 @@ import java.util.ArrayList;
  */
 @EActivity(R.layout.activity_fonda_search)
 @OptionsMenu(R.menu.menu_main)
-public class FondaSearchActivity extends MainActivity implements FondaSearchView,Navigator, RecycleViewItemClickListener {
+public class FondaSearchActivity extends MainActivity<FondaSearchPresenter> implements FondaSearchView,Navigator, RecycleViewItemClickListener {
 
     @ViewById(R.id.recyclerView)
     RecyclerView mRcvFondaSearch;
@@ -48,35 +50,23 @@ public class FondaSearchActivity extends MainActivity implements FondaSearchView
 
     ArrayList<FondaModel> fakeDataList;
 
+    @Bean
+    void initBean(FondaSearchPresenterImpl presenter){
+        this.mPresenter=presenter;
+    }
+
     @AfterViews
     void initView(){
+        mPresenter.setView(this);
         setupToolbar();
-        setFakeData();
-        adapter.setItems(fakeDataList);
+        //setFakeData();
+        //adapter.setItems(fakeDataList);
         adapter.setOnClickListener(this);
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
         mRcvFondaSearch.setHasFixedSize(true);
         mRcvFondaSearch.setLayoutManager(layoutManager);
         mRcvFondaSearch.setItemAnimator(new DefaultItemAnimator());
         mRcvFondaSearch.setAdapter(adapter);
-    }
-
-    //@OptionsItem(R.id.menuSearch)
-    void searchFonda(){
-        mSearchView=(SearchView) menuSearch.getActionView();
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return true;
-            }
-        });
     }
 
     @Override
@@ -88,13 +78,15 @@ public class FondaSearchActivity extends MainActivity implements FondaSearchView
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
+                mPresenter.getListFondaByName(query);
+                //adapter.getFilter().filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                mPresenter.getListFondaByName(newText);
+                //adapter.getFilter().filter(newText);
                 return true;
             }
         });
@@ -133,5 +125,11 @@ public class FondaSearchActivity extends MainActivity implements FondaSearchView
     @Override
     public void onItemLongClick(View view, int position) {
 
+    }
+
+    @Override
+    public void showListFonda(ArrayList<FondaModel> fondaModels) {
+        adapter.setItems(fondaModels);
+        adapter.notifyDataSetChanged();
     }
 }

@@ -1,7 +1,6 @@
 package com.doanchuyennganh.eatio.feature.splash.presenter;
 
-import android.os.CountDownTimer;
-
+import com.doanchuyennganh.eatio.data.model.ProfileModel;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 import com.doanchuyennganh.eatio.feature.base.impl.MainPresenter;
 import com.doanchuyennganh.eatio.feature.splash.interactor.SplashInteractor;
@@ -35,47 +34,22 @@ public class SplashPresenterImpl
     @Override
     public void prepareInfo() {
         mView.showWaitingDialog();
-        mInteractor.getUserInfo(new Interactor.InteractorCallback<Boolean>() {
+        mInteractor.getUserInfo(new Interactor.InteractorCallback<ProfileModel>() {
             @Override
-            public void onSuccess(Boolean data) {
-                mView.showWaitingDialog();
-                goHome();
-                /*if(data){
-                    goHome();
-                }else {
-                    goLogin();
-                }*/
+            public void onSuccess(ProfileModel data) {
+                mView.dismissWaitingDialog();
+                mNavigator.goToHome();
             }
 
             @Override
             public void onError(Throwable error) throws IOException {
-
+                mView.dismissWaitingDialog();
+                String message=getErrorMessage(error);
+                mView.showToast(message);
+                ProfileModel data=mInteractor.getUserInfoLocal();
+                mNavigator.goToHome();
             }
         });
-    }
-
-    private void goLogin() {
-        new CountDownTimer(3000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-            }
-
-            public void onFinish() {
-                mNavigator.goToLogin();
-            }
-        }.start();
-    }
-
-    private void goHome() {
-        new CountDownTimer(3000, 1000) {
-            @Override
-            public void onTick(long l) {
-
-            }
-            public void onFinish() {
-               mNavigator.goToHome();
-            }
-        }.start();
     }
 
     @Override

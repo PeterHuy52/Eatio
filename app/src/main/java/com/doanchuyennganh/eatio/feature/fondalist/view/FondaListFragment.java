@@ -53,7 +53,7 @@ public class FondaListFragment extends MainFragment<FondaListPresenter> implemen
     }
 
     private void setupData() {
-        mPresenter.getListFonda("");
+        //mPresenter.getListFonda("");
         /*for(int i=0;i<6;i++){
             FondaModel fonda=new FondaModel();
             fonda.setName("Hot And Cold "+i);

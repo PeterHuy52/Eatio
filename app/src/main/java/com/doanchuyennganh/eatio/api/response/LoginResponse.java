@@ -13,5 +13,4 @@ public class LoginResponse extends BaseResponse implements Serializable {
 
     @SerializedName("access_token")
     public AccessTokenEntity accessTokenEntity;
-
 }

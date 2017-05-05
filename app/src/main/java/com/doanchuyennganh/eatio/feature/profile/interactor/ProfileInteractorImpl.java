@@ -1,12 +1,17 @@
 package com.doanchuyennganh.eatio.feature.profile.interactor;
 
 import com.doanchuyennganh.eatio.api.request.UpdateProfileRequest;
+import com.doanchuyennganh.eatio.api.response.ImageResponse;
 import com.doanchuyennganh.eatio.api.response.ProfileResponse;
+import com.doanchuyennganh.eatio.data.builder.ImageBuilder;
 import com.doanchuyennganh.eatio.data.builder.ProfileBuilder;
 import com.doanchuyennganh.eatio.data.entity.ProfileEntity;
+import com.doanchuyennganh.eatio.data.model.ImageModel;
 import com.doanchuyennganh.eatio.data.model.ProfileModel;
 import com.doanchuyennganh.eatio.feature.base.impl.BaseInteractor;
+import com.doanchuyennganh.eatio.services.Impl.SessionServiceImpl;
 import com.doanchuyennganh.eatio.services.Impl.UserServiceImpl;
+import com.doanchuyennganh.eatio.services.SessionService;
 import com.doanchuyennganh.eatio.services.UserService;
 
 import org.androidannotations.annotations.Bean;
@@ -27,8 +32,13 @@ public class ProfileInteractorImpl extends BaseInteractor implements ProfileInte
     @Bean(UserServiceImpl.class)
     UserService mUserService;
 
+    @Bean(SessionServiceImpl.class)
+    SessionService mSessionService;
+
     @Bean
-    ProfileBuilder mBuilder;
+    ProfileBuilder mProfileBuilder;
+    @Bean
+    ImageBuilder mImageBuilder;
     @Bean
     ProfileModel mProfileModel;
 
@@ -54,7 +64,7 @@ public class ProfileInteractorImpl extends BaseInteractor implements ProfileInte
                     @Override
                     public void onNext(ProfileResponse profileResponse) {
                         ProfileEntity entity=profileResponse.profileEntity;
-                        mProfileModel=mBuilder.buildFrom(entity);
+                        mProfileModel=mProfileBuilder.buildFrom(entity);
                         callback.onSuccess(mProfileModel);
                     }
                 });
@@ -82,9 +92,47 @@ public class ProfileInteractorImpl extends BaseInteractor implements ProfileInte
                     @Override
                     public void onNext(ProfileResponse profileResponse) {
                         ProfileEntity entity=profileResponse.profileEntity;
-                        mProfileModel=mBuilder.buildFrom(entity);
+                        mProfileModel=mProfileBuilder.buildFrom(entity);
+                        mSessionService.setCurrentUser(mProfileModel);
                         callback.onSuccess(mProfileModel);
                     }
                 });
+    }
+
+    @Override
+    public void uploadAvatarUser(String base64Str, String description, final InteractorCallback<ImageModel> callback) {
+        mUserService.uploadAvatarUser(base64Str,description)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ImageResponse>() {
+                    @Override
+                    public void onCompleted() {
+                        
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        try {
+                            callback.onError(e);
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onNext(ImageResponse imageResponse) {
+                        if (imageResponse.singleImage==null)
+                            return;
+                        ImageModel imageModel=mImageBuilder.buildFrom(imageResponse.singleImage);
+                        //updateProfileUserLocal(imageModel);
+                        callback.onSuccess(imageModel);
+                    }
+                });
+    }
+
+    private void updateProfileUserLocal(ImageModel imageModel) {
+        ProfileModel profile=mSessionService.getCurrentUser();
+        profile.setAvatar(imageModel);
+        mSessionService.setCurrentUser(profile);
     }
 }

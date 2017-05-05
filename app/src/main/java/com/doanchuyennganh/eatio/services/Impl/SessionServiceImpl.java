@@ -3,6 +3,7 @@ package com.doanchuyennganh.eatio.services.Impl;
 import android.content.Context;
 
 import com.doanchuyennganh.eatio.data.entity.AccessTokenEntity;
+import com.doanchuyennganh.eatio.data.model.ProfileModel;
 import com.doanchuyennganh.eatio.data.model.UserModel;
 import com.doanchuyennganh.eatio.services.SessionService;
 import com.doanchuyennganh.eatio.utils.SharePrefUtils;
@@ -26,14 +27,14 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void setCurrentUser(UserModel userModel) {
-        if(userModel !=null){
-            SharePrefUtils.saveUserJson(mContext,PREF_USER, userModel);
+    public void setCurrentUser(ProfileModel profileModel) {
+        if(profileModel !=null){
+            SharePrefUtils.saveUserJson(mContext,PREF_USER, profileModel);
         }
     }
 
     @Override
-    public UserModel getCurrentUser() {
+    public ProfileModel getCurrentUser() {
         return SharePrefUtils.getUserJson(mContext,PREF_USER,"");
     }
 

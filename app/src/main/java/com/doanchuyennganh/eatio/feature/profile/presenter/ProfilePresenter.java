@@ -11,4 +11,5 @@ import com.doanchuyennganh.eatio.feature.profile.view.ProfileView;
 public interface ProfilePresenter extends Presenter<ProfileView,ProfileNavigator> {
     void getCurrentUser();
     void updateProfileUser(String firsname, String lastname, String bod, String gender);
+    void uploadUserAvatar(String base64Str,String description);
 }

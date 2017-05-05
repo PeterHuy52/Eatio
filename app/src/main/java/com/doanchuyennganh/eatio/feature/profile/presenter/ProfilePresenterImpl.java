@@ -1,6 +1,7 @@
 package com.doanchuyennganh.eatio.feature.profile.presenter;
 
 import com.doanchuyennganh.eatio.api.request.UpdateProfileRequest;
+import com.doanchuyennganh.eatio.data.model.ImageModel;
 import com.doanchuyennganh.eatio.data.model.ProfileModel;
 import com.doanchuyennganh.eatio.feature.base.Interactor;
 import com.doanchuyennganh.eatio.feature.base.impl.MainPresenter;
@@ -70,6 +71,26 @@ public class ProfilePresenterImpl
                 String message=getErrorMessage(error);
                 mView.showDialog("Error",message);
 
+            }
+        });
+    }
+
+    @Override
+    public void uploadUserAvatar(String base64Str, String description) {
+        mView.showWaitingDialog();
+        mInteractor.uploadAvatarUser(base64Str, description, new Interactor.InteractorCallback<ImageModel>() {
+            @Override
+            public void onSuccess(ImageModel data) {
+                mView.dismissWaitingDialog();
+                mView.showAvatar(data);
+                mView.showToast("Upload avatar successful");
+            }
+
+            @Override
+            public void onError(Throwable error) throws IOException {
+                mView.dismissWaitingDialog();
+                String message=getErrorMessage(error);
+                mView.showDialog("Error!", message);
             }
         });
     }

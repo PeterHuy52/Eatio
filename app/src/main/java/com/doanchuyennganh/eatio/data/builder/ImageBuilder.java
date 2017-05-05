@@ -12,7 +12,7 @@ import org.androidannotations.annotations.EBean;
 public class ImageBuilder extends BaseModelBuilder<ImageModel,ImageEntity> {
 
     @Override
-    protected ImageModel buildFrom(ImageEntity entity) {
+    public ImageModel buildFrom(ImageEntity entity) {
         if (entity==null)
             return null;
         ImageModel imageModel=new ImageModel();

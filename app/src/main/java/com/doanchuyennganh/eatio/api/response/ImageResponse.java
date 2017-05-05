@@ -4,7 +4,6 @@ import com.doanchuyennganh.eatio.data.entity.ImageEntity;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by Nguyen Tan Luan on 4/17/2017.
@@ -12,7 +11,10 @@ import java.util.ArrayList;
 
 public class ImageResponse extends BaseResponse implements Serializable {
 
-    @SerializedName("total")
+    @SerializedName("image")
+    public ImageEntity singleImage;
+
+    /*@SerializedName("total")
     public int total;
 
     @SerializedName("per_page")
@@ -43,9 +45,6 @@ public class ImageResponse extends BaseResponse implements Serializable {
     public ImageEntity singleImageFonda;
 
     @SerializedName("data")
-    ArrayList<ImageEntity> imageEntities;
-
-
-
+    ArrayList<ImageEntity> imageEntities;*/
 
 }

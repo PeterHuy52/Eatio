@@ -1,5 +1,7 @@
 package com.doanchuyennganh.eatio.feature.base;
 
+import com.doanchuyennganh.eatio.data.model.ProfileModel;
+
 import java.io.IOException;
 
 /**
@@ -8,6 +10,7 @@ import java.io.IOException;
 
 public interface Interactor {
     void clearUserSession();
+    ProfileModel getProfileUserLocal();
     interface InteractorCallback<T> {
         void onSuccess(T data);
         void onError(Throwable error) throws IOException;

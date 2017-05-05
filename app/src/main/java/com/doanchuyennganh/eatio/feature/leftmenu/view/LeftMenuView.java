@@ -1,6 +1,6 @@
 package com.doanchuyennganh.eatio.feature.leftmenu.view;
 
-import com.doanchuyennganh.eatio.data.model.UserModel;
+import com.doanchuyennganh.eatio.data.model.ProfileModel;
 import com.doanchuyennganh.eatio.feature.base.PView;
 
 /**
@@ -8,5 +8,5 @@ import com.doanchuyennganh.eatio.feature.base.PView;
  */
 
 public interface LeftMenuView extends PView {
-    void showUserInfo(UserModel user);
+    void showUserInfo(ProfileModel user);
 }
