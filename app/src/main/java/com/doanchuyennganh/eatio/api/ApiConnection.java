@@ -19,32 +19,28 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @EBean
 public class ApiConnection {
-    public static Retrofit mRetroifit;
 
-    public static ApiConnection getInstance=new ApiConnection();
-    public ApiConnection() {
-        Gson gson = new GsonBuilder()
-                .setDateFormat(AppConstants.DateFormatter.SERVER_FORMAT)
-                .setLenient()
-                .create();
+    private static Gson gson = new GsonBuilder()
+            .setDateFormat(AppConstants.DateFormatter.SERVER_FORMAT)
+            .setLenient()
+            .create();
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+    private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    static{
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(20, TimeUnit.SECONDS);
         httpClient.readTimeout(20, TimeUnit.SECONDS);
         httpClient.addInterceptor(logging);
-
-        mRetroifit=new Retrofit.Builder()
-                .baseUrl(BuildConfig.HOST)
-                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(httpClient.build())
-                .build();
     }
 
-    public static Retrofit getRetroifit() {
-        return mRetroifit;
+    private static Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(BuildConfig.HOST)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(httpClient.build())
+            .build();
+
+    public static <T> T createService(Class<T> apiClass){
+        return retrofit.create(apiClass);
     }
 }

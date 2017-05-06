@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary"
-    tools:context="com.doanchuyennganh.eatio.feature.splash.view.SplashActivity_">
+    tools:context="com.doanchuyennganh.eatio.views.splash.SplashActivity_">
 
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_gravity="center"
-       android:gravity="center"
-       android:text="@string/welcome_flash"
-       android:textSize="22dp"
-       android:textColor="@color/white" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/welcome_flash"
+        android:textSize="22dp"
+        android:textColor="@android:color/white" />
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -10,14 +10,14 @@ import java.util.regex.Pattern;
 
 public class RegexUtils {
 
-    private static final Pattern USERNAME_PATTERN=Pattern.compile("^[a-z0-9_-]{3,16}$");
-    private static final Pattern PASSWORD_PATTERN=Pattern.compile("^[a-z0-9_-]{6,18}$");
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-z0-9_-]{3,16}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-z0-9_-]{6,18}$");
 
-    public static boolean invalidUsername(String username){
+    public static boolean isValidUsername(String username){
         return USERNAME_PATTERN.matcher(username).matches();
     }
 
-    public static boolean invalidPassword(String password){
+    public static boolean isValidPassword(String password){
         return PASSWORD_PATTERN.matcher(password).matches();
     }
 
