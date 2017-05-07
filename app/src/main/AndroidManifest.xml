@@ -22,6 +22,8 @@
         <activity android:name="com.doanchuyennganh.eatio.views.resetpassword.ResetPasswordActivity_">
         </activity>
 
+        <activity android:name="com.doanchuyennganh.eatio.views.register.RegisterActivity_">
+        </activity>
     </application>
 
 </manifest>

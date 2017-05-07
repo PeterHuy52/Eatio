@@ -6,6 +6,7 @@ import com.doanchuyennganh.eatio.api.UserApi;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.AccessToken;
 import com.doanchuyennganh.eatio.entity.User;
+import com.doanchuyennganh.eatio.entity.VerifyStatus;
 
 import retrofit2.Call;
 
@@ -26,10 +27,15 @@ public class UserModel {
         call.enqueue(callback);
     }
 
-
-    public void resendPassword(String email, String username, ApiRequestCallback<User> callback) {
-        Call<ApiResponse<User>> call  = api.resendPasswordUser(email,username);
+    public void resendPassword(String username, String email, ApiRequestCallback<User> callback) {
+        Call<ApiResponse<User>> call  = api.resendPasswordUser(username, email);
         call.enqueue(callback);
     }
+
+    public void signUp(String username, String email, String password, ApiRequestCallback<VerifyStatus> callback){
+        Call<ApiResponse<VerifyStatus>> call  = api.registerUser(username, email, password);
+        call.enqueue(callback);
+    }
+
 }
 

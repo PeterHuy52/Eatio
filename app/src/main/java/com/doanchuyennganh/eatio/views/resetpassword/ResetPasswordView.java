@@ -7,4 +7,14 @@ package com.doanchuyennganh.eatio.views.resetpassword;
 public interface ResetPasswordView {
 
     void resendPasswordSuccess();
+
+    void goToLogin();
+
+    void wrongEmail();
+
+    void wrongUsername();
+
+    void enableActionBtn();
+
+    void disableActionBtn();
 }

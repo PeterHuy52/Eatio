@@ -12,5 +12,4 @@ public interface LoginPresenter  {
 
     void login(String username, String password);
 
-    void loginSuccess(AccessToken body);
 }

@@ -7,44 +7,59 @@
     android:orientation="vertical"
     android:background="@color/background"
     android:fitsSystemWindows="true"
-    tools:context="com.doanchuyennganh.eatio.views.login.LoginActivity_">
+    tools:context="com.doanchuyennganh.eatio.views.register.RegisterActivity_">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="160dp">
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/logo_w_h"
+            android:layout_height="@dimen/logo_w_h"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="45dp"
             android:background="@drawable/logo_tmp"/>
     </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:paddingBottom="48dp"
-        android:paddingTop="24dp">
+        android:paddingBottom="12dp"
+        android:paddingTop="8dp">
         <TextView
             android:id="@+id/massage_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SUCCESS"
-            android:visibility="invisible"
             android:textAlignment="center"
+            android:visibility="invisible"
             style="@style/login_message_tv" />
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#AAAA">
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:inputType="textEmailAddress"
+                style="@style/main_input_login_edittext"/>
+        </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="#AAAA">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_name"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
                 style="@style/main_input_login_edittext" />
+
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -56,55 +71,37 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
                 android:hint="@string/hint_password"
+                android:imeActionId="@+id/login"
                 android:imeOptions="actionDone"
-                style="@style/main_input_login_edittext"/>
+                style="@style/main_input_login_edittext" />
+
         </android.support.design.widget.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/action_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="68dp"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp">
-        <!-- Login Button -->
-
         <Button
-            android:id="@+id/btn_login"
-            style="@style/main_login_btn"
+            android:id="@+id/btn_sign_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_login"
-            tools:ignore="UnusedAttribute" />
+            android:text="@string/action_sign_in_short"
+            style="@style/main_login_btn"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!-- Link to Login Screen -->
 
-            <Button
-                android:id="@+id/btn_reset_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="@string/btn_forgot_password"
-                style="@style/login_secondary_btn" />
-
-            <!-- Link to Login Screen -->
-
-            <Button
-                android:id="@+id/btn_signup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/btn_link_to_register"
-                style="@style/login_secondary_btn"/>
-        </RelativeLayout>
+        <Button
+            android:id="@+id/btn_sign_in"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_link_to_login"
+            style="@style/login_secondary_btn"/>
 
     </LinearLayout>
 
-
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" />
 </LinearLayout>

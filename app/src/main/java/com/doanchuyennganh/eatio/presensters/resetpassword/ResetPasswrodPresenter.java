@@ -7,4 +7,6 @@ package com.doanchuyennganh.eatio.presensters.resetpassword;
 public interface ResetPasswrodPresenter {
 
     void resendPassword(String username, String email);
+
+    void validateInput(String username, String email);
 }

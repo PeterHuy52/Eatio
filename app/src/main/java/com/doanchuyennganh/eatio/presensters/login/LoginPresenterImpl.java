@@ -2,15 +2,17 @@ package com.doanchuyennganh.eatio.presensters.login;
 
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.AccessToken;
+import com.doanchuyennganh.eatio.entity.Error;
 import com.doanchuyennganh.eatio.models.UserModel;
 import com.doanchuyennganh.eatio.utils.RegexUtils;
+import com.doanchuyennganh.eatio.views.IMessageView;
 import com.doanchuyennganh.eatio.views.login.LoginView;
 
 /**
  * Created by TungHo on 05/06/2017.
  */
 
-public class LoginPresenterImpl implements LoginPresenter {
+public class LoginPresenterImpl implements LoginPresenter, IMessageView {
 
     LoginView mView;
 
@@ -37,15 +39,26 @@ public class LoginPresenterImpl implements LoginPresenter {
         userModel.login(username.trim(), password.trim(), new ApiRequestCallback<AccessToken>() {
             @Override
             public void responseData(AccessToken data) {
-                loginSuccess(data);
+                mView.loginSuccess(data);
+            }
+
+            @Override
+            public void responseError(Error data) {
+                if (data.code == 40101){
+                    // sai password
+                    mView.loginFail();
+                }
             }
         });
     }
 
     @Override
-    public void loginSuccess(AccessToken accessToken) {
-        mView.savePrefAccessToken(accessToken.token);
-        mView.savePrefUserId(accessToken.userId);
-        mView.goToHome();
+    public void setMessageText(String text, boolean isPositive) {
+
+    }
+
+    @Override
+    public void hideMessageText() {
+
     }
 }

@@ -4,13 +4,14 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>-->
     <color name="colorPrimary">#FFC107</color>
-    <color name="colorPrimaryDark">#FF6F00</color>
-    <color name="colorAccent">#FFCA28</color>
-    <color name="textColorPrimary">#212121</color>
-    <color name="primaryText">#212121</color>
-    <color name="secondaryText">#757575</color>
-    <color name="colorBackground">#FFE082</color>
-    <color name="background">#FFF8E1</color>
+    <color name="colorPrimaryDark">#FFA000</color>
+    <color name="colorAccent">#4DB6AC</color>
+    <color name="colorAccentDark">#651FFF</color>
+    <color name="textColorPrimary">#CC212121</color>
+    <color name="primaryText">#CC212121</color>
+    <color name="secondaryText">#88444444</color>
+    <color name="colorBackground">#FFD450</color>
+    <color name="background">#FAF399</color>
     <color name="unselected">#BDBDBD</color>
 
     <color name="bg_login">#26ae90</color>
@@ -42,4 +43,8 @@
     <color name="md_amber_A200">#FFD740</color>
     <color name="md_amber_A400">#FFC400</color>
     <color name="md_amber_A700">#FFAB00</color>
+    
+    <color name="message_color_positive">#DD388E3C</color>
+    <color name="message_color_negative">#EEEE0000</color>
+
 </resources>

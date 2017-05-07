@@ -18,10 +18,10 @@
     <string name="hint_name">Username</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_resend_password">RESEND PASSWORD</string>
-    <string name="btn_link_to_register">Not a member? Get registered now!</string>
+    <string name="btn_link_to_register">Registere now!</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
-    <string name="btn_forgot_password">Forgot your password?</string>
+    <string name="btn_forgot_password">Forgot password?</string>
     <string name="btn_verify_code">Active</string>
     <string name="btn_back"><![CDATA[<< Back]]></string>
     <string name="hint_new_email">New Email</string>
@@ -29,7 +29,7 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="verify_code">You must enter verify code that was sent to your email recently</string>
     <string name="welcome_flash">Welcome to Eatio</string>
-    <string name="resend_password">Your new password will be sent to your email, please check it!</string>
+    <string name="resend_password">Reset password</string>
 
     <!--left menu title-->
     <string name="left_menu_home">Home</string>
@@ -53,10 +53,13 @@
 
     <!--Error connection-->
     <string name="wrong_username_or_password">Username hoặc Password không đúng, vui lòng kiểm tra lại!</string>
-    <string name="email_exist">Email đã tồn tại!</string>
     <string name="activation_code_invalid">Tài khoản này chưa được kích hoạt, vui lòng kích hoạt tài khoản!</string>
     <string name="email_invalid">Email không tồn tại, vui lòng kiểm tra lại!</string>
-    <string name="username_exist">Username đã tồn tại!</string>
     <string name="username_invalid">Username không tồn tại, vui lòng kiểm tra lại!</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="err_40401">Username không tồn tại</string>
+    <string name="err_40402">Email không tồn tại</string>
+    <string name="err_40901">Username đã tồn tại!</string>
+    <string name="err_40902">Email đã tồn tại!</string>
 </resources>

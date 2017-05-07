@@ -5,6 +5,7 @@ package com.doanchuyennganh.eatio.api;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.AccessToken;
 import com.doanchuyennganh.eatio.entity.User;
+import com.doanchuyennganh.eatio.entity.VerifyStatus;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,10 +29,10 @@ public interface UserApi {
     @FormUrlEncoded
     @POST("/login")
     Call<ApiResponse<AccessToken>> loginUser(@Field("username") String username, @Field("password") String password);
-//
-//    @FormUrlEncoded
-//    @POST("/register")
-//    Observable<SignUpResponse> registerUser(@Field("username") String username, @Field("email") String email, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("/register")
+    Call<ApiResponse<VerifyStatus>> registerUser(@Field("username") String username, @Field("email") String email, @Field("password") String password);
 //
 //    @FormUrlEncoded
 //    @POST("/verify_account")

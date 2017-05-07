@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.data.entity;
+package com.doanchuyennganh.eatio.entity;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 
 public class Error implements Serializable{
+
     @SerializedName("code")
     public int code;
 

@@ -1,6 +1,7 @@
 package com.doanchuyennganh.eatio.api.responses;
 
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
+import com.doanchuyennganh.eatio.entity.Error;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,8 +17,10 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
     @Override
     public void onResponse(Call<ApiResponse<TEnityResponse>> call, Response<ApiResponse<TEnityResponse>> response) {
         if (response.isSuccessful()){
-            responseBody(response.body());
-            responseDataa(response.body().getData());
+            if (response.body().getData() != null)
+                responseData(response.body().getData());
+            if (response.body().getError() != null)
+                responseError(response.body().getError());
         }
         else {
             // TODO: 05/06/2017
@@ -30,6 +33,7 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
     }
 
     public abstract void responseData(TEnityResponse data);
+    public abstract void responseError(Error data);
     public void requestFail(int info){}
     public void responseFail(int info){}
     public void responseBody(ApiResponse<TEnityResponse> body){}

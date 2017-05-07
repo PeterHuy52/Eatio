@@ -21,7 +21,7 @@ public class RegexUtils {
         return PASSWORD_PATTERN.matcher(password).matches();
     }
 
-    public static boolean invalidEmail(String email){
+    public static boolean isValidEmail(String email){
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 

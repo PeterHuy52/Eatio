@@ -1,6 +1,7 @@
 package com.doanchuyennganh.eatio.api.responses;
 
 import com.google.gson.annotations.SerializedName;
+import com.doanchuyennganh.eatio.entity.Error;
 
 /**
  * Created by TungHo on 05/06/2017.
@@ -19,6 +20,9 @@ public class ApiResponse<T > {
 
     @SerializedName("data")
     private T data;
+
+    @SerializedName("error")
+    private Error error;
 
     public String getVersion() {
         return version;
@@ -50,5 +54,13 @@ public class ApiResponse<T > {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public Error getError() {
+        return error;
+    }
+
+    public void setError(Error error) {
+        this.error = error;
     }
 }
