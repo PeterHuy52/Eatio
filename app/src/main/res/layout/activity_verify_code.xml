@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:layout_gravity="center"
     android:paddingLeft="32dp"
     android:paddingRight="32dp"
-    android:fitsSystemWindows="true"
-    tools:context="com.doanchuyennganh.eatio.views.resetpassword.ResetPasswordActivity_">
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="160dp"
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_above="@+id/main_container"
-            android:text="@string/resend_password"
+            android:text="Verify account"
             android:textColor="#EE00695C"
             android:textStyle="bold"
             android:textAllCaps="true"
@@ -29,15 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingLeft="32dp"
             android:layout_above="@+id/main_container"
-            android:text="New password willbe sent to email"
+            android:text="@string/verify_code"
             android:textColor="#88323232"
             android:textAllCaps="false"
             android:layout_marginTop="4dp"
             android:textSize="15dp" />
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/main_container"
         android:layout_width="match_parent"
@@ -53,54 +52,43 @@
             android:textAlignment="center"
             android:visibility="invisible"
             style="@style/login_message_tv" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="#AA888888">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/verify_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeActionId="@+id/resend"
                 android:imeOptions="actionNext"
-                android:hint="@string/hint_name"
-                android:inputType="textEmailAddress"
+                android:hint="Verify code"
+                android:inputType="number"
                 style="@style/main_input_login_edittext"/>
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="#AA888888">
-
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:imeActionId="@+id/resend"
-                android:imeOptions="actionDone"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
-                style="@style/main_input_login_edittext" />
-        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
+
 
     <!-- Login Button -->
     <Button
-        android:id="@+id/btn_resend_password"
+        android:id="@+id/btn_active_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_resend_password"
+        android:text="@string/btn_verify_code"
         tools:ignore="UnusedAttribute"
         style="@style/main_login_btn"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"
-        android:visibility="gone" />
+    <Button
+        android:id="@+id/btn_send_new_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@null"
+        android:text="New verify code"
+        style="@style/login_secondary_btn"/>
+
 
 </LinearLayout>

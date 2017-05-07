@@ -18,6 +18,7 @@ import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.IMessageView;
 import com.doanchuyennganh.eatio.views.register.RegisterActivity;
 import com.doanchuyennganh.eatio.views.resetpassword.ResetPasswordActivity;
+import com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity;
 
 import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
@@ -120,6 +121,9 @@ public class LoginActivity extends BaseActivity implements LoginView, IMessageVi
         this.savePrefAccessToken(accessToken.token);
         this.savePrefUserId(accessToken.userId);
         this.goToHome();
+    }
+
+    public void goToVerifyCode() {
     }
 
     @Override

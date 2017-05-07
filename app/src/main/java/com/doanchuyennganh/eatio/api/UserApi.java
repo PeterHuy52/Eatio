@@ -33,14 +33,17 @@ public interface UserApi {
     @FormUrlEncoded
     @POST("/register")
     Call<ApiResponse<VerifyStatus>> registerUser(@Field("username") String username, @Field("email") String email, @Field("password") String password);
-//
-//    @FormUrlEncoded
-//    @POST("/verify_account")
-//    Observable<VerifyAccountResponse> verifyCodeUser(@Field("id") int id, @Field("verifycode") String verifycode);
-//
-//    @FormUrlEncoded
+
+    @FormUrlEncoded
+    @POST("/users/{id}/verify")
+    Call<ApiResponse<VerifyStatus>> verifyAccount(@Field("code") String verifycode, @Path("id") int userId);
+
+    @GET("/users/{id}/verify")
+    Call<ApiResponse<VerifyStatus>> sendNewVerifyCode(@Path("id") int user);
+
     @GET("/resend_password")
     Call<ApiResponse<User>> resendPasswordUser(@Query("username") String username, @Query("email") String email);
+
 
 //    @PUT("/users/{id}/profile")
 //    Observable<ProfileResponse> updateProfileUser(@Path("id") int userId, @Body UpdateProfileRequest profileRequest);

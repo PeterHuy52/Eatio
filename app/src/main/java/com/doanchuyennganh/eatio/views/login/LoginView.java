@@ -26,4 +26,6 @@ public interface LoginView {
 
     void loginSuccess(AccessToken accessToken);
 
+    void goToVerifyCode();
+
 }

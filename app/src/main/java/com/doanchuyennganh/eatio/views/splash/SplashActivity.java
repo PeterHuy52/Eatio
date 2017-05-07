@@ -1,5 +1,7 @@
 package com.doanchuyennganh.eatio.views.splash;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -18,6 +20,10 @@ import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_splash)
 public class SplashActivity extends BaseActivity implements SplashView {
+
+    public static void run(Context context){
+        SplashActivity_.intent(context).flags(Intent.FLAG_ACTIVITY_CLEAR_TASK).start();
+    }
 
     @ViewById(R.id.progressBar)
     ProgressBar mProgressBar;

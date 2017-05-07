@@ -12,6 +12,7 @@ import com.doanchuyennganh.eatio.presensters.register.RegisterPresenterImpl;
 import com.doanchuyennganh.eatio.utils.ResourceUtils;
 import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.IMessageView;
+import com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -92,6 +93,7 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
     public void goToVerifyCode(int userId) {
         // TODO: 05/07/2017 goto verrify
         this.dismissWaitingDialog();
+        VerifyCodeActivity.run(this, userId);
     }
 
     @Override

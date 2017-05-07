@@ -33,7 +33,7 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
     }
 
     public abstract void responseData(TEnityResponse data);
-    public abstract void responseError(Error data);
+    public abstract void responseError(Error error);
     public void requestFail(int info){}
     public void responseFail(int info){}
     public void responseBody(ApiResponse<TEnityResponse> body){}

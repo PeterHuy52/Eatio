@@ -37,5 +37,14 @@ public class UserModel {
         call.enqueue(callback);
     }
 
+    public void verifyAccount(int userId, String code, ApiRequestCallback<VerifyStatus> callback) {
+        Call<ApiResponse<VerifyStatus>> call  = api.verifyAccount(code, userId);
+        call.enqueue(callback);
+    }
+
+    public void sendNewCode(int userId,  ApiRequestCallback<VerifyStatus> callback){
+        Call<ApiResponse<VerifyStatus>> call  = api.sendNewVerifyCode(userId);
+        call.enqueue(callback);
+    }
 }
 

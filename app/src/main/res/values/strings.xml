@@ -27,7 +27,7 @@
     <string name="hint_new_email">New Email</string>
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
-    <string name="verify_code">You must enter verify code that was sent to your email recently</string>
+    <string name="verify_code">Type verify code was sent to your email</string>
     <string name="welcome_flash">Welcome to Eatio</string>
     <string name="resend_password">Reset password</string>
 

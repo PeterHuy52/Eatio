@@ -48,6 +48,9 @@ public class LoginPresenterImpl implements LoginPresenter, IMessageView {
                     // sai password
                     mView.loginFail();
                 }
+                else if (data.code == 40102) {
+                    mView.goToVerifyCode();
+                }
             }
         });
     }
