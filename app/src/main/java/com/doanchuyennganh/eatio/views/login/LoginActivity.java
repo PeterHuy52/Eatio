@@ -16,6 +16,7 @@ import com.doanchuyennganh.eatio.presensters.login.LoginPresenterImpl;
 import com.doanchuyennganh.eatio.utils.ResourceUtils;
 import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.IMessageView;
+import com.doanchuyennganh.eatio.views.home.HomeActivity;
 import com.doanchuyennganh.eatio.views.register.RegisterActivity;
 import com.doanchuyennganh.eatio.views.resetpassword.ResetPasswordActivity;
 import com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity;
@@ -95,8 +96,9 @@ public class LoginActivity extends BaseActivity implements LoginView, IMessageVi
     // navigator
 
     @Override
-    public void goToHome(){
-        // TODO: 05/06/2017 goto home
+    public void goToHome(int userId, String token){
+        this.dismissWaitingDialog();
+        HomeActivity.run(this, userId, token);
     }
 
     @Override
@@ -120,7 +122,7 @@ public class LoginActivity extends BaseActivity implements LoginView, IMessageVi
         this.dismissWaitingDialog();
         this.savePrefAccessToken(accessToken.token);
         this.savePrefUserId(accessToken.userId);
-        this.goToHome();
+        this.goToHome(accessToken.userId, accessToken.token);
     }
 
     public void goToVerifyCode() {

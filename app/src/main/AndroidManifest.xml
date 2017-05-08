@@ -27,7 +27,9 @@
 
         <activity android:name="com.doanchuyennganh.eatio.views.register.RegisterActivity_">
         </activity>
-        <activity android:name=".views.verifycode.VerifyCodeActivity_" />
+        <activity android:name="com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity_" />
+        <activity android:name="com.doanchuyennganh.eatio.views.home.HomeActivity_" />
+
     </application>
 
 </manifest>

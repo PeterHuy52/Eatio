@@ -16,7 +16,7 @@ public interface LoginView {
 
     void savePrefUserId(int userId);
 
-    void goToHome();
+    void goToHome(int userId, String token);
 
     void goToResetPassword();
 
