@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:imeActionId="@+id/resend"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:hint="Verify code"
                 android:inputType="number"
                 style="@style/main_input_login_edittext"/>

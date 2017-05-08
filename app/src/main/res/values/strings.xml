@@ -14,11 +14,12 @@
     <string name="title_activity_login">Sign in</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
     <string name="hint_verify_code">Verify code</string>
     <string name="hint_name">Username</string>
     <string name="btn_login">LOGIN</string>
     <string name="btn_resend_password">RESEND PASSWORD</string>
-    <string name="btn_link_to_register">Registere now!</string>
+    <string name="btn_link_to_register">Register now!</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Forgot password?</string>
@@ -62,4 +63,5 @@
     <string name="err_40402">Email không tồn tại</string>
     <string name="err_40901">Username đã tồn tại!</string>
     <string name="err_40902">Email đã tồn tại!</string>
+    <string name="not_network">Not network connect</string>
 </resources>

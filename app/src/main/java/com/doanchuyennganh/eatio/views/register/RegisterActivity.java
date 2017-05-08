@@ -41,6 +41,9 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
     @ViewById(R.id.password)
     EditText mEdtPassword;
 
+    @ViewById(R.id.confirm_password)
+    EditText mEdtConfirmPwd;
+
     @ViewById(R.id.massage_tv)
     TextView mMessageTv;
 
@@ -56,6 +59,10 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
 
     @Click(R.id.btn_sign_up)
     void signUpBtnClick(){
+        if (this.isConnected() == false){
+            this.setMessageText(getString(R.string.not_network), false);
+            return;
+        }
         this.showWaitingDialog();
         mPresenter.signUp(
                 mEdtUsername.getText().toString(),
@@ -78,14 +85,15 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
         mSignUpBtn.setEnabled(true);
     }
 
-    @TextChange({R.id.email, R.id.username, R.id.password})
+    @TextChange({R.id.email, R.id.username, R.id.password, R.id.confirm_password})
     @Override
     public void inputTextChanged() {
         this.hideMessageText();
         mPresenter.validateInput(
                 mEdtUsername.getText().toString(),
                 mEdtEmail.getText().toString(),
-                mEdtPassword.getText().toString());
+                mEdtPassword.getText().toString(),
+                mEdtConfirmPwd.getText().toString());
 
     }
 
@@ -107,6 +115,7 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
         this.dismissWaitingDialog();
         this.setMessageText(this.getString(R.string.err_40902), false);
     }
+
 
     @Override
     public void setMessageText(String text, boolean isPositive) {

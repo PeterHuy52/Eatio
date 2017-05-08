@@ -25,8 +25,8 @@
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        android:paddingBottom="12dp"
-        android:paddingTop="8dp">
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
         <TextView
             android:id="@+id/massage_tv"
             android:layout_width="match_parent"
@@ -74,7 +74,26 @@
                 android:focusableInTouchMode="true"
                 android:hint="@string/hint_password"
                 android:imeActionId="@+id/login"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                style="@style/main_input_login_edittext" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#AAAA">
+
+            <EditText
+                android:id="@+id/confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:hint="@string/hint_confirm_password"
+                android:imeActionId="@+id/btn_sign_up"
                 android:imeOptions="actionDone"
+                android:inputType="textPassword"
                 style="@style/main_input_login_edittext" />
 
         </android.support.design.widget.TextInputLayout>

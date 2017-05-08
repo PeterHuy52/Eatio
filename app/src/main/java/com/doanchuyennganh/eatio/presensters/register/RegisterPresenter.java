@@ -8,5 +8,5 @@ public interface RegisterPresenter {
 
     void signUp(String username, String email, String password);
 
-    void validateInput(String username, String email, String password);
+    void validateInput(String username, String email, String password, String confirmPasswrd);
 }

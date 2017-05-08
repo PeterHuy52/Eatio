@@ -9,4 +9,6 @@ public interface BaseView {
     void showToast(String message);
     void showWaitingDialog();
     void dismissWaitingDialog();
+
+    boolean isConnected();
 }

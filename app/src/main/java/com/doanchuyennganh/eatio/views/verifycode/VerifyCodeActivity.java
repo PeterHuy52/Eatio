@@ -59,6 +59,10 @@ public class VerifyCodeActivity extends BaseActivity implements VerifyCodeView, 
 
     @Click(R.id.btn_active_code)
     void activeBtnClick(){
+        if (this.isConnected() == false){
+            this.setMessageText(getString(R.string.not_network), false);
+            return;
+        }
         this.showWaitingDialog();
         mVerifyCodePresenter.verifyCode(userId, mVerifyCodeEdt.getText().toString());
 
@@ -66,6 +70,10 @@ public class VerifyCodeActivity extends BaseActivity implements VerifyCodeView, 
 
     @Click(R.id.btn_send_new_code)
     void newCodeBtnClick(){
+        if (this.isConnected() == false){
+            this.setMessageText(getString(R.string.not_network), false);
+            return;
+        }
         this.showWaitingDialog();
         mVerifyCodePresenter.sendNewCode(userId);
     }

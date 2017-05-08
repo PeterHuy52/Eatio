@@ -19,5 +19,4 @@ public interface RegisterView {
     void usernameExists();
 
     void emailExists();
-
 }

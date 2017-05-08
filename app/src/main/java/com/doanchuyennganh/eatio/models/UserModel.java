@@ -7,6 +7,7 @@ import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.AccessToken;
 import com.doanchuyennganh.eatio.entity.User;
 import com.doanchuyennganh.eatio.entity.VerifyStatus;
+import com.doanchuyennganh.eatio.utils.ConnectionUtils;
 
 import retrofit2.Call;
 
@@ -23,6 +24,7 @@ public class UserModel {
     }
 
     public void login(String username, String password,  ApiRequestCallback<AccessToken> callback) {
+
         Call<ApiResponse<AccessToken>> call  = api.loginUser(username,password);
         call.enqueue(callback);
     }
@@ -38,7 +40,7 @@ public class UserModel {
     }
 
     public void verifyAccount(int userId, String code, ApiRequestCallback<VerifyStatus> callback) {
-        Call<ApiResponse<VerifyStatus>> call  = api.verifyAccount(code, userId);
+        Call<ApiResponse<VerifyStatus>> call  = api.verifyAccount(userId, code);
         call.enqueue(callback);
     }
 

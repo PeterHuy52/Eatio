@@ -35,8 +35,8 @@ public interface UserApi {
     Call<ApiResponse<VerifyStatus>> registerUser(@Field("username") String username, @Field("email") String email, @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("/users/{id}/verify")
-    Call<ApiResponse<VerifyStatus>> verifyAccount(@Field("code") String verifycode, @Path("id") int userId);
+    @PUT("/users/{id}/verify")
+    Call<ApiResponse<VerifyStatus>> verifyAccount(@Path("id") int userId, @Field("code") String verifycode);
 
     @GET("/users/{id}/verify")
     Call<ApiResponse<VerifyStatus>> sendNewVerifyCode(@Path("id") int user);

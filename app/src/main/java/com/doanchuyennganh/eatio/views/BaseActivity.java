@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.doanchuyennganh.eatio.utils.ApplicationPreferences_;
+import com.doanchuyennganh.eatio.utils.ConnectionUtils;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -67,5 +68,11 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
             mProgressDialog = null;
         }
     }
+
+    @Override
+    public boolean isConnected() {
+        return ConnectionUtils.hasInternetConnection(this);
+    }
+
 
 }
