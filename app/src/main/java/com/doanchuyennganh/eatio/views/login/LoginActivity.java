@@ -96,9 +96,9 @@ public class LoginActivity extends BaseActivity implements LoginView, IMessageVi
     // navigator
 
     @Override
-    public void goToHome(int userId, String token){
+    public void goToHome(String token){
         this.dismissWaitingDialog();
-        HomeActivity.run(this, userId, token);
+        HomeActivity.run(this, token);
     }
 
     @Override
@@ -121,8 +121,7 @@ public class LoginActivity extends BaseActivity implements LoginView, IMessageVi
     public void loginSuccess(AccessToken accessToken) {
         this.dismissWaitingDialog();
         this.savePrefAccessToken(accessToken.token);
-        this.savePrefUserId(accessToken.userId);
-        this.goToHome(accessToken.userId, accessToken.token);
+        this.goToHome( accessToken.token);
     }
 
     public void goToVerifyCode() {

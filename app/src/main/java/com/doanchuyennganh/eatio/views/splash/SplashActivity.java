@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.home.HomeActivity;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
 
 import org.androidannotations.annotations.AfterViews;
@@ -47,7 +48,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
 
     @Override
     public void goToHome() {
-        // TODO: 05/06/2017 start home activty
+        HomeActivity.run(this, mPref.userToken().get());
+        this.finish();
     }
 
     @Override

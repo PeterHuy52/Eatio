@@ -5,11 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.entity.Profile;
+import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenter;
+import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -25,7 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by TungHo on 05/08/2017.
  */
 @EFragment(R.layout.view_left_menu)
-public class LeftMenuFragment extends Fragment{
+public class LeftMenuFragment extends Fragment implements ProfileView {
 
     @ViewById(R.id.avatar)
     CircleImageView mAvatar;
@@ -51,12 +55,23 @@ public class LeftMenuFragment extends Fragment{
         itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_setting, R.string.left_menu_setting));
         itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_about, R.string.left_menu_about));
         itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_sign_out, R.string.left_menu_sign_out));
-
     }
+
     @AfterViews
     void initView() {
+
         mAdapter = new LeftMenuAdapter(this.getContext(), itemLeftMenus);
         mRcvMenu.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void updateProfileView(Profile data){
+        mUsername.setText(data.lastname + " " + data.firstname);
+    }
+
+    @Override
+    public void goToLogin() {
+        // do nothing
     }
 
 

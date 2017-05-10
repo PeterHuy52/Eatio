@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ItemInputInfoView_">
-        <attr name="icon" format="reference" />
-        <attr name="texthint" format="string" />
-        <attr name="icon_nav" format="reference" />
+        <attr name="icon" format="reference"  />
+        <attr name="text_hint" format="string" />
+        <attr name="is_required" format="boolean"/>
+        <attr name="maxLength" format="integer"/>
+        <attr name="lines" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="CustomViewInputSpinner_">
+        <attr name="ic" format="reference"/>
+        <attr name="hint" format="string"/>
     </declare-styleable>
 </resources>

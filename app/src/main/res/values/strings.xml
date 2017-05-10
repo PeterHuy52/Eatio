@@ -12,11 +12,25 @@
     <string name="new_pass">New Password</string>
     <string name="title_activity_profile">Firebase</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_new_fonda">New place</string>
+    <string name="map_marker_def_title">Your place</string>
+
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm Password</string>
     <string name="hint_verify_code">Verify code</string>
     <string name="hint_name">Username</string>
+
+    <string name="fonda_name_hint">Place name</string>
+    <string name="fonda_group_hint">Place group</string>
+    <string name="address_hint">Address</string>
+    <string name="scale_hint">Scale</string>
+    <string name="open_time_hint">Open time</string>
+    <string name="open_day_hint">Open day</string>
+    <string name="phone_hint">Phone number</string>
+    <string name="description_hint">Description</string>
+    <string name="location_hint">Location</string>
+
     <string name="btn_login">LOGIN</string>
     <string name="btn_resend_password">RESEND PASSWORD</string>
     <string name="btn_link_to_register">Register now!</string>
@@ -31,6 +45,12 @@
     <string name="verify_code">Type verify code was sent to your email</string>
     <string name="welcome_flash">Welcome to Eatio</string>
     <string name="resend_password">Reset password</string>
+
+    <string-array name="scale_option">
+        <item>Dưới 50 chỗ ngỗi</item>
+        <item>50 đến 100 chỗ ngồi</item>
+        <item>Trên 100 chỗ ngồi</item>
+    </string-array>
 
     <!--left menu title-->
     <string name="left_menu_home">Home</string>

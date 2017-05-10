@@ -4,6 +4,7 @@ package com.doanchuyennganh.eatio.api;
 
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.AccessToken;
+import com.doanchuyennganh.eatio.entity.Profile;
 import com.doanchuyennganh.eatio.entity.User;
 import com.doanchuyennganh.eatio.entity.VerifyStatus;
 
@@ -44,6 +45,9 @@ public interface UserApi {
     @GET("/resend_password")
     Call<ApiResponse<User>> resendPasswordUser(@Query("username") String username, @Query("email") String email);
 
+    @FormUrlEncoded
+    @POST("/users/profile")
+    Call<ApiResponse<Profile>> getProfile(@Field("token") String token);
 
 //    @PUT("/users/{id}/profile")
 //    Observable<ProfileResponse> updateProfileUser(@Path("id") int userId, @Body UpdateProfileRequest profileRequest);

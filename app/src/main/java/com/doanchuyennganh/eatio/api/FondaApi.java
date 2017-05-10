@@ -1,8 +1,12 @@
 package com.doanchuyennganh.eatio.api;
 
 
+import com.doanchuyennganh.eatio.api.responses.ApiResponse;
+import com.doanchuyennganh.eatio.entity.FondaGroup;
+
 import java.util.Map;
 
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
@@ -35,8 +39,8 @@ public interface FondaApi {
 //    @GET("/fonda/{id}")
 //    Observable<FondaResponse> getDetailFonda(@Path("id") int fondaId);
 //
-//    @GET("/fonda_group")
-//    Observable<FondaGroupResponse> getFondaGroups(@Query("name") String name);
+    @GET("/fonda_group")
+    Call<ApiResponse<FondaGroup>> getFondaGroups(@Query("name") String name);
 //
 //    //Api Sale---------------------------------
 //    @FormUrlEncoded

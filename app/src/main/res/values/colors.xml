@@ -6,10 +6,12 @@
     <color name="colorPrimary">#FFC107</color>
     <color name="colorPrimaryDark">#FFA000</color>
     <color name="colorAccent">#4DB6AC</color>
+    <color name="colorAccentLight">#EE80CBC4</color>
     <color name="colorAccentDark">#651FFF</color>
     <color name="textColorPrimary">#DD212121</color>
     <color name="primaryText">#DD212121</color>
     <color name="secondaryText">#88444444</color>
+    <color name="primaryLightText">#DFFF</color>
     <color name="colorBackground">#FFD450</color>
     <color name="background">#FAF399</color>
     <color name="unselected">#BDBDBD</color>

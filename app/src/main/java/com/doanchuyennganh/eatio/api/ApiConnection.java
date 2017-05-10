@@ -40,7 +40,17 @@ public class ApiConnection {
             .client(httpClient.build())
             .build();
 
+    private static Retrofit googleGeoApi = new Retrofit.Builder()
+            .baseUrl("https://maps.googleapis.com")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(httpClient.build())
+            .build();
+
     public static <T> T createService(Class<T> apiClass){
         return retrofit.create(apiClass);
+    }
+
+    public static GoogleMapGeocodingApi googleMapGeocodingApi(){
+        return googleGeoApi.create(GoogleMapGeocodingApi.class);
     }
 }

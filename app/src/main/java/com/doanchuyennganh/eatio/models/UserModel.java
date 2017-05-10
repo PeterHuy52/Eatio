@@ -5,6 +5,7 @@ import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.UserApi;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.AccessToken;
+import com.doanchuyennganh.eatio.entity.Profile;
 import com.doanchuyennganh.eatio.entity.User;
 import com.doanchuyennganh.eatio.entity.VerifyStatus;
 import com.doanchuyennganh.eatio.utils.ConnectionUtils;
@@ -47,6 +48,10 @@ public class UserModel {
     public void sendNewCode(int userId,  ApiRequestCallback<VerifyStatus> callback){
         Call<ApiResponse<VerifyStatus>> call  = api.sendNewVerifyCode(userId);
         call.enqueue(callback);
+    }
+
+    public void getProfile(String token, ApiRequestCallback<Profile> callback){
+        api.getProfile(token).enqueue(callback);
     }
 }
 

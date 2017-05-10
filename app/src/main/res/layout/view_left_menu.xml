@@ -28,8 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/nav_header_spacing"
             android:textColor="@color/textColorPrimary"
-            android:text="Nguyen Tan Luan"
-            android:textSize="@dimen/text_size_small"/>
+            android:text="Full name"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textSize="18sp"/>
 
     </LinearLayout>
     <ListView

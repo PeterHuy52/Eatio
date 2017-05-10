@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create new place"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone"
+        style="@style/page_title_tv" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+            <com.doanchuyennganh.eatio.views.ui.ItemInputInfoView_
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                app:icon="@drawable/ic_scale"
+                app:text_hint="@string/fonda_name_hint"
+                app:is_required="true"/>
+
+            <com.doanchuyennganh.eatio.views.ui.CustomViewInputSpinner_
+                android:id="@+id/group_fonda_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="@string/fonda_group_hint"
+                app:ic="@drawable/ic_reorder_black_36dp" />
+
+            <com.doanchuyennganh.eatio.views.ui.CustomViewInputSpinner_
+                android:id="@+id/scale_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint="@string/scale_hint"
+                app:ic="@drawable/ic_graphic_eq_black_36dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/ic_near_me_black_36dp"
+                    android:backgroundTint="#C888"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="6dp" />
+
+                <TextView
+                    android:id="@+id/map_tv"
+                    style="@style/main_login_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"                    android:gravity="center"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textSize="15sp"
+                    android:text="map"/>
+                <TextView
+                    android:id="@+id/city_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="City"
+                    android:background="@color/colorAccentLight"
+                    android:textColor="@color/primaryText"
+                    style="@style/secondary_tv" />
+                <TextView
+                    android:id="@+id/province_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/colorAccentLight"
+                    android:textColor="@color/primaryText"
+                    android:text="Province"
+                    style="@style/secondary_tv" />
+
+            </LinearLayout>
+
+            <com.doanchuyennganh.eatio.views.ui.ItemInputInfoView_
+                android:id="@+id/address_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                app:icon="@drawable/ic_room_black_36dp"
+                app:text_hint="@string/address_hint"
+                app:maxLength="128"
+                app:is_required="true"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_time"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="6dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:padding="4dp"
+                    android:textColor="@color/secondaryText"
+                    android:text="@string/open_time_hint"
+                    android:layout_marginRight="20dp"/>
+                <TextView
+                    android:id="@+id/open_time_tv"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textStyle="bold"
+                    android:text="08:00"
+                    style="@style/secondary_tv" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/secondaryText"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:text=" to "/>
+
+                <TextView
+                    android:id="@+id/close_time_tv"
+                    android:layout_width="56dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textStyle="bold"
+                    android:text="08:00"
+                    style="@style/secondary_tv" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_time"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="6dp" />
+
+            <TextView
+                android:id="@+id/open_day_tv"
+                style="@style/main_login_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="15sp"
+                android:text="Open day"/>
+        </LinearLayout>
+
+            <com.doanchuyennganh.eatio.views.ui.ItemInputInfoView_
+                android:id="@+id/phone_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                app:icon="@drawable/ic_phone_number"
+                app:text_hint="@string/phone_hint"
+                app:maxLength="12"/>
+            <com.doanchuyennganh.eatio.views.ui.ItemInputInfoView_
+                android:id="@+id/description_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                app:icon="@drawable/ic_description"
+                app:text_hint="@string/description_hint"
+                app:maxLength="256"
+                app:lines="3"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="46dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:gravity="center_vertical">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="24dp"-->
+                    <!--android:layout_height="24dp"-->
+                    <!--android:background="@drawable/ic_near_me_black_36dp"-->
+                    <!--android:backgroundTint="#C888"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="6dp" />-->
+                <!--<TextView-->
+                    <!--android:id="@+id/location_tv"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="26dp"-->
+                    <!--android:padding="4dp"-->
+                    <!--android:textColor="@color/secondaryText"-->
+                    <!--android:text="@string/location_hint"-->
+                    <!--android:layout_marginRight="20dp"/>-->
+            <!--</LinearLayout>-->
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:enabled="true"
+        android:gravity="center"
+        android:text="submit fonda"
+        android:textColor="@color/secondaryText"
+        android:textSize="@dimen/text_size_normal" />
+    <!--android:background="@drawable/button_selector"-->
+
+</RelativeLayout>

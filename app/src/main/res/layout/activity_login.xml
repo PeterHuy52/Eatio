@@ -43,7 +43,6 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:hint="@string/hint_name"
                 style="@style/main_input_login_edittext" />
         </android.support.design.widget.TextInputLayout>

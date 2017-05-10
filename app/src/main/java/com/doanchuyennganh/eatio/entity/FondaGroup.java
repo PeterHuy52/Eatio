@@ -22,4 +22,5 @@ public class FondaGroup implements Serializable {
     //Foreign Key
     @SerializedName("fonda_id")
     public int storeId;
+
 }
