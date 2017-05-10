@@ -8,8 +8,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,7 +34,7 @@ import java.util.Objects;
  * Created by TungHo on 05/09/2017.
  */
 @EViewGroup(R.layout.custom_input_view)
-public class ItemInputInfoView extends LinearLayout {
+public class ItemInputInfoView extends LinearLayout  {
 
     @ViewById(R.id.icon_input_view)
     ImageView icon;
@@ -130,5 +132,26 @@ public class ItemInputInfoView extends LinearLayout {
 
     public void setText(String fullAddress) {
         edtInput.setText(fullAddress);
+    }
+
+    public String getText() {
+        return edtInput.getText().toString();
+    }
+
+    public void addTextChangedListener(AfterTextChangeWatcher textChange){
+        edtInput.addTextChangedListener(textChange);
+    }
+
+    public abstract static class AfterTextChangeWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
     }
 }

@@ -13,4 +13,8 @@ public interface FondaGroupView {
     void update(List<FondaGroup> collection);
 
     void goToSelectLocation();
+
+    void goToHome();
+
+    void createSuccess();
 }

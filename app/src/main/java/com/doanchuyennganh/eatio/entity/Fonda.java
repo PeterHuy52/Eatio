@@ -40,11 +40,14 @@ public class Fonda implements Serializable{
     @SerializedName("comment_count")
     public int commentCount;
 
+    @SerializedName("description")
+    public String description;
+
     @SerializedName("feature_image")
     public Image  imageEntity;
 
     @SerializedName("location")
-    public Location locationEntity;
+    public Location location;
 
     @SerializedName("group")
     public FondaGroup  groupEntity;
@@ -66,6 +69,6 @@ public class Fonda implements Serializable{
     public int userId;
 
     @SerializedName("group_id")
-    public int category_id;
+    public int groupId;
 
 }

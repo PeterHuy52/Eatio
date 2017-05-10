@@ -141,6 +141,7 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     @Override
     public void goToLogin() {
         LoginActivity.run(this);
+        this.finish();
     }
 
 }

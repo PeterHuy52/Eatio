@@ -40,7 +40,8 @@
         <activity android:name="com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity_" />
         <activity android:name="com.doanchuyennganh.eatio.views.home.HomeActivity_"/>
         <activity android:name="com.doanchuyennganh.eatio.views.mapactivity.SelectLocationActivity_"/>
-        <activity android:name="com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity_">
+        <activity android:name="com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity_"
+            android:windowSoftInputMode="adjustPan">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.doanchuyennganh.eatio.views.home.HomeActivity_"/>
         </activity>

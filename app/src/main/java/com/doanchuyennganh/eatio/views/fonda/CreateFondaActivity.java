@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
+import com.doanchuyennganh.eatio.entity.Location;
 import com.doanchuyennganh.eatio.presensters.fonda.FondaGroupPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.FondaGroupPresenterImpl;
 import com.doanchuyennganh.eatio.presensters.map.MapPresenter;
@@ -38,7 +42,7 @@ import java.util.List;
 /**
  * Created by TungHo on 05/09/2017.
  */
-//@WindowFeature({Window.FEATURE_ACTION_BAR_OVERLAY})
+//@WindowFeature({Window.S})
 @EActivity(R.layout.activity_create_fonda)
 public class CreateFondaActivity extends BaseActivity implements CreateFondaView, FondaGroupView,
         MapInfoView{
@@ -60,6 +64,9 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
     @ViewById(R.id.open_time_tv)
     TextView openTimeTv;
 
+    @ViewById(R.id.close_time_tv)
+    TextView closeTimeTv;
+
     @ViewById(R.id.open_day_tv)
     TextView openDayEdt;
 
@@ -78,6 +85,12 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
     @ViewById(R.id.province_tv)
     TextView provinceTv;
 
+    @ViewById(R.id.name_tv)
+    ItemInputInfoView nameEdt;
+
+    @ViewById(R.id.btn_submit)
+    Button acceptBtn;
+
 
 
     private GoogleMap mMap;
@@ -86,7 +99,9 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
 
     MapPresenter mapPresenter;
 
-    String mPlaceId;
+    Location mLocation;
+
+    int openDay;
 
     @AfterViews
     public void init(){
@@ -98,8 +113,39 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
 
         phoneEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
         getSupportActionBar().setTitle(getString(R.string.title_activity_new_fonda));
-//        getSupportActionBar().setHideOnContentScrollEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mLocation = new Location();
+
+        validateInput();
+    }
+
+    @AfterViews
+    public void initEdtTextChanged(){
+        ItemInputInfoView.AfterTextChangeWatcher watcher = new ItemInputInfoView.AfterTextChangeWatcher(){
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                CreateFondaActivity.this.validateInput();
+            }
+        };
+
+        nameEdt.addTextChangedListener(watcher);
+        addressEdt.addTextChangedListener(watcher);
+    }
+
+    private void validateInput() {
+
+        if (nameEdt.getText().equals("") || addressEdt.getText().equals("") || openDay == 0){
+            acceptBtn.setEnabled(false);
+            return;
+        }
+        if (mLocation.latitude == 0 && mLocation.longitude == 0){
+            acceptBtn.setEnabled(false);
+            return;
+        }
+        acceptBtn.setEnabled(true);
+
     }
 
     @AfterViews
@@ -119,6 +165,7 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
         ArrayAdapter adapter = new SpinnerAdapter(this, android.R.layout.simple_dropdown_item_1line, collection);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         fondaGroupSpinner.setAdapter(adapter);
+
     }
 
     @Override
@@ -126,14 +173,44 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
         SelectLocationActivity.run(this);
     }
 
+    @Override
+    public void goToHome() {
+        this.finish();
+    }
+
+    @Override
+    public void createSuccess() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setNegativeButton("Home", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        CreateFondaActivity.this.goToHome();
+                    }
+                })
+                .setPositiveButton("Go to detail", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(R.drawable.ic_done_black_48dp)
+                .setMessage(R.string.create_fonda_success)
+                .create();
+        dialog.show();
+    }
+
     @OnActivityResult(REQUEST_CODE_SELECT_LOCATION)
     void onLocationSelectResult(Intent intent) {
-        // receive location after map location selector activity finish
+        // nhận kết quả trả về từ activity map select location
         LatLng location =  intent.getParcelableExtra("location");
         if (location == null)
             return;
-
+        // lấy dữ liệu geocoding bằng lat long
         mapPresenter.getLocationInfo(location);
+        mLocation.longitude = location.longitude;
+        mLocation.latitude = location.latitude;
+        validateInput();
     }
 
     // chọn giờ mở cửa.
@@ -152,6 +229,8 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
     @Click(R.id.open_day_tv)
     public void openDayClick(){
         final CharSequence[] items = {" Monday", "Tuesday"," Wednesday","Thursday", "Friday", "Satuday", "Sunday"};
+        final int[] values = {1, 2, 4, 8, 16, 32, 64};
+
         // arraylist to keep the selected items
         final ArrayList seletedItems = new ArrayList();
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -159,7 +238,11 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        openDay = 0;
+                        for (Object selectedIndex : seletedItems){
+                            openDay += values[Integer.parseInt(selectedIndex.toString())];
+                        }
+                        validateInput();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -180,7 +263,7 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
                         }
                     }
                 }).create();
-        dialog.show();;
+        dialog.show();
 
     }
 
@@ -196,6 +279,31 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
         addressEdt.setText(fullAddress);
         cityTv.setText(city);
         provinceTv.setText(province);
-        this.mPlaceId = placeId;
+
+        mLocation.city = city;
+        mLocation.fullAddress = fullAddress;
+        mLocation.province = province;
+        mLocation.placeId = placeId;
+
+
+    }
+
+    @Click(R.id.btn_submit)
+    public void acceptBtnClick(){
+        Fonda fonda  = new Fonda();
+        fonda.name = nameEdt.getText();
+        fonda.groupId = ((FondaGroup)fondaGroupSpinner.getSelectedItem()).id;
+        fonda.scale = scaleSpinner.getSelectedIndex() + 1;
+        fonda.openTime = openTimeTv.getText().toString();
+        fonda.closeTime = closeTimeTv.getText().toString();
+        fonda.phone_1 = phoneEdit.getText();
+        fonda.description = descriptionEdt.getText();
+        fonda.open_day = openDay;
+        fonda.location = mLocation;
+
+        String token = mPref.userToken().get();
+        presenter.createFonda(token, fonda);
+
+
     }
 }

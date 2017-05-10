@@ -17,13 +17,19 @@ public class Location implements Serializable{
     public double longitude;
 
     @SerializedName("latitude")
-    public String latitude;
+    public double latitude;
 
     @SerializedName("city")
     public String city;
 
+    @SerializedName("province")
+    public String province;
+
     @SerializedName("address")
     public String fullAddress;
+
+    @SerializedName("place_id")
+    public String placeId;  // use for Google Place API
 
     @SerializedName("profile_id")
     public int profileId;
@@ -31,4 +37,9 @@ public class Location implements Serializable{
     //Foreign Key
     @SerializedName("fonda_id")
     public int fondaId;
+
+    @Override
+    public String toString(){
+        return latitude + "," + longitude;
+    }
 }

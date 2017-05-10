@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
@@ -96,4 +97,15 @@ public class CustomViewInputSpinner  extends LinearLayout  {
     }
 
 
+    public SpinnerAdapter getAdapter() {
+        return spinner.getAdapter();
+    }
+
+    public Object getSelectedItem() {
+        return spinner.getSelectedItem();
+    }
+
+    public int getSelectedIndex() {
+        return spinner.getSelectedItemPosition();
+    }
 }

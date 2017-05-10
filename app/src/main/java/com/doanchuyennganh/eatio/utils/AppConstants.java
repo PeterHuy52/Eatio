@@ -15,6 +15,8 @@ public class AppConstants {
         String DATE_FORMAT = "yyyy-MM-dd";
     }
 
+
+
     public interface ResponseCode {
         //User error
         int WRONG_USERNAME_OR_PASSWORD = 40101;

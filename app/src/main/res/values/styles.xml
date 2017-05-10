@@ -21,7 +21,7 @@
         <item name="android:layout_marginTop">12dp</item>
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">#EEFFFFFF</item>
-        <item name="android:background">#00C853</item>
+        <item name="android:background">@drawable/primary_action_btn_selector</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
         <item name="android:elevation" tools:ignore="NewApi">2dp</item>

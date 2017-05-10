@@ -29,7 +29,7 @@ public class ProfilePresenterImpl implements ProfilePresenter {
 
             @Override
             public void responseError(Error error) {
-                if (error.code == 40403){
+                if (error.code == 40300){
                     mView.goToLogin();
                 }
             }

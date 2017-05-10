@@ -46,6 +46,8 @@
     <string name="welcome_flash">Welcome to Eatio</string>
     <string name="resend_password">Reset password</string>
 
+    <string name="create_fonda_success">Create new place success</string>
+
     <string-array name="scale_option">
         <item>Dưới 50 chỗ ngỗi</item>
         <item>50 đến 100 chỗ ngồi</item>

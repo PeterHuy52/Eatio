@@ -2,6 +2,7 @@ package com.doanchuyennganh.eatio.api;
 
 
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
+import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 
 import java.util.Map;
@@ -24,11 +25,13 @@ import rx.Observable;
  */
 
 public interface FondaApi {
-//    @FormUrlEncoded
-//    @POST("/fonda")
-//    Observable<FondaResponse> createFonda(@Field("token") String token, @Field("name") String name, @Field("group_id") int categoryId
-//                                        , @Field("scale") int scale, @Field("open_time") String openTime, @Field("close_time") String closeTime
-//                                        , @Field("open_day") int openDay, @Field("location") String location);
+    @FormUrlEncoded
+    @POST("/fonda")
+    Call<ApiResponse<Fonda>> createFonda(@Field("token") String token, @Field("name") String name, @Field("group_id") int categoryId,
+                                         @Field("scale") int scale, @Field("open_time") String openTime, @Field("close_time") String closeTime,
+                                         @Field("open_day") int openDay, @Field("phone_1")String phone,
+                                         @Field("location") String location, @Field("address") String address, @Field("city") String city,
+                                         @Field("province") String province, @Field("place_id") String placeId);
 //
 //    @POST("/fonda")
 //    Observable<FondaResponse> createFonda(@Body CreateFondaRequest request);

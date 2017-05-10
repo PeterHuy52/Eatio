@@ -30,6 +30,7 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
         }
         else {
             // TODO: 05/06/2017
+            responseFail(response.message());
         }
     }
 
@@ -46,6 +47,6 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
     public void responseCollection(List<TEnityResponse> collection){}
 
     public void requestFail(int info){}
-    public void responseFail(int info){}
+    public void responseFail(String info){}
     public void responseBody(ApiResponse<TEnityResponse> body){}
 }

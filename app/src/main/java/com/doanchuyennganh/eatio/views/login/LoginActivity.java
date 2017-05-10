@@ -34,7 +34,7 @@ import org.androidannotations.annotations.ViewById;
 public class LoginActivity extends BaseActivity implements LoginView, IMessageView {
 
     public static void run(Context context){
-        LoginActivity_.intent(context).flags(Intent.FLAG_ACTIVITY_CLEAR_TOP).start();
+        LoginActivity_.intent(context).flags(Intent.FLAG_ACTIVITY_NEW_TASK).start();
     }
 
     LoginPresenter mPresenter;
