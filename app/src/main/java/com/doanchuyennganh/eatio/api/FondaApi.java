@@ -39,11 +39,15 @@ public interface FondaApi {
 //    @GET("/fonda")
 //    Observable<FondaCollectionResponse> getListFonda(@QueryMap Map<String,String> query);
 //
-//    @GET("/fonda/{id}")
-//    Observable<FondaResponse> getDetailFonda(@Path("id") int fondaId);
+    @GET("/fonda/{id}")
+    Call<ApiResponse<Fonda>> getFonda(@Path("id") int fondaId);
 //
     @GET("/fonda_group")
     Call<ApiResponse<FondaGroup>> getFondaGroups(@Query("name") String name);
+
+    @FormUrlEncoded
+    @PUT("/fonda/{id}")
+    Call<ApiResponse<Fonda>> updateName(@Path("id") int id, @Field("token") String token, @Field("phone_1") String phone);
 //
 //    //Api Sale---------------------------------
 //    @FormUrlEncoded

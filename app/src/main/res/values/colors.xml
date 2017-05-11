@@ -13,7 +13,7 @@
     <color name="secondaryText">#88444444</color>
     <color name="primaryLightText">#DFFF</color>
     <color name="colorBackground">#FFD450</color>
-    <color name="background">#FAF399</color>
+    <color name="background">#f7e9a5</color>
     <color name="unselected">#BDBDBD</color>
 
     <color name="bg_login">#26ae90</color>

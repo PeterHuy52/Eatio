@@ -74,5 +74,10 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         return ConnectionUtils.hasInternetConnection(this);
     }
 
+    @Override
+    public boolean isOwner(int checkUserId) {
+        return mPref.userId().getOr(-1).equals(checkUserId);
+    }
+
 
 }

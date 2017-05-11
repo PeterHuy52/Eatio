@@ -33,4 +33,14 @@ public class FondaModel {
             .enqueue(callback);
 
     }
+
+    public void getFonda(int fondaId, ApiRequestCallback<Fonda> callback) {
+        api.getFonda(fondaId).enqueue(callback);
+    }
+
+    public void updatePhone(String token, int id, String phone, ApiRequestCallback<Fonda> callback) {
+        api.updateName(id, token, phone)
+                .enqueue(callback);
+
+    }
 }

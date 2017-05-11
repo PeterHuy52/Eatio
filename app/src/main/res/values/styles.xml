@@ -67,4 +67,10 @@
         <item name="android:paddingLeft">4dp</item>
     </style>
 
+    <style name="fonda_statistic_primary_txt">
+        <item name="android:textSize">@dimen/text_size_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primaryText</item>
+    </style>
+
 </resources>

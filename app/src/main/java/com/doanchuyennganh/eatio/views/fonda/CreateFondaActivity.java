@@ -92,9 +92,6 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
     Button acceptBtn;
 
 
-
-    private GoogleMap mMap;
-
     FondaGroupPresenter presenter;
 
     MapPresenter mapPresenter;

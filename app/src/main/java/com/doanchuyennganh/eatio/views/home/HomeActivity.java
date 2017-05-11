@@ -17,6 +17,7 @@ import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenter;
 import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
 import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity;
+import com.doanchuyennganh.eatio.views.fonda.FondaDetailActivity;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
 import com.doanchuyennganh.eatio.views.login.LoginActivity_;
 
@@ -105,7 +106,8 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
 
     @Click(R.id.fab)
     public void fabBtnClick(){
-        CreateFondaActivity.run(this, this.getUserId(), this.getTokenString());
+//        CreateFondaActivity.run(this, this.getUserId(), this.getTokenString());
+        FondaDetailActivity.run(this, 23);
     }
 
 

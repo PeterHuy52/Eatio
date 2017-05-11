@@ -13,6 +13,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -40,6 +41,7 @@
         <activity android:name="com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity_" />
         <activity android:name="com.doanchuyennganh.eatio.views.home.HomeActivity_"/>
         <activity android:name="com.doanchuyennganh.eatio.views.mapactivity.SelectLocationActivity_"/>
+        <activity android:name="com.doanchuyennganh.eatio.views.fonda.FondaDetailActivity_"/>
         <activity android:name="com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity_"
             android:windowSoftInputMode="adjustPan">
             <meta-data android:name="android.support.PARENT_ACTIVITY"

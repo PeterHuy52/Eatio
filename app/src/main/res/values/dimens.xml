@@ -20,6 +20,6 @@
     <dimen name="text_size_normal">20sp</dimen>
     <dimen name="text_size_large">24sp</dimen>
 
-
+    <dimen name="dialog_radius">4dp</dimen>
 
 </resources>
