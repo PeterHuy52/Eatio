@@ -33,7 +33,62 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
     @Override
     public void updatePhone(String token, int id, String phone) {
         FondaModel model = new FondaModel();
-        model.updatePhone(token, id, phone,new ApiRequestCallback<Fonda>(){
+        model.updatePhone(token, id, phone, new ApiRequestCallback<Fonda>(){
+            @Override
+            public void responseData(Fonda data){
+                mView.setFonda(data);
+            }
+        });
+    }
+
+    @Override
+    public void updateName(String token, int id, String name) {
+        FondaModel model = new FondaModel();
+        model.updateName(token, id, name, new ApiRequestCallback<Fonda>(){
+            @Override
+            public void responseData(Fonda data){
+                mView.setFonda(data);
+            }
+        });
+    }
+
+    @Override
+    public void updateAddress(String token, int id, String address) {
+        FondaModel model = new FondaModel();
+        model.updateAddress(token, id, address, new ApiRequestCallback<Fonda>(){
+            @Override
+            public void responseData(Fonda data){
+                mView.setFonda(data);
+            }
+        });
+    }
+
+    @Override
+    public void updateOpenTime(String token, int id, String openTime) {
+        FondaModel model = new FondaModel();
+        model.updateOpenTime(token, id, openTime, new ApiRequestCallback<Fonda>(){
+            @Override
+            public void responseData(Fonda data){
+                mView.setFonda(data);
+            }
+        });
+    }
+
+    @Override
+    public void updateCloseTime(String token, int id, String closeTime) {
+        FondaModel model = new FondaModel();
+        model.updateCloseTime(token, id, closeTime, new ApiRequestCallback<Fonda>(){
+            @Override
+            public void responseData(Fonda data){
+                mView.setFonda(data);
+            }
+        });
+    }
+
+    @Override
+    public void updateOpenDay(String token, int id, String openDay) {
+        FondaModel model = new FondaModel();
+        model.updateOpenDay(token, id, openDay, new ApiRequestCallback<Fonda>(){
             @Override
             public void responseData(Fonda data){
                 mView.setFonda(data);

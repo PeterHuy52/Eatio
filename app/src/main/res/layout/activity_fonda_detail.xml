@@ -241,24 +241,44 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp">
 
-                <TextView
-                    android:id="@+id/open_time_tv"
+                <LinearLayout
+                    android:id="@+id/time_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00:00 - 00:00"
+                    android:orientation="horizontal"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/primaryText"
                     android:paddingBottom="2dp"
-                    android:paddingTop="2dp"/>
+                    android:paddingTop="2dp">
+                    <TextView
+                        android:id="@+id/open_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00:00"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryText"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" - "
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryText" />
+                    <TextView
+                        android:id="@+id/close_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00:00"
+                        android:textStyle="bold"
+                        android:textColor="@color/primaryText"/>
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/open_day_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="T2, T3"
-                    android:layout_below="@+id/open_time_tv"
+                    android:layout_below="@+id/time_container"
                     android:textColor="@color/secondaryText"
                     android:textSize="12sp"
                     android:paddingBottom="2dp"
@@ -278,6 +298,6 @@
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
-
     </ScrollView>
+
 </android.support.v4.widget.SwipeRefreshLayout>

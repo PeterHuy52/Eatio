@@ -39,8 +39,32 @@ public class FondaModel {
     }
 
     public void updatePhone(String token, int id, String phone, ApiRequestCallback<Fonda> callback) {
-        api.updateName(id, token, phone)
+        api.updatePhone(id, token, phone)
                 .enqueue(callback);
+    }
 
+    public void updateName(String token, int id, String name, ApiRequestCallback<Fonda> callback) {
+        api.updateName(id, token, name)
+                .enqueue(callback);
+    }
+
+    public void updateAddress(String token, int id, String address, ApiRequestCallback<Fonda> callback) {
+        api.updateAddress(id, token, address)
+                .enqueue(callback);
+    }
+
+    public void updateOpenTime(String token, int id, String openTime, ApiRequestCallback<Fonda> callback) {
+        api.updateOpenTime(id, token, openTime)
+                .enqueue(callback);
+    }
+
+    public void updateCloseTime(String token, int id, String closeTime, ApiRequestCallback<Fonda> callback) {
+        api.updateCloseTime(id, token, closeTime)
+                .enqueue(callback);
+    }
+
+    public void updateOpenDay(String token, int id, String openDay, ApiRequestCallback<Fonda> callback) {
+        api.updateOpenDay(id, token, openDay)
+                .enqueue(callback);
     }
 }

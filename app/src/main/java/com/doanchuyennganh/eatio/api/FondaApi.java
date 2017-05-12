@@ -47,7 +47,27 @@ public interface FondaApi {
 
     @FormUrlEncoded
     @PUT("/fonda/{id}")
-    Call<ApiResponse<Fonda>> updateName(@Path("id") int id, @Field("token") String token, @Field("phone_1") String phone);
+    Call<ApiResponse<Fonda>> updatePhone(@Path("id") int id, @Field("token") String token, @Field("phone_1") String phone);
+
+    @FormUrlEncoded
+    @PUT("/fonda/{id}")
+    Call<ApiResponse<Fonda>> updateName(@Path("id") int id,  @Field("token") String token,  @Field("name") String name);
+
+    @FormUrlEncoded
+    @PUT("/fonda/{id}")
+    Call<ApiResponse<Fonda>> updateAddress(@Path("id") int id, @Field("token") String token, @Field("address") String address);
+
+    @FormUrlEncoded
+    @PUT("/fonda/{id}")
+    Call<ApiResponse<Fonda>> updateOpenTime(@Path("id") int id, @Field("token") String token, @Field("open_time") String openTime);
+
+    @FormUrlEncoded
+    @PUT("/fonda/{id}")
+    Call<ApiResponse<Fonda>> updateCloseTime(@Path("id") int id, @Field("token") String token, @Field("close_time") String openTime);
+
+    @FormUrlEncoded
+    @PUT("/fonda/{id}")
+    Call<ApiResponse<Fonda>> updateOpenDay(@Path("id") int id, @Field("token") String token, @Field("open_day") String openTime);
 //
 //    //Api Sale---------------------------------
 //    @FormUrlEncoded

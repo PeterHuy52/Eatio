@@ -15,7 +15,5 @@ public interface LocationView {
 
     void currentLocation(Location mLastLocation);
 
-    void showDialogPhoneNumber();
 
-    void call(String phonNumber);
 }
