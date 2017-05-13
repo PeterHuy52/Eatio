@@ -7,8 +7,10 @@ import android.location.Location;
 import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -20,22 +22,23 @@ import com.doanchuyennganh.eatio.presensters.fonda.FondaDetailPresenterImpl;
 import com.doanchuyennganh.eatio.presensters.map.LocationPresenter;
 import com.doanchuyennganh.eatio.presensters.map.LocationPresenterImpl;
 import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.fonda.adapter.UtilitiesAdapter;
 import com.doanchuyennganh.eatio.views.mapactivity.LocationView;
 import com.doanchuyennganh.eatio.views.ui.EdtDialog;
+import com.doanchuyennganh.eatio.views.ui.FondaUtilitiesHolder;
 import com.doanchuyennganh.eatio.views.ui.TimePickerFragment;
 
+import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by TungHo on 05/11/2017.
@@ -87,6 +90,33 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     @ViewById(R.id.call_tv)
     TextView callTv;
 
+    @ViewById(R.id.utilities_holder)
+    FondaUtilitiesHolder utilities;
+
+//    /**
+//     * Danh sách các tiện nghi của quán
+//     */
+//    @ViewById(R.id.utilities_rv_container)
+//    RecyclerView utilitiesRv;
+//
+//    /**
+//     * Add more utilities button
+//     */
+//    @ViewById(R.id.add_more_btn)
+//    TextView addMoreUtilsBtn;
+//
+//    /**
+//     * Edittext create utilities
+//     */
+//    @ViewById(R.id.add_more_utils_edt)
+//    EditText addMoreUtilsEdt;
+//
+//    /**
+//     * Utilities accept btn
+//     */
+//    @ViewById(R.id.accept_btn)
+//    TextView utilsAcceptBtn;
+
     int fondaId;
     Fonda mFonda;
 
@@ -125,6 +155,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         }
         nameTv.setText(this.getIntent().getStringExtra("name"));
         addressTv.setText(this.getIntent().getStringExtra("address"));
+
     }
 
     @Override
@@ -144,6 +175,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         presenter.getFonda(fondaId);
         locationPresenter = new LocationPresenterImpl(this);
         token = mPref.userToken().getOr("");
+
     }
 
 
@@ -199,6 +231,38 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         }
     }
 
+//    @Click(R.id.add_more_btn)
+//    @Override
+//    public void addUtilsClick() {
+//        if (addMoreUtilsBtn.getText().equals("\u002B")){
+//            addMoreUtilsBtn.setText("\u2716");
+//            addMoreUtilsEdt.setVisibility(View.VISIBLE);
+//            utilsAcceptBtn.setVisibility(View.VISIBLE);
+//            utilitiesRv.setVisibility(View.GONE);
+//            addMoreUtilsEdt.setText("");
+//        }
+//        else if (addMoreUtilsBtn.getText().equals("\u2716")){
+//            addMoreUtilsBtn.setText("\u002B");
+//            addMoreUtilsEdt.setVisibility(View.GONE);
+//            utilsAcceptBtn.setVisibility(View.GONE);
+//            utilitiesRv.setVisibility(View.VISIBLE);
+//        }
+//    }
+
+//    @Click(R.id.accept_btn)
+//    @Override
+//    public void utilsAcceptBtnClick(){
+//
+//    }
+//
+//    @AfterTextChange
+//    @Override
+//    public void utilsTextChanged(){
+//        String input = addMoreUtilsEdt.getText().toString();
+//    }
+
+
+
     @Override
     public void showInvalidId() {
         if (BuildConfig.DEBUG) {
@@ -229,6 +293,20 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
         if ( mFonda.phone_1 == null || mFonda.phone_1.isEmpty() && isOwner(mFonda.id) == false)
             callTv.setEnabled(false);
+        utilities.setOwner(isOwner(mFonda.userId));
+//        utilities.setUtilities(mFonda.utilities);
+        utilities.setFondaId(mFonda.id);
+        utilities.setToken(getUserToken());
+//        if (mFonda.utilities != null && mFonda.utilities.isEmpty() == false){
+//            utilitiesRv.setAdapter(new UtilitiesAdapter(mFonda.utilities));
+//        }
+//
+//        if (isOwner(mFonda.userId)){
+//            addMoreUtilsBtn.setVisibility(View.VISIBLE);
+//        }
+//        else {
+//            addMoreUtilsBtn.setVisibility(View.GONE);
+//        }
     }
 
     @Override
@@ -300,23 +378,9 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
             distanceTv.setText(String.format("%.1f", results[0]  / 1000) + " km");
     }
 
-    public void showDialogEdit(String title, String initText, final Callback callback){
-        final EdtDialog dialog = new EdtDialog(this);
-        dialog.setTitle(title);
-        dialog.setContent(initText);
-        dialog.setAcceptButton(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.acceptBtnClick(dialog.getContent());
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
     @Override
     public void showPhoneNumberDialog() {
-        showDialogEdit("Update phone", mFonda.phone_1, new Callback() {
+        EdtDialog.EdtDialogHelper.show(this, "Update phone",  mFonda.phone_1, new EdtDialog.Callback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updatePhone(token, mFonda.id, content);
@@ -326,7 +390,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void showNameDialog() {
-        showDialogEdit("Update name", mFonda.name, new Callback() {
+        EdtDialog.EdtDialogHelper.show(this, "Update name",  mFonda.name, new EdtDialog.Callback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updateName(token, mFonda.id, content);
@@ -336,7 +400,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void showAddressDialog() {
-        showDialogEdit("Update address", mFonda.location.fullAddress, new Callback() {
+        EdtDialog.EdtDialogHelper.show(this,"Update address", mFonda.location.fullAddress, new EdtDialog.Callback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updateAddress(token, mFonda.id, content);

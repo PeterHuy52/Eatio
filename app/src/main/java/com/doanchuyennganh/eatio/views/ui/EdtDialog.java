@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.views.fonda.FondaEdit;
 
 /**
  * Created by TungHo on 05/11/2017.
@@ -92,4 +93,26 @@ public class EdtDialog extends Dialog  {
     public String getContent() {
         return this.contentEdt.getText().toString();
     }
+
+    public static class EdtDialogHelper {
+
+        public static void show(Context context, String title, String initText, final Callback callback){
+            final EdtDialog dialog = new EdtDialog(context);
+            dialog.setTitle(title);
+            dialog.setContent(initText);
+            dialog.setAcceptButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.acceptBtnClick(dialog.getContent());
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
+    }
+
+    public interface Callback{
+        void acceptBtnClick(String content);
+    }
+
 }

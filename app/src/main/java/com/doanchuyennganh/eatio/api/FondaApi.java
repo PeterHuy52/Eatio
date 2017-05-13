@@ -4,6 +4,7 @@ package com.doanchuyennganh.eatio.api;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
+import com.doanchuyennganh.eatio.entity.Utility;
 
 import java.util.Map;
 
@@ -68,6 +69,22 @@ public interface FondaApi {
     @FormUrlEncoded
     @PUT("/fonda/{id}")
     Call<ApiResponse<Fonda>> updateOpenDay(@Path("id") int id, @Field("token") String token, @Field("open_day") String openTime);
+
+    @FormUrlEncoded
+    @POST("/fonda/{id}/utility")
+    Call<ApiResponse<Utility>> addUtilities(@Field("token")  String token, @Path("id") int fondaId, @Field("utility_id") int utilityId);
+
+    @FormUrlEncoded
+    @POST("/fonda/{id}/utility")
+    Call<ApiResponse<Utility>> addUtilities(@Field("token")  String token, @Path("id") int fondaId, @Field("utility_name") String utilityName);
+
+    @GET("/fonda/{id}/utility")
+    Call<ApiResponse<Utility>> getUtilities(@Path("id") int fondaId);
+
+    @FormUrlEncoded
+    @PUT("/fonda/{id}/utility/{u_id}")
+    Call<ApiResponse<Utility>> updateFondaUtility(@Field("token") String token, @Path("id") int fondaId, @Path("u_id") int utilityId,
+                                                  @Field("description") String description);
 //
 //    //Api Sale---------------------------------
 //    @FormUrlEncoded

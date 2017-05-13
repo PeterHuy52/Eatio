@@ -16,6 +16,7 @@
         android:text="title"/>
     <EditText
         android:id="@+id/content_edt"
+        android:textColor="@color/primaryText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

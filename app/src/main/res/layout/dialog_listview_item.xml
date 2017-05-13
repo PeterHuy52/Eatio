@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listview_item_tv"
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    android:text="@string/lorem"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:lines="1"
+    android:gravity="center_vertical"
+    android:textColor="@color/primaryText"
+    android:textSize="16sp"
+    android:background="@drawable/dialog_listview_item_background">
+
+</TextView>

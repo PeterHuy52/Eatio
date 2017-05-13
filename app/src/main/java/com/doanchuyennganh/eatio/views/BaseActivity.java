@@ -79,5 +79,9 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
         return mPref.userId().getOr(-1).equals(checkUserId);
     }
 
+    public String getUserToken(){
+        return mPref.userToken().getOr("");
+    }
+
 
 }

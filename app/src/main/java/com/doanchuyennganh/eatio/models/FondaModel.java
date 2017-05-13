@@ -6,6 +6,7 @@ import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
+import com.doanchuyennganh.eatio.entity.Utility;
 
 import retrofit2.Callback;
 
@@ -66,5 +67,39 @@ public class FondaModel {
     public void updateOpenDay(String token, int id, String openDay, ApiRequestCallback<Fonda> callback) {
         api.updateOpenDay(id, token, openDay)
                 .enqueue(callback);
+    }
+
+    /**
+     *
+     * @param token
+     * @param fondaId
+     * @param utilityId By Id
+     * @param callback
+     */
+    public void addUtilities(String token, int fondaId, int utilityId, ApiRequestCallback<Utility> callback) {
+        api.addUtilities(token, fondaId, utilityId)
+                .enqueue(callback);
+    }
+
+    /**
+     *
+     * @param token
+     * @param fondaId
+     * @param utilityName By Name
+     * @param callback
+     */
+    public void addUtilities(String token, int fondaId, String utilityName, ApiRequestCallback<Utility> callback) {
+        api.addUtilities(token, fondaId, utilityName)
+                .enqueue(callback);
+    }
+
+    public void getUtilities(int fondaId, ApiRequestCallback<Utility> callback) {
+        api.getUtilities(fondaId).enqueue(callback);
+    }
+
+    public void updateFondaUtility(String token, int fondaId, int utilityId, String description,
+                                   ApiRequestCallback<Utility> callback) {
+        api.updateFondaUtility(token, fondaId, utilityId, description).enqueue(callback);
+
     }
 }

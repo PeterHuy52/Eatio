@@ -22,4 +22,8 @@
 
     <dimen name="dialog_radius">4dp</dimen>
 
+
+    <dimen name="chips_height">32dp</dimen>
+    <dimen name="chips_radius">16dp</dimen>
+    <dimen name="chips_border">1.6dp</dimen>
 </resources>

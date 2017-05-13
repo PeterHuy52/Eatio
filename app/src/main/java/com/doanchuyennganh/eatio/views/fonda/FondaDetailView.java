@@ -25,5 +25,8 @@ public interface FondaDetailView extends FondaEdit{
     void openTimeClick();
     void closeTimeClick();
     void openDayClick();
+//    void addUtilsClick();
+//    void utilsAcceptBtnClick();
+//    void utilsTextChanged();
 
 }

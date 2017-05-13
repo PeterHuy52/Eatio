@@ -21,8 +21,5 @@ public interface FondaEdit {
      */
     void showOpenTimeDialog();
 
-    interface Callback{
-        void acceptBtnClick(String content);
-    }
 
 }
