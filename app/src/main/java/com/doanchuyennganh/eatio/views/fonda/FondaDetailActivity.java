@@ -7,10 +7,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -21,18 +18,22 @@ import com.doanchuyennganh.eatio.presensters.fonda.FondaDetailPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.FondaDetailPresenterImpl;
 import com.doanchuyennganh.eatio.presensters.map.LocationPresenter;
 import com.doanchuyennganh.eatio.presensters.map.LocationPresenterImpl;
+import com.doanchuyennganh.eatio.presensters.map.MapPresenter;
+import com.doanchuyennganh.eatio.presensters.map.MapPresenterImpl;
 import com.doanchuyennganh.eatio.views.BaseActivity;
-import com.doanchuyennganh.eatio.views.fonda.adapter.UtilitiesAdapter;
 import com.doanchuyennganh.eatio.views.mapactivity.LocationView;
+import com.doanchuyennganh.eatio.views.mapactivity.MapInfoView;
+import com.doanchuyennganh.eatio.views.mapactivity.SelectLocationActivity;
 import com.doanchuyennganh.eatio.views.ui.EdtDialog;
 import com.doanchuyennganh.eatio.views.ui.FondaUtilitiesHolder;
 import com.doanchuyennganh.eatio.views.ui.TimePickerFragment;
+import com.google.android.gms.maps.model.LatLng;
 
-import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 
 import java.text.ParseException;
@@ -44,9 +45,11 @@ import java.util.Date;
  * Created by TungHo on 05/11/2017.
  */
 @EActivity(R.layout.activity_fonda_detail)
-public class FondaDetailActivity extends BaseActivity implements FondaDetailView, LocationView {
+public class FondaDetailActivity extends BaseActivity implements FondaDetailView, LocationView, MapInfoView {
 
     private static final String TAG = FondaDetailActivity.class.getSimpleName();
+
+    private static final int REQUEST_CODE_SELECT_LOCATION = 1;
 
     @ViewById(R.id.swipeRefreshLayout)
     SwipeRefreshLayout refreshLayout;
@@ -122,6 +125,11 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     FondaDetailPresenter presenter;
 
+    /**
+     * Lấy geo info từ lnglat
+     */
+    MapPresenter mapPresenter;
+
     LocationPresenter locationPresenter;
     String token;
 
@@ -174,6 +182,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         presenter = new FondaDetailPresenterImpl(this);
         presenter.getFonda(fondaId);
         locationPresenter = new LocationPresenterImpl(this);
+        mapPresenter = new MapPresenterImpl(this);
         token = mPref.userToken().getOr("");
 
     }
@@ -231,6 +240,12 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         }
     }
 
+    @Click(R.id.distance_tv)
+    @Override
+    public void distanceTvClick(){
+        SelectLocationActivity.run(this);
+    }
+
 //    @Click(R.id.add_more_btn)
 //    @Override
 //    public void addUtilsClick() {
@@ -274,6 +289,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     public void setFonda(Fonda data) {
         mFonda = data;
         this.updateView();
+        // get location để tính khoảng cách
         locationPresenter.getLocation();
     }
 
@@ -373,14 +389,14 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         Location.distanceBetween(lastLocation.getLatitude(), lastLocation.getLongitude(),
                 mFonda.location.latitude, mFonda.location.longitude,  results );
         if (results[0] < 1000)
-            distanceTv.setText(String.format("%.-1f", results[0] ) + " meters");
+            distanceTv.setText( ((int)results[0]) / 10 * 10  + " meters");
         else
             distanceTv.setText(String.format("%.1f", results[0]  / 1000) + " km");
     }
 
     @Override
     public void showPhoneNumberDialog() {
-        EdtDialog.EdtDialogHelper.show(this, "Update phone",  mFonda.phone_1, new EdtDialog.Callback() {
+        EdtDialog.EdtDialogHelper.show(this, "Update phone",  mFonda.phone_1, new EdtDialog.onAcceptBtnClickCallback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updatePhone(token, mFonda.id, content);
@@ -390,7 +406,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void showNameDialog() {
-        EdtDialog.EdtDialogHelper.show(this, "Update name",  mFonda.name, new EdtDialog.Callback() {
+        EdtDialog.EdtDialogHelper.show(this, "Update name",  mFonda.name, new EdtDialog.onAcceptBtnClickCallback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updateName(token, mFonda.id, content);
@@ -400,7 +416,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void showAddressDialog() {
-        EdtDialog.EdtDialogHelper.show(this,"Update address", mFonda.location.fullAddress, new EdtDialog.Callback() {
+        EdtDialog.EdtDialogHelper.show(this,"Update address", mFonda.location.fullAddress, new EdtDialog.onAcceptBtnClickCallback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updateAddress(token, mFonda.id, content);
@@ -486,6 +502,17 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         fragment.show(this.getFragmentManager(), "Update close time");
     }
 
+    @OnActivityResult(REQUEST_CODE_SELECT_LOCATION)
+    void onLocationSelectResult(Intent intent) {
+        // nhận kết quả trả về từ activity map select location
+        LatLng location =  intent.getParcelableExtra("location");
+        if (location == null)
+            return;
+        // lấy dữ liệu geocoding bằng lat long => update city, province.
+        mapPresenter.getLocationInfo(location);
+        presenter.updateLocation(token, mFonda.id, location);
+    }
+
     @Override
     public void call(String phoneNumber) {
         // call now.
@@ -495,5 +522,10 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         } catch (android.content.ActivityNotFoundException ex) {
             this.showToast("Make call failed");
         }
+    }
+
+    @Override
+    public void updateMapInfo(String placeId, String fullAddress, String city, String province) {
+        presenter.updateLocation(token, mFonda.id, placeId, city, province);
     }
 }

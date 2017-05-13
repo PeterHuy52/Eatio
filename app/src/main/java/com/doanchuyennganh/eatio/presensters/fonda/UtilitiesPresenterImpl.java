@@ -75,4 +75,15 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
             }
         });
     }
+
+    @Override
+    public void removeFondaUtility(String mToken, int fondaId, int utilityId) {
+        FondaModel model = new FondaModel();
+        model.removeFondaUtility(mToken, fondaId, utilityId, new ApiRequestCallback<Utility>(){
+            @Override
+            public void responseCollection(List<Utility> collection){
+                mView.updateFondaListUtilities(collection);
+            }
+        });
+    }
 }

@@ -14,6 +14,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -71,6 +72,16 @@ public interface FondaApi {
     Call<ApiResponse<Fonda>> updateOpenDay(@Path("id") int id, @Field("token") String token, @Field("open_day") String openTime);
 
     @FormUrlEncoded
+    @PUT("/fonda/{id}")
+    Call<ApiResponse<Fonda>> updateLocation(@Field("token")  String token, @Path("id") int fondaId, @Field("location") String location);
+
+    @FormUrlEncoded
+    @PUT("/fonda/{id}")
+    Call<ApiResponse<Fonda>> updateLocation(@Field("token")  String token, @Path("id") int fondaId,
+                                            @Field("place_id") String placeId, @Field("city") String city,  @Field("province")  String province);
+
+
+    @FormUrlEncoded
     @POST("/fonda/{id}/utility")
     Call<ApiResponse<Utility>> addUtilities(@Field("token")  String token, @Path("id") int fondaId, @Field("utility_id") int utilityId);
 
@@ -85,6 +96,12 @@ public interface FondaApi {
     @PUT("/fonda/{id}/utility/{u_id}")
     Call<ApiResponse<Utility>> updateFondaUtility(@Field("token") String token, @Path("id") int fondaId, @Path("u_id") int utilityId,
                                                   @Field("description") String description);
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "/fonda/{id}/utility/{u_id}", hasBody = true)
+    Call<ApiResponse<Utility>> removeFondaUtility(@Field("token") String token, @Path("id") int fondaId, @Path("u_id") int utilityId);
+
+
 //
 //    //Api Sale---------------------------------
 //    @FormUrlEncoded

@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.views.fonda.FondaEdit;
 
 /**
  * Created by TungHo on 05/11/2017.
@@ -20,11 +19,11 @@ import com.doanchuyennganh.eatio.views.fonda.FondaEdit;
 
 public class EdtDialog extends Dialog  {
 
-    Button acceptButton;
+    private Button acceptButton;
 
-    Button cancelButton;
+    private Button cancelButton;
 
-    EditText contentEdt;
+    private EditText contentEdt;
 
 
     public EdtDialog(@NonNull Context context) {
@@ -71,11 +70,19 @@ public class EdtDialog extends Dialog  {
         titleTv.setVisibility(View.VISIBLE);
     }
 
-    public void setAcceptButton(View.OnClickListener listener){
+    public void setPositiveBtnTxt(String text){
+        acceptButton.setText(text);
+    }
+
+    public void setNegativeBtnTxt(String text){
+        cancelButton.setText(text);
+    }
+
+    private void setAcceptButton(View.OnClickListener listener){
         acceptButton.setOnClickListener( listener);
     }
 
-    public void setCancelButton(View.OnClickListener listener){
+    private void setCancelButton(View.OnClickListener listener){
         cancelButton.setOnClickListener( listener);
     }
 
@@ -96,7 +103,8 @@ public class EdtDialog extends Dialog  {
 
     public static class EdtDialogHelper {
 
-        public static void show(Context context, String title, String initText, final Callback callback){
+        public static void show(Context context, String title, String initText,
+                                @NonNull final onAcceptBtnClickCallback callback){
             final EdtDialog dialog = new EdtDialog(context);
             dialog.setTitle(title);
             dialog.setContent(initText);
@@ -109,10 +117,37 @@ public class EdtDialog extends Dialog  {
             });
             dialog.show();
         }
+
+        public static EdtDialog build(Context context, String title, String initText,
+                                @NonNull final onAcceptBtnClickCallback callback,
+                                @NonNull final onCancelBtnClickCallback cancelBtnClickCallback){
+            final EdtDialog dialog = new EdtDialog(context);
+            dialog.setTitle(title);
+            dialog.setContent(initText);
+            dialog.setAcceptButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    callback.acceptBtnClick(dialog.getContent());
+                    dialog.dismiss();
+                }
+            });
+            dialog.setCancelButton(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cancelBtnClickCallback.cancelBtnClick();
+                    dialog.dismiss();
+                }
+            });
+            return dialog;
+        }
     }
 
-    public interface Callback{
+    public interface onAcceptBtnClickCallback {
         void acceptBtnClick(String content);
+    }
+
+    public interface onCancelBtnClickCallback {
+        void cancelBtnClick();
     }
 
 }

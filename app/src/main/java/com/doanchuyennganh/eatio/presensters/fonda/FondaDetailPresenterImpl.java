@@ -2,9 +2,11 @@ package com.doanchuyennganh.eatio.presensters.fonda;
 
 
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
+import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.models.FondaModel;
 import com.doanchuyennganh.eatio.views.fonda.FondaDetailView;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by TungHo on 05/11/2017.
@@ -92,6 +94,27 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
             @Override
             public void responseData(Fonda data){
                 mView.setFonda(data);
+            }
+        });
+    }
+
+    @Override
+    public void updateLocation(String token, int id, LatLng location) {
+        FondaModel model = new FondaModel();
+        model.updateLocation(token, id, location, new ApiRequestCallback<Fonda>(){
+            @Override
+            public void responseData(Fonda data){
+                mView.setFonda(data);
+            }
+        });
+    }
+
+    @Override
+    public void updateLocation(String token, int id, String placeId, String city, String province) {
+        FondaModel model = new FondaModel();
+        model.updateLocation(token, id, placeId, city, province, new ApiRequestCallback<Fonda>(){
+            public void responseBody(ApiResponse<Fonda> body){
+                //success
             }
         });
     }

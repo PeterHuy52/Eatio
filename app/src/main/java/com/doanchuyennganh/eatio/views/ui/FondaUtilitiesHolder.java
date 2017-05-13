@@ -1,9 +1,7 @@
 package com.doanchuyennganh.eatio.views.ui;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -14,11 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.Utility;
 import com.doanchuyennganh.eatio.presensters.fonda.UtilitiesPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.UtilitiesPresenterImpl;
-import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.FondaUtilitiesView;
 import com.doanchuyennganh.eatio.views.fonda.adapter.UtilitiesAdapter;
 
@@ -33,6 +29,9 @@ import org.androidannotations.api.BackgroundExecutor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.doanchuyennganh.eatio.utils.AppConstants.UNICODE_PLUS_SYMBOL;
+import static com.doanchuyennganh.eatio.utils.AppConstants.UNICODE_CANCEL_SYMBOL;
+
 /**
  * Created by TungHo on 05/13/2017.
  */
@@ -40,6 +39,7 @@ import java.util.List;
 public class FondaUtilitiesHolder extends RelativeLayout implements FondaUtilitiesView {
 
     public static final int MAX_UTIL_PER_FONDA = 8;
+
     /**
      * Token string received from parent activity
      */
@@ -133,17 +133,17 @@ public class FondaUtilitiesHolder extends RelativeLayout implements FondaUtiliti
 
     @Click(R.id.add_more_btn)
     public void addUtilsClick() {
-        if (addMoreUtilsBtn.getText().equals("\u002B")){
+        if (addMoreUtilsBtn.getText().equals(UNICODE_PLUS_SYMBOL)){
             // begin edit
-            addMoreUtilsBtn.setText("\u2716");
+            addMoreUtilsBtn.setText(UNICODE_CANCEL_SYMBOL);
             addMoreUtilsEdt.setVisibility(View.VISIBLE);
             utilsAcceptBtn.setVisibility(View.VISIBLE);
             utilitiesRv.setVisibility(View.GONE);
             addMoreUtilsEdt.setText("");
         }
-        else if (addMoreUtilsBtn.getText().equals("\u2716")){
+        else if (addMoreUtilsBtn.getText().equals(UNICODE_CANCEL_SYMBOL)){
             // cancel
-            addMoreUtilsBtn.setText("\u002B");
+            addMoreUtilsBtn.setText(UNICODE_PLUS_SYMBOL);
             addMoreUtilsEdt.setVisibility(View.GONE);
             utilsAcceptBtn.setVisibility(View.GONE);
             utilitiesRv.setVisibility(View.VISIBLE);
@@ -198,13 +198,22 @@ public class FondaUtilitiesHolder extends RelativeLayout implements FondaUtiliti
                 @Override
                 public void onSelectItem(final Utility u) {
                     if (FondaUtilitiesHolder.this.isOwner){
-                        EdtDialog.EdtDialogHelper.show(FondaUtilitiesHolder.this.getContext(),
-                                "Update description", u.description, new EdtDialog.Callback() {
+                        EdtDialog dialog = EdtDialog.EdtDialogHelper.build(FondaUtilitiesHolder.this.getContext(),
+                                "Update description", u.description,
+                                new EdtDialog.onAcceptBtnClickCallback() {
                                     @Override
                                     public void acceptBtnClick(String content) {
                                         presenter.updateFondaUtility(mToken, fondaId, u.id, content);
                                     }
+                                },
+                                new EdtDialog.onCancelBtnClickCallback() {
+                                    @Override
+                                    public void cancelBtnClick() {
+                                        presenter.removeFondaUtility(mToken, fondaId, u.id);
+                                    }
                                 });
+                        dialog.setNegativeBtnTxt("Remove");
+                        dialog.show();
                     }
                     else {
 
@@ -212,12 +221,14 @@ public class FondaUtilitiesHolder extends RelativeLayout implements FondaUtiliti
                 }
             });
             utilitiesRv.setAdapter(adapter);
-        }
-        else if (utilities != null && utilities.size() >= MAX_UTIL_PER_FONDA) {
-            addMoreUtilsBtn.setEnabled(false);
+
+            // Nếu quá số utils của một fonda thì disable nút add
+            addMoreUtilsBtn.setEnabled(utilities.size() < MAX_UTIL_PER_FONDA);
         }
 
+
         if (isOwner){
+            addMoreUtilsBtn.setText(UNICODE_PLUS_SYMBOL);
             addMoreUtilsBtn.setVisibility(View.VISIBLE);
         }
         else {

@@ -7,6 +7,7 @@ import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.entity.Utility;
+import com.google.android.gms.maps.model.LatLng;
 
 import retrofit2.Callback;
 
@@ -100,6 +101,21 @@ public class FondaModel {
     public void updateFondaUtility(String token, int fondaId, int utilityId, String description,
                                    ApiRequestCallback<Utility> callback) {
         api.updateFondaUtility(token, fondaId, utilityId, description).enqueue(callback);
+
+    }
+
+    public void removeFondaUtility(String token, int fondaId, int utilityId,
+                                   ApiRequestCallback<Utility> callback) {
+        api.removeFondaUtility(token, fondaId, utilityId).enqueue(callback);
+    }
+
+    public void updateLocation(String token, int fondaId, LatLng location, ApiRequestCallback<Fonda> callback) {
+        api.updateLocation(token, fondaId, location.latitude + "," + location.longitude).enqueue(callback);
+    }
+
+    public void updateLocation(String token, int fondaId, String placeId, String city, String province,
+                               ApiRequestCallback<Fonda> callback) {
+        api.updateLocation(token, fondaId, placeId, city, province).enqueue(callback);
 
     }
 }

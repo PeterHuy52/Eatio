@@ -8,7 +8,11 @@ import java.util.Map;
  */
 
 public class AppConstants {
+
+    public static final String UNICODE_PLUS_SYMBOL = "\u002B";
+
     public static final String INVALID_ACCOUNT = "Tài khoản này chưa được kích hoạt, vui lòng kích hoạt tài khoản!";
+    public static final String UNICODE_CANCEL_SYMBOL = "\u2716";
 
     public interface DateFormatter {
         String SERVER_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.'S'Z";//"yyyy-MM-dd'T'HH:mm:ss.SSSSSSSZZZZZ"

@@ -27,6 +27,9 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
                 responseError(response.body().getError());
             if (response.body().getCollections().isEmpty() == false)
                 responseCollection(response.body().getCollections());
+
+            responseBody(response.body());
+
         }
         else {
             // TODO: 05/06/2017

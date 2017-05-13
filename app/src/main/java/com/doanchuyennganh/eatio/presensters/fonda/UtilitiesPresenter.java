@@ -26,4 +26,12 @@ public interface UtilitiesPresenter {
      * @param description
      */
     void updateFondaUtility(String mToken, int fondaId, int id, String description);
+
+    /**
+     * Xoá một utils khỏi một fonda (không phải xoá hẳn util khỏi hệ thống)
+     * @param mToken
+     * @param fondaId
+     * @param id
+     */
+    void removeFondaUtility(String mToken, int fondaId, int id);
 }
