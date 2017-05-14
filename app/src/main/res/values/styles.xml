@@ -73,4 +73,31 @@
         <item name="android:textColor">@color/primaryText</item>
     </style>
 
+    <style name="chips" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:minWidth">76dp</item>
+        <item name="android:background">@drawable/chip_background</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="chips.actionButton">
+        <item name="android:background">@drawable/chips_action_btn_background</item>
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:elevation" tools:ignore="NewApi">2dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+    </style>
+
 </resources>

@@ -8,3 +8,4 @@
 /captures
 .externalNativeBuild
 /.idea/vcs.xml
+app/src/main/java/com/doanchuyennganh/eatio/api/responses/ApiRequestCallback.java.orig

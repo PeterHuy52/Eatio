@@ -20,7 +20,9 @@ public class Utility implements Serializable {
 
     //Foreign Key
     @SerializedName("fonda_id")
-    public int storeId;
+    public int fondaId;
 
+    @SerializedName("fonda_count")
+    public int fondaCount;
 
 }

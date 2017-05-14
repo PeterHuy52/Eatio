@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:text="Label"
+    android:id="@+id/chips_tv"
+    android:layout_marginRight="8dp"
+    style="@style/chips" />

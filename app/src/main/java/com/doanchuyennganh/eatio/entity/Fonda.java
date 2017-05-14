@@ -53,7 +53,7 @@ public class Fonda implements Serializable{
     public FondaGroup  groupEntity;
 
     @SerializedName("utilities")
-    public ArrayList<Utility > utilityEntities;
+    public ArrayList<Utility > utilities;
 
     @SerializedName("culinaries")
     public ArrayList<Culinary> culinaryEntities;

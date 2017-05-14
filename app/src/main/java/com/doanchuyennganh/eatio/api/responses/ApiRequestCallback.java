@@ -1,5 +1,6 @@
 package com.doanchuyennganh.eatio.api.responses;
 
+import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Error;
 
 import java.net.SocketTimeoutException;

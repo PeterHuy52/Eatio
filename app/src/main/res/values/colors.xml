@@ -7,7 +7,7 @@
     <color name="colorPrimaryDark">#FFA000</color>
     <color name="colorAccent">#4DB6AC</color>
     <color name="colorAccentLight">#EE80CBC4</color>
-    <color name="colorAccentDark">#651FFF</color>
+    <color name="colorAccentDark">#138E81</color>
     <color name="textColorPrimary">#DD212121</color>
     <color name="primaryText">#DD212121</color>
     <color name="secondaryText">#88444444</color>
@@ -32,6 +32,8 @@
     <color name="btn_logut_bg">#ff6861</color>
     <color name="light_green">#00C853</color>
     <color name="soft_light_green">#AEF4CC</color>
+
+    <color name="white_soft_cyan">#fcf5ffff</color>
 
     <color name="md_amber_50">#FFF8E1</color>
     <color name="md_amber_100">#FFECB3</color>
