@@ -7,6 +7,8 @@ import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 
+import java.util.Map;
+
 import retrofit2.Callback;
 
 /**
@@ -38,9 +40,14 @@ public class FondaModel {
         api.getFonda(fondaId).enqueue(callback);
     }
 
+    public void getListFonda(Map<String, String> query, ApiRequestCallback<Fonda> callback) {
+        api.getListFonda(query).enqueue(callback);
+    }
+
     public void updatePhone(String token, int id, String phone, ApiRequestCallback<Fonda> callback) {
         api.updateName(id, token, phone)
                 .enqueue(callback);
 
     }
+
 }

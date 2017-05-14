@@ -8,8 +8,6 @@ import com.doanchuyennganh.eatio.entity.FondaGroup;
 import java.util.Map;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -18,7 +16,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
-import rx.Observable;
 
 /**
  * Created by Nguyen Tan Luan on 4/16/2017.
@@ -36,9 +33,9 @@ public interface FondaApi {
 //    @POST("/fonda")
 //    Observable<FondaResponse> createFonda(@Body CreateFondaRequest request);
 //
-//    @GET("/fonda")
-//    Observable<FondaCollectionResponse> getListFonda(@QueryMap Map<String,String> query);
-//
+    @GET("/fonda")
+    Call<ApiResponse<Fonda>> getListFonda(@QueryMap Map<String,String> query);
+
     @GET("/fonda/{id}")
     Call<ApiResponse<Fonda>> getFonda(@Path("id") int fondaId);
 //

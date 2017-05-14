@@ -1,10 +1,9 @@
 package com.doanchuyennganh.eatio.api.responses;
 
-import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Error;
 
 import java.net.SocketTimeoutException;
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,15 +19,16 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
 
     @Override
     public void onResponse(Call<ApiResponse<TEnityResponse>> call, Response<ApiResponse<TEnityResponse>> response) {
-        if (response.isSuccessful()){
+        if (response.isSuccessful()) {
             if (response.body().getData() != null)
                 responseData(response.body().getData());
             if (response.body().getError() != null)
                 responseError(response.body().getError());
-            if (response.body().getCollections().isEmpty() == false)
-                responseCollection(response.body().getCollections());
-        }
-        else {
+            if (response.body().getCollections() != null && response.body().getCollections().getData().isEmpty() == false)
+                responseCollection(response.body().getCollections().getData());
+            if (response.body().getCollections() != null && response.body().getCollections().getData().isEmpty() == false)
+                responseCollectionWithPage(response.body().getCollections().getData(), response.body().getCollections().getLastPage());
+        } else {
             // TODO: 05/06/2017
             responseFail(response.message());
         }
@@ -37,16 +37,29 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
     @Override
     public void onFailure(Call<ApiResponse<TEnityResponse>> call, Throwable t) {
         // TODO: 05/06/2017
-        if (t instanceof SocketTimeoutException){
+        if (t instanceof SocketTimeoutException) {
             requestFail(REQUEST_TIME_OUT);
         }
     }
 
-    public void responseData(TEnityResponse data){}
-    public void responseError(Error error){}
-    public void responseCollection(List<TEnityResponse> collection){}
+    public void responseData(TEnityResponse data) {
+    }
 
-    public void requestFail(int info){}
-    public void responseFail(String info){}
-    public void responseBody(ApiResponse<TEnityResponse> body){}
+    public void responseError(Error error) {
+    }
+
+    public void responseCollection(ArrayList<TEnityResponse> collection) {
+    }
+
+    public void responseCollectionWithPage(ArrayList<TEnityResponse> collection, int lastPage) {
+    }
+
+    public void requestFail(int info) {
+    }
+
+    public void responseFail(String info) {
+    }
+
+    public void responseBody(ApiResponse<TEnityResponse> body) {
+    }
 }

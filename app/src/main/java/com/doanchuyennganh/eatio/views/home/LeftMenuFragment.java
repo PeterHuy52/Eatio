@@ -1,24 +1,17 @@
 package com.doanchuyennganh.eatio.views.home;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
-import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenter;
-import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
+import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.RootContext;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -29,7 +22,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by TungHo on 05/08/2017.
  */
 @EFragment(R.layout.view_left_menu)
-public class LeftMenuFragment extends Fragment implements ProfileView {
+public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView {
 
     @ViewById(R.id.avatar)
     CircleImageView mAvatar;
@@ -62,16 +55,25 @@ public class LeftMenuFragment extends Fragment implements ProfileView {
 
         mAdapter = new LeftMenuAdapter(this.getContext(), itemLeftMenus);
         mRcvMenu.setAdapter(mAdapter);
+
     }
 
     @Override
-    public void updateProfileView(Profile data){
+    public void updateProfileView(Profile data) {
         mUsername.setText(data.lastname + " " + data.firstname);
+        if (data.imageEntity != null) {
+            Picasso.with(getActivity()).load(data.imageEntity.url).into(mAvatar);
+        }
     }
 
     @Override
     public void goToLogin() {
         // do nothing
+    }
+
+    @Click(R.id.nav_header)
+    void navHeaderClick() {
+        ProfileActivity_.intent(getContext()).start();
     }
 
 

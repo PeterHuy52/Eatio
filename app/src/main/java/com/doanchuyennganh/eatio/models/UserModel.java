@@ -1,14 +1,14 @@
 package com.doanchuyennganh.eatio.models;
 
 import com.doanchuyennganh.eatio.api.ApiConnection;
-import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.UserApi;
+import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.AccessToken;
+import com.doanchuyennganh.eatio.entity.Image;
 import com.doanchuyennganh.eatio.entity.Profile;
 import com.doanchuyennganh.eatio.entity.User;
 import com.doanchuyennganh.eatio.entity.VerifyStatus;
-import com.doanchuyennganh.eatio.utils.ConnectionUtils;
 
 import retrofit2.Call;
 
@@ -52,6 +52,19 @@ public class UserModel {
 
     public void getProfile(String token, ApiRequestCallback<Profile> callback){
         api.getProfile(token).enqueue(callback);
+    }
+
+    public void updateProfile(int userId, String token, String firstname,
+                              String lastname, String birthday, String gender, int imageId, ApiRequestCallback<Profile> callback) {
+        api.updateProfileUser(userId, token, firstname, lastname, birthday, gender, imageId).enqueue(callback);
+    }
+
+    public void uploadUserAvatar(int userId, String token, String base64Str, String descriptions, ApiRequestCallback<Image> callback){
+        api.uploadImageUser(userId, token, base64Str, descriptions).enqueue(callback);
+    }
+
+    public void updateUserAvatar(int userId, int imageId, String token, String base64Str, String descriptions, ApiRequestCallback<Image> callback){
+        api.updateImageUser(userId, imageId, token, base64Str, descriptions).enqueue(callback);
     }
 }
 

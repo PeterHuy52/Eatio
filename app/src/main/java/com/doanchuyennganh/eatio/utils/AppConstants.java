@@ -1,8 +1,5 @@
 package com.doanchuyennganh.eatio.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by Nguyen Tan Luan on 3/24/2017.
  */
@@ -53,20 +50,7 @@ public class AppConstants {
 
     }
 
-    static Map<Integer, String> ResponseMessage;
-    static {
-        ResponseMessage.put(ResponseCode.WRONG_USERNAME_OR_PASSWORD,  "Username hoặc Password không đúng, vui lòng kiểm tra lại!");
-        ResponseMessage.put(ResponseCode.EMAIL_EXIST,  "Email đã tồn tại!");
-        ResponseMessage.put(ResponseCode.ACTIVATION_CODE_INVALID,  "Tài khoản này chưa được kích hoạt, vui lòng kích hoạt tài khoản!");
-        ResponseMessage.put(ResponseCode.EMAIL_INVALID, "Email không tồn tại, vui lòng kiểm tra lại!");
-        ResponseMessage.put(ResponseCode.USERNAME_EXIST,  "Username đã tồn tại!");
-        ResponseMessage.put(ResponseCode.USERNAME_INVALID,   "Username không tồn tại, vui lòng kiểm tra lại!");
-        // Không bao giờ rơi vào trường hợp này. Có rời vào cũng không show ra là sai token. mà bắt người dùng đăng nhập
-        ResponseMessage.put(ResponseCode.TOKEN_INVALID, "Sai mã xác thực!");
-        ResponseMessage.put(ResponseCode.USER_NOT_FOUND,  "Người dùng không tồn tại!");
-        ResponseMessage.put(ResponseCode.IMAGE_NOT_FOUND,  "Không thể tìm thấy ảnh đại diện");
 
-    }
 
     public interface VerifyStatus {
         int WAITING_FOR_VERIFY = 1;
@@ -90,8 +74,8 @@ public class AppConstants {
     }
 
     public interface Gender {
-        String MALE = "Male";
-        String FEMALE = "Female";
+        String MALE = "male";
+        String FEMALE = "female";
     }
 
     public static enum ScaleFonda {
@@ -126,5 +110,19 @@ public class AppConstants {
         }
         return output;
     }
+    /*static Map<Integer, String> ResponseMessage;
+    static {
+        ResponseMessage.put(ResponseCode.WRONG_USERNAME_OR_PASSWORD,  "Username hoặc Password không đúng, vui lòng kiểm tra lại!");
+        ResponseMessage.put(ResponseCode.EMAIL_EXIST,  "Email đã tồn tại!");
+        ResponseMessage.put(ResponseCode.ACTIVATION_CODE_INVALID,  "Tài khoản này chưa được kích hoạt, vui lòng kích hoạt tài khoản!");
+        ResponseMessage.put(ResponseCode.EMAIL_INVALID, "Email không tồn tại, vui lòng kiểm tra lại!");
+        ResponseMessage.put(ResponseCode.USERNAME_EXIST,  "Username đã tồn tại!");
+        ResponseMessage.put(ResponseCode.USERNAME_INVALID,   "Username không tồn tại, vui lòng kiểm tra lại!");
+        // Không bao giờ rơi vào trường hợp này. Có rời vào cũng không show ra là sai token. mà bắt người dùng đăng nhập
+        ResponseMessage.put(ResponseCode.TOKEN_INVALID, "Sai mã xác thực!");
+        ResponseMessage.put(ResponseCode.USER_NOT_FOUND,  "Người dùng không tồn tại!");
+        ResponseMessage.put(ResponseCode.IMAGE_NOT_FOUND,  "Không thể tìm thấy ảnh đại diện");
+
+    }*/
 
 }
