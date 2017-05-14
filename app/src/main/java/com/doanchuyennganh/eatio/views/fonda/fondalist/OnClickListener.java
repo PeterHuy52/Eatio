@@ -8,4 +8,5 @@ import android.view.View;
 
 public interface OnClickListener {
     void onItemClick(View view, int id);
+    void onItemClick(View view, String url);
 }

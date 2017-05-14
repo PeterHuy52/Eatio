@@ -121,6 +121,11 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
     }
 
     @Override
+    public void onItemClick(View view, String url) {
+
+    }
+
+    @Override
     public void failLocation() {
 
     }

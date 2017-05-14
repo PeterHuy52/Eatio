@@ -4,6 +4,7 @@ package com.doanchuyennganh.eatio.api;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
+import com.doanchuyennganh.eatio.entity.Image;
 import com.doanchuyennganh.eatio.entity.Utility;
 
 import java.util.Map;
@@ -28,19 +29,21 @@ public interface FondaApi {
     @POST("/fonda")
     Call<ApiResponse<Fonda>> createFonda(@Field("token") String token, @Field("name") String name, @Field("group_id") int categoryId,
                                          @Field("scale") int scale, @Field("open_time") String openTime, @Field("close_time") String closeTime,
-                                         @Field("open_day") int openDay, @Field("phone_1")String phone,
+                                         @Field("open_day") int openDay, @Field("phone_1") String phone,
                                          @Field("location") String location, @Field("address") String address, @Field("city") String city,
                                          @Field("province") String province, @Field("place_id") String placeId);
-//
+
+    //
 //    @POST("/fonda")
 //    Observable<FondaResponse> createFonda(@Body CreateFondaRequest request);
 //
     @GET("/fonda")
-    Call<ApiResponse<Fonda>> getListFonda(@QueryMap Map<String,String> query);
+    Call<ApiResponse<Fonda>> getListFonda(@QueryMap Map<String, String> query);
 
     @GET("/fonda/{id}")
     Call<ApiResponse<Fonda>> getFonda(@Path("id") int fondaId);
-//
+
+    //
     @GET("/fonda_group")
     Call<ApiResponse<FondaGroup>> getFondaGroups(@Query("name") String name);
 
@@ -50,7 +53,7 @@ public interface FondaApi {
 
     @FormUrlEncoded
     @PUT("/fonda/{id}")
-    Call<ApiResponse<Fonda>> updateName(@Path("id") int id,  @Field("token") String token,  @Field("name") String name);
+    Call<ApiResponse<Fonda>> updateName(@Path("id") int id, @Field("token") String token, @Field("name") String name);
 
     @FormUrlEncoded
     @PUT("/fonda/{id}")
@@ -70,21 +73,21 @@ public interface FondaApi {
 
     @FormUrlEncoded
     @PUT("/fonda/{id}")
-    Call<ApiResponse<Fonda>> updateLocation(@Field("token")  String token, @Path("id") int fondaId, @Field("location") String location);
+    Call<ApiResponse<Fonda>> updateLocation(@Field("token") String token, @Path("id") int fondaId, @Field("location") String location);
 
     @FormUrlEncoded
     @PUT("/fonda/{id}")
-    Call<ApiResponse<Fonda>> updateLocation(@Field("token")  String token, @Path("id") int fondaId,
-                                            @Field("place_id") String placeId, @Field("city") String city,  @Field("province")  String province);
+    Call<ApiResponse<Fonda>> updateLocation(@Field("token") String token, @Path("id") int fondaId,
+                                            @Field("place_id") String placeId, @Field("city") String city, @Field("province") String province);
 
 
     @FormUrlEncoded
     @POST("/fonda/{id}/utility")
-    Call<ApiResponse<Utility>> addUtilities(@Field("token")  String token, @Path("id") int fondaId, @Field("utility_id") int utilityId);
+    Call<ApiResponse<Utility>> addUtilities(@Field("token") String token, @Path("id") int fondaId, @Field("utility_id") int utilityId);
 
     @FormUrlEncoded
     @POST("/fonda/{id}/utility")
-    Call<ApiResponse<Utility>> addUtilities(@Field("token")  String token, @Path("id") int fondaId, @Field("utility_name") String utilityName);
+    Call<ApiResponse<Utility>> addUtilities(@Field("token") String token, @Path("id") int fondaId, @Field("utility_name") String utilityName);
 
     @GET("/fonda/{id}/utility")
     Call<ApiResponse<Utility>> getUtilities(@Path("id") int fondaId);
@@ -141,17 +144,18 @@ public interface FondaApi {
 //    Observable<CommentResponse> getUserComment(@Path("id") int storeId);
 //
 //    //API Image of Fonda
-//    @FormUrlEncoded
-//    @GET("/fonda/{id}/image")
-//    Observable<ImageResponse> getImagesFonda(@Path("id") int fondaId);
-//
+
+    @GET("/fonda/{id}/image")
+    Call<ApiResponse<Image>> getImagesFonda(@Path("id") int fondaId, @Query("page") int page);
+
+    //
 //    @FormUrlEncoded
 //    @GET("/fonda/{id}/image/{image_id}")
 //    Observable<ImageResponse> getSingleImageFonda(@Path("id") int fondaId, @Path("image_id") int imageId);
 //
-//    @FormUrlEncoded
-//    @POST("/fonda/{id}/image")
-//    Observable<ImageResponse> uploadImageFonda(@Path("id") int fondaId, @Field("token") String token, @Field("image_base64") String imageBase64,@Field("description") String description);
+    @FormUrlEncoded
+    @POST("/fonda/{id}/image")
+    Call<ApiResponse<Image>> uploadImageFonda(@Path("id") int fondaId, @Field("token") String token, @Field("image_base64") String imageBase64, @Field("description") String description);
 //
 //    @FormUrlEncoded
 //    @PUT("/fonda/{id}/image/{image}")

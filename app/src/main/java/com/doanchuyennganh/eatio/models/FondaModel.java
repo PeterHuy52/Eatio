@@ -6,6 +6,7 @@ import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
+import com.doanchuyennganh.eatio.entity.Image;
 import com.doanchuyennganh.eatio.entity.Utility;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -21,20 +22,20 @@ public class FondaModel {
 
     FondaApi api;
 
-    public FondaModel(){
+    public FondaModel() {
         api = ApiConnection.createService(FondaApi.class);
     }
 
-    public void getGroupList(Callback<ApiResponse<FondaGroup>> callback){
+    public void getGroupList(Callback<ApiResponse<FondaGroup>> callback) {
         api.getFondaGroups("").enqueue(callback);
     }
 
-    public void createFonda(String token,Fonda fonda, ApiRequestCallback<Fonda> callback) {
+    public void createFonda(String token, Fonda fonda, ApiRequestCallback<Fonda> callback) {
         api.createFonda(token,
                 fonda.name, fonda.groupId, fonda.scale, fonda.openTime, fonda.closeTime,
                 fonda.open_day, fonda.phone_1, fonda.location.toString(),
                 fonda.location.fullAddress, fonda.location.city, fonda.location.province, fonda.location.placeId)
-            .enqueue(callback);
+                .enqueue(callback);
 
     }
 
@@ -77,7 +78,6 @@ public class FondaModel {
     }
 
     /**
-     *
      * @param token
      * @param fondaId
      * @param utilityId By Id
@@ -89,7 +89,6 @@ public class FondaModel {
     }
 
     /**
-     *
      * @param token
      * @param fondaId
      * @param utilityName By Name
@@ -123,6 +122,14 @@ public class FondaModel {
                                ApiRequestCallback<Fonda> callback) {
         api.updateLocation(token, fondaId, placeId, city, province).enqueue(callback);
 
+    }
+
+    public void getImagesFonda(int fondaId, int page, ApiRequestCallback<Image> callback) {
+        api.getImagesFonda(fondaId, page).enqueue(callback);
+    }
+
+    public void uploadImageFonda(String token, int fondaId, String base64Str, String description, ApiRequestCallback<Image> callback) {
+        api.uploadImageFonda(fondaId, token, base64Str, description).enqueue(callback);
     }
 
 }

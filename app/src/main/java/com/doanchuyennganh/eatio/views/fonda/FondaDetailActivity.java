@@ -21,6 +21,7 @@ import com.doanchuyennganh.eatio.presensters.map.LocationPresenterImpl;
 import com.doanchuyennganh.eatio.presensters.map.MapPresenter;
 import com.doanchuyennganh.eatio.presensters.map.MapPresenterImpl;
 import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FondaPhotoActivity;
 import com.doanchuyennganh.eatio.views.mapactivity.LocationView;
 import com.doanchuyennganh.eatio.views.mapactivity.MapInfoView;
 import com.doanchuyennganh.eatio.views.mapactivity.SelectLocationActivity;
@@ -133,12 +134,12 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     LocationPresenter locationPresenter;
     String token;
 
-    public static void run(Context context, int fondaId){
+    public static void run(Context context, int fondaId) {
         FondaDetailActivity_.intent(context)
                 .extra("id", fondaId).start();
     }
 
-    public static void run(Context context, int fondaId, String name, String address){
+    public static void run(Context context, int fondaId, String name, String address) {
         FondaDetailActivity_.intent(context)
                 .extra("id", fondaId)
                 .extra("address", address)
@@ -146,7 +147,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     }
 
     @AfterViews
-    void init(){
+    void init() {
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -172,13 +173,13 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     }
 
     @Background
-    public void hideRefreshing(){
+    public void hideRefreshing() {
         refreshLayout.setRefreshing(false);
     }
 
 
     @AfterViews
-    void endInit(){
+    void endInit() {
         presenter = new FondaDetailPresenterImpl(this);
         presenter.getFonda(fondaId);
         locationPresenter = new LocationPresenterImpl(this);
@@ -190,11 +191,10 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Click(R.id.call_tv)
     @Override
-    public void callBtnClick(){
-        if (this.isOwner(mFonda.userId)){
+    public void callBtnClick() {
+        if (this.isOwner(mFonda.userId)) {
             this.showPhoneNumberDialog();
-        }
-        else {
+        } else {
             this.call(mFonda.phone_1);
         }
 //        this.call(mFonda.phone_1);
@@ -203,15 +203,15 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     @Click(R.id.fonda_name_tv)
     @Override
     public void nameTvClick() {
-        if (this.isOwner(mFonda.userId)){
+        if (this.isOwner(mFonda.userId)) {
             this.showNameDialog();
         }
     }
 
     @Click(R.id.fonda_address_tv)
     @Override
-    public void addressTvClick(){
-        if (this.isOwner(mFonda.userId) && mFonda.location != null && mFonda.location.fullAddress.equals("") == false){
+    public void addressTvClick() {
+        if (this.isOwner(mFonda.userId) && mFonda.location != null && mFonda.location.fullAddress.equals("") == false) {
             this.showAddressDialog();
         }
     }
@@ -219,7 +219,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     @Click(R.id.open_time_tv)
     @Override
     public void openTimeClick() {
-        if (this.isOwner(mFonda.userId)){
+        if (this.isOwner(mFonda.userId)) {
             this.showOpenTimeDialog();
         }
     }
@@ -227,22 +227,22 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     @Click(R.id.close_time_tv)
     @Override
     public void closeTimeClick() {
-        if (this.isOwner(mFonda.userId)){
+        if (this.isOwner(mFonda.userId)) {
             this.showCloseTimeDialog();
         }
     }
 
     @Click(R.id.open_day_tv)
     @Override
-    public void openDayClick(){
-        if (this.isOwner(mFonda.userId)){
+    public void openDayClick() {
+        if (this.isOwner(mFonda.userId)) {
             this.showOpenDayDialog();
         }
     }
 
     @Click(R.id.distance_tv)
     @Override
-    public void distanceTvClick(){
+    public void distanceTvClick() {
         SelectLocationActivity.run(this);
     }
 
@@ -276,6 +276,11 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 //        String input = addMoreUtilsEdt.getText().toString();
 //    }
 
+    @Click(R.id.img_photo)
+    @Override
+    public void openPhotoLibrary() {
+        FondaPhotoActivity.run(this, fondaId);
+    }
 
 
     @Override
@@ -307,7 +312,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         closeTimeTv.setText(close);
         openDayTv.setText(this.getOpendayText(mFonda.open_day));
 
-        if ( mFonda.phone_1 == null || mFonda.phone_1.isEmpty() && isOwner(mFonda.id) == false)
+        if (mFonda.phone_1 == null || mFonda.phone_1.isEmpty() && isOwner(mFonda.id) == false)
             callTv.setEnabled(false);
         utilities.setOwner(isOwner(mFonda.userId));
 //        utilities.setUtilities(mFonda.utilities);
@@ -381,22 +386,22 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void currentLocation(Location lastLocation) {
-        if (BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             Log.d(TAG, "Get location successed. Get distance");
         }
         float[] results = new float[3];
 
         Location.distanceBetween(lastLocation.getLatitude(), lastLocation.getLongitude(),
-                mFonda.location.latitude, mFonda.location.longitude,  results );
+                mFonda.location.latitude, mFonda.location.longitude, results);
         if (results[0] < 1000)
-            distanceTv.setText( ((int)results[0]) / 10 * 10  + " meters");
+            distanceTv.setText(((int) results[0]) / 10 * 10 + " meters");
         else
-            distanceTv.setText(String.format("%.1f", results[0]  / 1000) + " km");
+            distanceTv.setText(String.format("%.1f", results[0] / 1000) + " km");
     }
 
     @Override
     public void showPhoneNumberDialog() {
-        EdtDialog.EdtDialogHelper.show(this, "Update phone",  mFonda.phone_1, new EdtDialog.onAcceptBtnClickCallback() {
+        EdtDialog.EdtDialogHelper.show(this, "Update phone", mFonda.phone_1, new EdtDialog.onAcceptBtnClickCallback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updatePhone(token, mFonda.id, content);
@@ -406,7 +411,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void showNameDialog() {
-        EdtDialog.EdtDialogHelper.show(this, "Update name",  mFonda.name, new EdtDialog.onAcceptBtnClickCallback() {
+        EdtDialog.EdtDialogHelper.show(this, "Update name", mFonda.name, new EdtDialog.onAcceptBtnClickCallback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updateName(token, mFonda.id, content);
@@ -416,7 +421,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void showAddressDialog() {
-        EdtDialog.EdtDialogHelper.show(this,"Update address", mFonda.location.fullAddress, new EdtDialog.onAcceptBtnClickCallback() {
+        EdtDialog.EdtDialogHelper.show(this, "Update address", mFonda.location.fullAddress, new EdtDialog.onAcceptBtnClickCallback() {
             @Override
             public void acceptBtnClick(String content) {
                 presenter.updateAddress(token, mFonda.id, content);
@@ -449,7 +454,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void showOpenDayDialog() {
-        final CharSequence[] items = {" Monday", "Tuesday"," Wednesday","Thursday", "Friday", "Satuday", "Sunday"};
+        final CharSequence[] items = {" Monday", "Tuesday", " Wednesday", "Thursday", "Friday", "Satuday", "Sunday"};
         final int[] values = {1, 2, 4, 8, 16, 32, 64};
         final int[] openDay = {0};
         // arraylist to keep the selected items
@@ -459,7 +464,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        for (Object selectedIndex : seletedItems){
+                        for (Object selectedIndex : seletedItems) {
                             openDay[0] += values[Integer.parseInt(selectedIndex.toString())];
                         }
                         presenter.updateOpenDay(token, mFonda.id, String.valueOf(openDay[0]));
@@ -505,7 +510,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     @OnActivityResult(REQUEST_CODE_SELECT_LOCATION)
     void onLocationSelectResult(Intent intent) {
         // nhận kết quả trả về từ activity map select location
-        LatLng location =  intent.getParcelableExtra("location");
+        LatLng location = intent.getParcelableExtra("location");
         if (location == null)
             return;
         // lấy dữ liệu geocoding bằng lat long => update city, province.

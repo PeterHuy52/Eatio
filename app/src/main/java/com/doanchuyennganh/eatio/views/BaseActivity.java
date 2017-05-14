@@ -7,7 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.doanchuyennganh.eatio.utils.ApplicationPreferences_;
+import com.doanchuyennganh.eatio.utils .ApplicationPreferences_;
 import com.doanchuyennganh.eatio.utils.ConnectionUtils;
 
 import org.androidannotations.annotations.EActivity;
