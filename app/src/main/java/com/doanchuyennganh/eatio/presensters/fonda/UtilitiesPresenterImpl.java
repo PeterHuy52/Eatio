@@ -6,7 +6,7 @@ import com.doanchuyennganh.eatio.models.CommonDataModel;
 import com.doanchuyennganh.eatio.models.FondaModel;
 import com.doanchuyennganh.eatio.views.fonda.FondaUtilitiesView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by TungHo on 05/13/2017.
@@ -26,7 +26,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
         CommonDataModel model = new CommonDataModel();
         model.getUtilities(input, new ApiRequestCallback<Utility>(){
             @Override
-            public void responseCollection(List<Utility> collection){
+            public void responseCollection(ArrayList<Utility> collection){
                 mView.updateSuggestListUtilities(collection);
             }
         });
@@ -37,7 +37,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
         FondaModel model = new FondaModel();
         model.addUtilities(token, fondaId, utilityId, new ApiRequestCallback<Utility>(){
             @Override
-            public void responseCollection(List<Utility> collection){
+            public void responseCollection(ArrayList<Utility> collection){
                 mView.updateFondaListUtilities(collection);
             }
         });
@@ -48,7 +48,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
         FondaModel model = new FondaModel();
         model.addUtilities(token, fondaId, utilityName,  new ApiRequestCallback<Utility>(){
             @Override
-            public void responseCollection(List<Utility> collection){
+            public void responseCollection(ArrayList<Utility> collection){
                 mView.updateFondaListUtilities(collection);
             }
         });
@@ -59,7 +59,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
         FondaModel model = new FondaModel();
         model.getUtilities(fondaId, new ApiRequestCallback<Utility>(){
             @Override
-            public void responseCollection(List<Utility> collection){
+            public void responseCollection(ArrayList<Utility> collection){
                 mView.updateFondaListUtilities(collection);
             }
         });
@@ -70,7 +70,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
         FondaModel model = new FondaModel();
         model.updateFondaUtility(mToken, fondaId, utilityId, description, new ApiRequestCallback<Utility>(){
             @Override
-            public void responseCollection(List<Utility> collection){
+            public void responseCollection(ArrayList<Utility> collection){
                 mView.updateFondaListUtilities(collection);
             }
         });
@@ -81,7 +81,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
         FondaModel model = new FondaModel();
         model.removeFondaUtility(mToken, fondaId, utilityId, new ApiRequestCallback<Utility>(){
             @Override
-            public void responseCollection(List<Utility> collection){
+            public void responseCollection(ArrayList<Utility> collection){
                 mView.updateFondaListUtilities(collection);
             }
         });

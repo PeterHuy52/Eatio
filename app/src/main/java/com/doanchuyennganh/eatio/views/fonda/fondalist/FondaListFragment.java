@@ -154,14 +154,4 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
         mFondaAdapter.setDistanceList(mDistanceList);
         mFondaAdapter.notifyDataSetChanged();
     }
-
-    @Override
-    public void showDialogPhoneNumber() {
-
-    }
-
-    @Override
-    public void call(String phonNumber) {
-
-    }
 }
