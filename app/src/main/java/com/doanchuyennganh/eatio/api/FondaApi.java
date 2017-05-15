@@ -2,6 +2,7 @@ package com.doanchuyennganh.eatio.api;
 
 
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
+import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.entity.Image;
@@ -38,7 +39,7 @@ public interface FondaApi {
 //    Observable<FondaResponse> createFonda(@Body CreateFondaRequest request);
 //
     @GET("/fonda")
-    Call<ApiResponse<Fonda>> getListFonda(@QueryMap Map<String, String> query);
+    Call<ApiResponse<Paging<Fonda>>> getListFonda(@QueryMap Map<String, String> query);
 
     @GET("/fonda/{id}")
     Call<ApiResponse<Fonda>> getFonda(@Path("id") int fondaId);
@@ -146,7 +147,7 @@ public interface FondaApi {
 //    //API Image of Fonda
 
     @GET("/fonda/{id}/image")
-    Call<ApiResponse<Image>> getImagesFonda(@Path("id") int fondaId, @Query("page") int page);
+    Call<ApiResponse<Paging<Image>>> getImagesFonda(@Path("id") int fondaId, @Query("page") int page);
 
     //
 //    @FormUrlEncoded

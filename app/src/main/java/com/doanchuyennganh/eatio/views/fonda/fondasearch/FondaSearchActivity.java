@@ -1,5 +1,6 @@
 package com.doanchuyennganh.eatio.views.fonda.fondasearch;
 
+import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
@@ -64,6 +66,9 @@ public class FondaSearchActivity extends BaseActivity implements FondaListView, 
 
     private String mQuery = "";
 
+    public static void run(Context context){
+        FondaSearchActivity_.intent(context).start();
+    }
 
     @AfterViews
     void afterViews() {
@@ -118,7 +123,7 @@ public class FondaSearchActivity extends BaseActivity implements FondaListView, 
     }
 
     @OptionsItem(android.R.id.home)
-    void buttonHomeClick(){
+    void buttonHomeClick() {
         this.finish();
     }
 
@@ -132,8 +137,9 @@ public class FondaSearchActivity extends BaseActivity implements FondaListView, 
     }
 
     @Override
-    public void updateFondaListView(ArrayList<Fonda> fondas, int lastPage) {
-        mLastPage = lastPage;
+    public void updateFondaListView(Paging<Fonda> paging) {
+        mLastPage = paging.getLastPage();
+        ArrayList<Fonda> fondas = paging.getData();
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }

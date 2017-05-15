@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Image;
 import com.doanchuyennganh.eatio.presensters.fonda.fondaphoto.FondaPhotoPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondaphoto.FondaPhotoPresenterImpl;
@@ -166,11 +167,13 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
     }
 
     @Override
-    public void updateImages(ArrayList<Image> images, int lastpage) {
-        mLastPage = lastpage;
+    public void updateImages(Paging<Image> paging) {
+        mLastPage = paging.getLastPage();
+
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
+        ArrayList<Image> images=paging.getData();
         mPhotos.addAll(images);
         mPhotoAdapter.setUpload(false);
         mPhotoAdapter.setmPhotos(mPhotos);

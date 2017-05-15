@@ -14,8 +14,8 @@ import com.doanchuyennganh.eatio.entity.Profile;
 import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenter;
 import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
 import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment_;
-import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchActivity_;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
 
 import org.androidannotations.annotations.AfterViews;
@@ -92,7 +92,7 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     @AfterViews
     public void setupViewPager() {
         adapter = new ViewPagerAdapter(this.getSupportFragmentManager());
-        adapter.addFragment(FondaListFragment_.builder().build(),"New");
+        adapter.addFragment(FondaListFragment_.builder().build(), "New");
 //        adapter.addFragment(FondaListFragment_.builder().build(),"Favorite");
         viewPager.setAdapter(adapter);
     }
@@ -108,12 +108,19 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
 
     @Click(R.id.fab)
     public void fabBtnClick() {
-//        CreateFondaActivity.run(this, this.getUserId(), this.getTokenString());
+        CreateFondaActivity.run(this, this.getUserId(), this.getTokenString());
         //FondaDetailActivity.run(this, 23);
         //ProfileActivity_.intent(this).startForResult(UPDATE_PROFILE_REQUEST_CODE);
-        FondaSearchActivity_.intent(this).start();
+        //FondaSearchActivity_.intent(this).start();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            mDrawerLayout.closeDrawers();
+        }
+    }
 
     @Override
     public void showHomeFragment() {

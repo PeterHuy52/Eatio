@@ -4,6 +4,7 @@ import com.doanchuyennganh.eatio.api.ApiConnection;
 import com.doanchuyennganh.eatio.api.FondaApi;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
+import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.entity.Image;
@@ -43,7 +44,7 @@ public class FondaModel {
         api.getFonda(fondaId).enqueue(callback);
     }
 
-    public void getListFonda(Map<String, String> query, ApiRequestCallback<Fonda> callback) {
+    public void getListFonda(Map<String, String> query, ApiRequestCallback<Paging<Fonda>> callback) {
         api.getListFonda(query).enqueue(callback);
     }
 
@@ -124,7 +125,7 @@ public class FondaModel {
 
     }
 
-    public void getImagesFonda(int fondaId, int page, ApiRequestCallback<Image> callback) {
+    public void getImagesFonda(int fondaId, int page, ApiRequestCallback<Paging<Image>> callback) {
         api.getImagesFonda(fondaId, page).enqueue(callback);
     }
 

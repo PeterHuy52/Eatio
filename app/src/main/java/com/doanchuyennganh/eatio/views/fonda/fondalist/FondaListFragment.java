@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
@@ -80,8 +81,10 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
     }
 
     @Override
-    public void updateFondaListView(ArrayList<Fonda> fondas, int lastPage) {
-        mLastPage = lastPage;
+    public void updateFondaListView(Paging<Fonda> paging) {
+        mLastPage = paging.getLastPage();
+        ArrayList<Fonda> fondas = paging.getData();
+
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }

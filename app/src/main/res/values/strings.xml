@@ -58,6 +58,7 @@
     <string name="left_menu_home">Home</string>
     <string name="left_menu_profile">Profile</string>
     <string name="left_menu_my_shop">My shop</string>
+    <string name="left_menu_search">Search</string>
     <string name="left_menu_setting">Setting</string>
     <string name="left_menu_about">About</string>
     <string name="left_menu_sign_out">Sign out</string>

@@ -3,6 +3,8 @@ package com.doanchuyennganh.eatio.api.responses;
 import com.doanchuyennganh.eatio.entity.Error;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by TungHo on 05/06/2017.
  */
@@ -22,7 +24,7 @@ public class ApiResponse<T > {
     private T data;
 
     @SerializedName("collections")
-    private Paging<T> collections;
+    private ArrayList<T> collections;
 
     @SerializedName("error")
     private Error error;
@@ -67,11 +69,11 @@ public class ApiResponse<T > {
         this.error = error;
     }
 
-    public Paging<T> getCollections() {
+    public ArrayList<T> getCollections() {
         return collections;
     }
 
-    public void setCollections(Paging<T> collections) {
+    public void setCollections(ArrayList<T> collections) {
         this.collections = collections;
     }
 }

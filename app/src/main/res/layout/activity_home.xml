@@ -1,55 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.doanchuyennganh.eatio.views.home.HomeActivity_">
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true"
-        tools:context="com.doanchuyennganh.eatio.views.home.HomeActivity_">
-        <FrameLayout
-            android:id="@+id/left_menu"
-            android:layout_width="@dimen/view_left_menu_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:clickable="true"></FrameLayout>
+        android:background="@color/background"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="fixed"
-                app:tabGravity="fill">
-            </android.support.design.widget.TabLayout>
+                app:tabGravity="fill"
+                app:tabMode="fixed"></android.support.design.widget.TabLayout>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v4.view.ViewPager>
-
+                android:layout_height="match_parent"></android.support.v4.view.ViewPager>
         </LinearLayout>
 
-    </android.support.v4.widget.DrawerLayout>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@android:drawable/ic_input_add"
-        android:elevation="6dp"
-        android:tint="@color/white"
-        tools:ignore="UnusedAttribute" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:elevation="6dp"
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@color/white"
+            tools:ignore="UnusedAttribute" />
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/left_menu"
+        android:layout_width="@dimen/view_left_menu_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"></FrameLayout>
+</android.support.v4.widget.DrawerLayout>
 
-</android.support.design.widget.CoordinatorLayout>

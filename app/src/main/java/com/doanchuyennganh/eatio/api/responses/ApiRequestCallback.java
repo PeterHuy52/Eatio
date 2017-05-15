@@ -24,10 +24,8 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
                 responseData(response.body().getData());
             if (response.body().getError() != null)
                 responseError(response.body().getError());
-            if (response.body().getCollections() != null && response.body().getCollections().getData().isEmpty() == false)
-                responseCollection(response.body().getCollections().getData());
-            if (response.body().getCollections() != null)
-                responseCollectionWithPage(response.body().getCollections().getData(), response.body().getCollections().getLastPage());
+            if (response.body().getCollections() != null && response.body().getCollections().isEmpty() == false)
+                responseCollection(response.body().getCollections());
         } else {
             // TODO: 05/06/2017
             responseFail(response.message());
@@ -51,8 +49,6 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
     public void responseCollection(ArrayList<TEnityResponse> collection) {
     }
 
-    public void responseCollectionWithPage(ArrayList<TEnityResponse> collection, int lastPage) {
-    }
 
     public void requestFail(int info) {
     }
