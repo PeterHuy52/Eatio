@@ -2,11 +2,15 @@ package com.doanchuyennganh.eatio.views.home;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
+import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchActivity;
 import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
 import com.squareup.picasso.Picasso;
 
@@ -14,7 +18,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
 
@@ -46,8 +49,6 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
 
     Context mContext;
 
-    @Pref
-    protected ApplicationPreferences_ mPref;
 
     @AfterViews
     public void setupItemLeftMenu() {
@@ -88,9 +89,10 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        String token = ((BaseActivity) getActivity()).getUserToken();
         switch (i) {
             case 0:
-                HomeActivity.run(mContext, mPref.userToken().get());
+                HomeActivity.run(mContext, token);
                 break;
             case 1:
                 break;
@@ -98,7 +100,7 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
                 FondaSearchActivity.run(mContext);
                 break;
             default:
-                HomeActivity.run(mContext, mPref.userToken().get());
+                HomeActivity.run(mContext, token);
         }
     }
 }
