@@ -98,6 +98,7 @@ public class LoginActivity extends BaseActivity implements LoginView, IMessageVi
     @Override
     public void goToHome(String token){
         this.dismissWaitingDialog();
+        mPref.userToken().put(token);
         HomeActivity.run(this, token);
     }
 

@@ -50,8 +50,8 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
 
     private final int FIRST_PAGE = 1;
 
-    ArrayList<Fonda> mFondaList;
-    ArrayList<String> mDistanceList;
+    ArrayList<Fonda> mFondaList = new ArrayList<>();
+    ArrayList<String> mDistanceList = new ArrayList<>();
 
     LocationPresenter mLocationPresenter;
 
@@ -63,13 +63,15 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
 
     @AfterViews
     void afterViews() {
-        mFondaList = new ArrayList<>();
-        mDistanceList = new ArrayList<>();
+
         mLocationPresenter = new LocationPresenterImpl(this);
         mLocationPresenter.getLocation();
+
         mFondaListPresenter.setView(this);
-        mFondaAdapter.setOnClickListener(this);
         mFondaListPresenter.getFondas(FIRST_PAGE);
+
+        mFondaAdapter.setOnClickListener(this);
+
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -89,7 +91,7 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
             progressBar.setVisibility(View.GONE);
         }
         mFondaList.addAll(fondas);
-        caculateDistance(fondas);
+        caculateDistance(fondas);   // sai chính tả
         //mFondaAdapter.setItems(mFondaList);
         //mFondaAdapter.notifyDataSetChanged();
     }
@@ -145,7 +147,7 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
                         fonda.location.latitude, fonda.location.longitude, results);
                 String distance;
                 if (results[0] < 1000)
-                    distance = String.format("%.-1f", results[0]) + " meters";
+                    distance = ((int) results[0]) / 10 * 10 + " meters";
                 else
                     distance = String.format("%.1f", results[0] / 1000) + " km";
 

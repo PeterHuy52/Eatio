@@ -2,6 +2,7 @@ package com.doanchuyennganh.eatio.api;
 
 
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
+import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.entity.Image;
@@ -38,7 +39,7 @@ public interface FondaApi {
 //    Observable<FondaResponse> createFonda(@Body CreateFondaRequest request);
 //
     @GET("/fonda")
-    Call<ApiResponse<Fonda>> getListFonda(@QueryMap Map<String, String> query);
+    Call<ApiResponse<Paging<Fonda>>> getListFonda(@QueryMap Map<String, String> query);
 
     @GET("/fonda/{id}")
     Call<ApiResponse<Fonda>> getFonda(@Path("id") int fondaId);
@@ -80,6 +81,9 @@ public interface FondaApi {
     Call<ApiResponse<Fonda>> updateLocation(@Field("token") String token, @Path("id") int fondaId,
                                             @Field("place_id") String placeId, @Field("city") String city, @Field("province") String province);
 
+    /**
+     * Utilities
+     */
 
     @FormUrlEncoded
     @POST("/fonda/{id}/utility")

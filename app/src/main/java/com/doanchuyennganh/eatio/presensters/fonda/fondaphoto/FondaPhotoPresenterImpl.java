@@ -9,6 +9,7 @@ import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FondaPhotoView;
 import org.androidannotations.annotations.EBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nguyen Tan Luan on 5/14/2017.
@@ -32,10 +33,13 @@ public class FondaPhotoPresenterImpl implements FondaPhotoPresenter {
     @Override
     public void getImages(int fondaId,int page) {
         mFondaModel.getImagesFonda(fondaId,page, new ApiRequestCallback<Image>() {
-            @Override
-            public void responseCollectionWithPage(ArrayList<Image> collection, int lastPage) {
-                mView.updateImages(collection, lastPage);
-            }
+//            @Override
+//            public void responseData(List<Image> collection, int lastPage) {
+//                mView.updateImages(collection, lastPage);
+//            }
+            // TODO: 05/15/2017 coi lạichỗ này
+//            public void responseData(Image data) {
+//            }
 
             @Override
             public void responseError(Error error) {

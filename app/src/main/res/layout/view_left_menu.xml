@@ -34,6 +34,7 @@
             android:textSize="18sp"/>
 
     </LinearLayout>
+
     <ListView
         android:id="@+id/rcv_menu"
         android:layout_width="match_parent"

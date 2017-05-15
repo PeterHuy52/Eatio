@@ -1,11 +1,14 @@
 package com.doanchuyennganh.eatio.views.home;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
+import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
 import com.squareup.picasso.Picasso;
 
@@ -55,7 +58,12 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView {
 
         mAdapter = new LeftMenuAdapter(this.getContext(), itemLeftMenus);
         mRcvMenu.setAdapter(mAdapter);
-
+        mRcvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ((BaseActivity) getActivity()).showToast("clicked");
+            }
+        });
     }
 
     @Override

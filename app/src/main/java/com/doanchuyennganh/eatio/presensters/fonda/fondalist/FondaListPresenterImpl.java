@@ -1,6 +1,7 @@
 package com.doanchuyennganh.eatio.presensters.fonda.fondalist;
 
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
+import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Error;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.models.FondaModel;
@@ -56,11 +57,16 @@ public class FondaListPresenterImpl implements FondaListPresenter {
     }
 
     private void excuteGetListFonda(Map<String, String> query){
-        model.getListFonda(query, new ApiRequestCallback<Fonda>() {
+        model.getListFonda(query, new ApiRequestCallback<Paging<Fonda>>() {
+
+//            @Override
+//            public void responseCollectionWithPage(ArrayList<Paging<Fonda>> collection, int lastPage) {
+//                mView.updateFondaListView(collection,lastPage);
+//            }
 
             @Override
-            public void responseCollectionWithPage(ArrayList<Fonda> collection, int lastPage) {
-                mView.updateFondaListView(collection,lastPage);
+            public void responseData(Paging<Fonda> fondaPaginationList) {
+                mView.updateFondaListView(fondaPaginationList.getData(), fondaPaginationList.getLastPage());
             }
 
             @Override

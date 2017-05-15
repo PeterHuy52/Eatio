@@ -40,6 +40,7 @@ class LeftMenuAdapter extends ArrayAdapter<LeftMenuAdapter.ItemLeftMenu>{
             TextView tv = ((TextView)view.findViewById(R.id.left_menu_title));
             tv.setText(getItem(position).getTitle());
             tv.setCompoundDrawablesWithIntrinsicBounds(getItem(position).getIcon(), 0, 0, 0);
+
             //
             return view;
         }

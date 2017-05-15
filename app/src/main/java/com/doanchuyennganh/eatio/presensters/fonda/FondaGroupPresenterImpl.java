@@ -8,6 +8,7 @@ import com.doanchuyennganh.eatio.models.FondaModel;
 import com.doanchuyennganh.eatio.views.fonda.FondaGroupView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by TungHo on 05/09/2017.
@@ -27,7 +28,7 @@ public class FondaGroupPresenterImpl implements FondaGroupPresenter {
         FondaModel model = new FondaModel();
         model.getGroupList(new ApiRequestCallback<FondaGroup>() {
             @Override
-            public void responseCollection(ArrayList<FondaGroup> collection) {
+            public void responseCollection(List<FondaGroup> collection) {
                 mView.update(collection);
             }
         });
@@ -41,7 +42,7 @@ public class FondaGroupPresenterImpl implements FondaGroupPresenter {
                 new ApiRequestCallback<Fonda>() {
             @Override
             public void responseData(Fonda fonda){
-                mView.createSuccess();
+                mView.createSuccess(fonda.id);
             }
 
 

@@ -27,7 +27,6 @@ import com.doanchuyennganh.eatio.views.ui.CustomViewInputSpinner;
 import com.doanchuyennganh.eatio.views.fonda.adapter.SpinnerAdapter;
 import com.doanchuyennganh.eatio.views.ui.ItemInputInfoView;
 import com.doanchuyennganh.eatio.views.ui.TimePickerFragment;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.androidannotations.annotations.AfterViews;
@@ -171,12 +170,18 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
     }
 
     @Override
+    public void goToDetail(int fondaId) {
+        FondaDetailActivity.run(this, fondaId);
+        this.finish();
+    }
+
+    @Override
     public void goToHome() {
         this.finish();
     }
 
     @Override
-    public void createSuccess() {
+    public void createSuccess(final int id) {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setNegativeButton("Home", new DialogInterface.OnClickListener() {
                     @Override
@@ -188,8 +193,9 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
                 .setPositiveButton("Go to detail", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        goToDetail(id);
                     }
+
                 })
                 .setIcon(R.drawable.ic_done_black_48dp)
                 .setMessage(R.string.create_fonda_success)
