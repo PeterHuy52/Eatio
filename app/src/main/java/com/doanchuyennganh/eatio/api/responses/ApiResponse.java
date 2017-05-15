@@ -4,6 +4,7 @@ import com.doanchuyennganh.eatio.entity.Error;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by TungHo on 05/06/2017.
@@ -24,7 +25,7 @@ public class ApiResponse<T > {
     private T data;
 
     @SerializedName("collections")
-    private ArrayList<T> collections;
+    private List<T> collections = new ArrayList<>();
 
     @SerializedName("error")
     private Error error;
@@ -69,11 +70,11 @@ public class ApiResponse<T > {
         this.error = error;
     }
 
-    public ArrayList<T> getCollections() {
+    public List<T> getCollections() {
         return collections;
     }
 
-    public void setCollections(ArrayList<T> collections) {
+    public void setCollections(List<T> collections) {
         this.collections = collections;
     }
 }

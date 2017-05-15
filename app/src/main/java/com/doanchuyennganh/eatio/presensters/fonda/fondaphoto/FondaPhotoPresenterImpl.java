@@ -9,6 +9,9 @@ import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FondaPhotoView;
 
 import org.androidannotations.annotations.EBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Nguyen Tan Luan on 5/14/2017.
  */

@@ -4,6 +4,7 @@ import com.doanchuyennganh.eatio.entity.Error;
 
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,7 +47,7 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
     public void responseError(Error error) {
     }
 
-    public void responseCollection(ArrayList<TEnityResponse> collection) {
+    public void responseCollection(List<TEnityResponse> collection) {
     }
 
 

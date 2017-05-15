@@ -81,6 +81,9 @@ public interface FondaApi {
     Call<ApiResponse<Fonda>> updateLocation(@Field("token") String token, @Path("id") int fondaId,
                                             @Field("place_id") String placeId, @Field("city") String city, @Field("province") String province);
 
+    /**
+     * Utilities
+     */
 
     @FormUrlEncoded
     @POST("/fonda/{id}/utility")

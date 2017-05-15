@@ -14,7 +14,9 @@ public interface FondaGroupView {
 
     void goToSelectLocation();
 
+    void goToDetail(int fondaId);
+
     void goToHome();
 
-    void createSuccess();
+    void createSuccess(int id);
 }

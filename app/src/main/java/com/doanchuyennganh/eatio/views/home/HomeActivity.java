@@ -68,14 +68,15 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
 
     @AfterViews
     public void getIntentValues() {
-        this.tokenString = this.getIntent().getStringExtra("token");
+
+        this.tokenString = mPref.userToken().get();
     }
 
     @AfterViews
     public void init() {
         profilePresenter.setLeftMenuHeaderView(this);
         tabLayout.setupWithViewPager(viewPager);
-        profilePresenter.getProfile(this.getTokenString());
+        profilePresenter.getProfile(getUserToken());
     }
 
     @AfterViews
@@ -108,10 +109,10 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
 
     @Click(R.id.fab)
     public void fabBtnClick() {
-        CreateFondaActivity.run(this, this.getUserId(), this.getTokenString());
+        CreateFondaActivity.run(this, this.getUserId(), getUserToken());
         //FondaDetailActivity.run(this, 23);
         //ProfileActivity_.intent(this).startForResult(UPDATE_PROFILE_REQUEST_CODE);
-        //FondaSearchActivity_.intent(this).start();
+//        FondaSearchActivity_.intent(this).start();
     }
 
     @Override
@@ -160,7 +161,7 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     @OnActivityResult(UPDATE_PROFILE_REQUEST_CODE)
     void onResult(int resultCode) {
         if (resultCode == RESULT_OK) {
-            profilePresenter.getProfile(tokenString);
+            profilePresenter.getProfile(getUserToken());
         }
     }
 

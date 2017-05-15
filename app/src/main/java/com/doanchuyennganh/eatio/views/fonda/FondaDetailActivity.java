@@ -7,6 +7,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -211,7 +212,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     @Click(R.id.fonda_address_tv)
     @Override
     public void addressTvClick() {
-        if (this.isOwner(mFonda.userId) && mFonda.location != null && mFonda.location.fullAddress.equals("") == false) {
+        if (this.isOwner(mFonda.userId) && mFonda.location != null && !TextUtils.isEmpty(mFonda.location.fullAddress)) {
             this.showAddressDialog();
         }
     }

@@ -2,16 +2,11 @@ package com.doanchuyennganh.eatio.views.home;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
-import com.doanchuyennganh.eatio.utils.ApplicationPreferences_;
-import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchActivity;
 import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
 import com.squareup.picasso.Picasso;
 
@@ -44,9 +39,6 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
 
     @ViewById(R.id.rcv_menu)
     ListView mRcvMenu;
-
-    @ViewById(R.id.nav_header)
-    LinearLayout navHeader;
 
     LeftMenuAdapter mAdapter;
 
