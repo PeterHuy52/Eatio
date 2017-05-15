@@ -18,12 +18,44 @@ import java.util.Map;
 @EBean
 public class FondaListPresenterImpl implements FondaListPresenter {
     FondaListView mView;
+    FondaModel model ;
+
+    public FondaListPresenterImpl(){
+        model = new FondaModel();
+    }
 
     @Override
     public void getFondas(int page) {
-        FondaModel model = new FondaModel();
-        Map<String,String> query=new HashMap<>();
+        Map<String,String> query= new HashMap<>();
         query.put("page",String.valueOf(page));
+        excuteGetListFonda(query);
+    }
+
+    @Override
+    public void getFondasByName(String name, int page) {
+        Map<String,String> query= new HashMap<>();
+        query.put("name",name);
+        query.put("page",String.valueOf(page));
+        excuteGetListFonda(query);
+    }
+
+    @Override
+    public void getFondasByAddress(String address, int page) {
+        Map<String,String> query= new HashMap<>();
+        query.put("address",address);
+        query.put("page",String.valueOf(page));
+        excuteGetListFonda(query);
+    }
+
+    @Override
+    public void getFondasByCity(String city, int page) {
+        Map<String,String> query= new HashMap<>();
+        query.put("city",city);
+        query.put("page",String.valueOf(page));
+        excuteGetListFonda(query);
+    }
+
+    private void excuteGetListFonda(Map<String, String> query){
         model.getListFonda(query, new ApiRequestCallback<Fonda>() {
 
             @Override

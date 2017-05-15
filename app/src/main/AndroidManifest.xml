@@ -51,6 +51,7 @@
         <activity android:name=".views.profile.ProfileActivity_"/>
         <activity android:name=".views.fonda.fondaphoto.FondaPhotoActivity_"/>
         <activity android:name=".views.fonda.fondaphoto.FullPhotoActivity_"/>
+        <activity android:name=".views.fonda.fondasearch.FondaSearchActivity_"/>
 
 
         <!--

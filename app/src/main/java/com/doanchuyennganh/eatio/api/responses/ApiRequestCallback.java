@@ -1,6 +1,5 @@
 package com.doanchuyennganh.eatio.api.responses;
 
-import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Error;
 
 import java.net.SocketTimeoutException;
@@ -27,7 +26,7 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
                 responseError(response.body().getError());
             if (response.body().getCollections() != null && response.body().getCollections().getData().isEmpty() == false)
                 responseCollection(response.body().getCollections().getData());
-            if (response.body().getCollections() != null && response.body().getCollections().getData().isEmpty() == false)
+            if (response.body().getCollections() != null)
                 responseCollectionWithPage(response.body().getCollections().getData(), response.body().getCollections().getLastPage());
         } else {
             // TODO: 05/06/2017

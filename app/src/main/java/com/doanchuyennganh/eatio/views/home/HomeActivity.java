@@ -15,8 +15,8 @@ import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenter;
 import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
 import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment_;
+import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchActivity_;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
-import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -110,7 +110,8 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     public void fabBtnClick() {
 //        CreateFondaActivity.run(this, this.getUserId(), this.getTokenString());
         //FondaDetailActivity.run(this, 23);
-        ProfileActivity_.intent(this).startForResult(UPDATE_PROFILE_REQUEST_CODE);
+        //ProfileActivity_.intent(this).startForResult(UPDATE_PROFILE_REQUEST_CODE);
+        FondaSearchActivity_.intent(this).start();
     }
 
 
