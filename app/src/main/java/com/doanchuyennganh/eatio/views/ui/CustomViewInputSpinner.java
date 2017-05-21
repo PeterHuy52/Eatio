@@ -5,42 +5,27 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.entity.Fonda;
-import com.doanchuyennganh.eatio.entity.FondaGroup;
-import com.doanchuyennganh.eatio.presensters.fonda.FondaGroupPresenter;
-import com.doanchuyennganh.eatio.presensters.fonda.FondaGroupPresenterImpl;
-import com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity;
-import com.doanchuyennganh.eatio.views.fonda.FondaGroupView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.List;
-
 /**
  * Created by TungHo on 05/09/2017.
  */
 @EViewGroup(R.layout.custom_spinner)
-public class CustomViewInputSpinner  extends LinearLayout  {
+public class CustomViewInputSpinner extends LinearLayout {
 
     @ViewById(R.id.img_icon)
     ImageView icon;
@@ -75,10 +60,9 @@ public class CustomViewInputSpinner  extends LinearLayout  {
     }
 
     @AfterViews
-    public void init(){
+    public void init() {
         icon.setImageDrawable(drawableIcon);
         hintTv.setText(hintText);
-
     }
 
     private void initAttrs(Context context, AttributeSet attrs, int defAttr) {
@@ -91,6 +75,16 @@ public class CustomViewInputSpinner  extends LinearLayout  {
         }
     }
 
+
+    public void setAttrs(Drawable drawable, String hintText) {
+        icon.setImageDrawable(drawable);
+        hintTv.setText(hintText);
+        this.setBackgroundColor(getResources().getColor(R.color.white));
+    }
+
+    public void setOnItemSelectedListener(AdapterView.OnItemSelectedListener listener) {
+        spinner.setOnItemSelectedListener(listener);
+    }
 
     public void setAdapter(ArrayAdapter adapter) {
         spinner.setAdapter(adapter);
@@ -107,5 +101,9 @@ public class CustomViewInputSpinner  extends LinearLayout  {
 
     public int getSelectedIndex() {
         return spinner.getSelectedItemPosition();
+    }
+
+    public String getValue() {
+        return spinner.getSelectedItem().toString();
     }
 }

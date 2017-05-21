@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.doanchuyennganh.eatio.views.ui.CustomViewInputSpinner_
+        android:id="@+id/spinner_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="@string/city_hint"
+        app:ic="@drawable/ic_location" />
+
+
+    <com.doanchuyennganh.eatio.views.ui.CustomViewInputSpinner_
+        android:id="@+id/group_fonda_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="@string/fonda_group_hint"
+        app:ic="@drawable/ic_reorder_black_36dp" />
+
+    <com.doanchuyennganh.eatio.views.ui.CustomViewInputSpinner_
+        android:id="@+id/scale_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hint="@string/scale_hint"
+        app:ic="@drawable/ic_graphic_eq_black_36dp" />
+</LinearLayout>

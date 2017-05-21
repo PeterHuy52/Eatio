@@ -16,6 +16,14 @@ public class AppConstants {
         String DATE_FORMAT = "yyyy-MM-dd";
     }
 
+    public static class TypeToSearch {
+        public static final int QUICK_SEARCH = 0;
+        public static final int SEARCH_BY_CITY = 1;
+        public static final int SEARCH_BY_CATEGORY = 2;
+        public static final int SEARCH_BY_SCALE = 3;
+        public static final int SEARCH_BY_SALE_OFF = 4;
+        public static final int SEARCH_BY_CULINARY = 5;
+    }
 
 
     public interface ResponseCode {
@@ -45,15 +53,14 @@ public class AppConstants {
         int IMAGE_NOT_FOUND = 40406;
         int IMAGE_NOT_BELONG_TO_USER = 40906;
         int CAN_NOT_DELETE_PROFILE_IMAGE = 40907;
-        int IMAGE_EMPTY= 40007;
-        int IMAGE_FORMAT_WRONG=40008;
+        int IMAGE_EMPTY = 40007;
+        int IMAGE_FORMAT_WRONG = 40008;
 
         //Location error
-        int LOCATION_NOT_FOUND=40405;
-        int LOCATION_NOT_BELONG_TO_USER=40905;
+        int LOCATION_NOT_FOUND = 40405;
+        int LOCATION_NOT_BELONG_TO_USER = 40905;
 
     }
-
 
 
     public interface VerifyStatus {

@@ -3,6 +3,7 @@ package com.doanchuyennganh.eatio.api;
 
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.api.responses.Paging;
+import com.doanchuyennganh.eatio.entity.Culinary;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.entity.Image;
@@ -105,6 +106,9 @@ public interface FondaApi {
     @HTTP(method = "DELETE", path = "/fonda/{id}/utility/{u_id}", hasBody = true)
     Call<ApiResponse<Utility>> removeFondaUtility(@Field("token") String token, @Path("id") int fondaId, @Path("u_id") int utilityId);
 
+
+    @GET("/culinary")
+    Call<ApiResponse<Culinary>> getCulinaries(@Query("name") String name);
 
 //
 //    //Api Sale---------------------------------

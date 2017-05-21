@@ -30,6 +30,8 @@
     <string name="phone_hint">Phone number</string>
     <string name="description_hint">Description</string>
     <string name="location_hint">Location</string>
+    <string name="city_hint">City</string>
+    <string name="culinary_hint">Culinary</string>
 
     <string name="btn_login">LOGIN</string>
     <string name="btn_resend_password">RESEND PASSWORD</string>
@@ -52,6 +54,12 @@
         <item>Dưới 50 chỗ ngỗi</item>
         <item>50 đến 100 chỗ ngồi</item>
         <item>Trên 100 chỗ ngồi</item>
+    </string-array>
+
+    <string-array name="city_option">
+        <item>Hồ Chí Minh</item>
+        <item>Hà Nội</item>
+        <item>Đà Nẵng</item>
     </string-array>
 
     <!--left menu title-->

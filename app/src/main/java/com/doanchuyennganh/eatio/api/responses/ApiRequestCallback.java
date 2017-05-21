@@ -1,9 +1,10 @@
 package com.doanchuyennganh.eatio.api.responses;
 
+import android.accounts.NetworkErrorException;
+
 import com.doanchuyennganh.eatio.entity.Error;
 
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,6 +18,7 @@ import retrofit2.Response;
 public abstract class ApiRequestCallback<TEnityResponse> implements Callback<ApiResponse<TEnityResponse>> {
 
     public static final int REQUEST_TIME_OUT = 1;
+    public static final int NETWORK_ERROR = 2;
 
     @Override
     public void onResponse(Call<ApiResponse<TEnityResponse>> call, Response<ApiResponse<TEnityResponse>> response) {
@@ -38,6 +40,9 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
         // TODO: 05/06/2017
         if (t instanceof SocketTimeoutException) {
             requestFail(REQUEST_TIME_OUT);
+        }
+        if (t instanceof NetworkErrorException) {
+            requestFail(NETWORK_ERROR);
         }
     }
 

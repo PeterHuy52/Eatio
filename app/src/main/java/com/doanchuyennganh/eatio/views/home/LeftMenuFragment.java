@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
 import com.doanchuyennganh.eatio.views.BaseActivity;
-import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchActivity;
 import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
 import com.squareup.picasso.Picasso;
 
@@ -55,7 +54,6 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
         itemLeftMenus = new ArrayList<>();
         itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_home, R.string.left_menu_home));
         itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_my_shop, R.string.left_menu_my_shop));
-        itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_home, R.string.left_menu_search));
         itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_setting, R.string.left_menu_setting));
         itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_about, R.string.left_menu_about));
         itemLeftMenus.add(new LeftMenuAdapter.ItemLeftMenu(R.drawable.ic_sign_out, R.string.left_menu_sign_out));
@@ -97,7 +95,10 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
             case 1:
                 break;
             case 2:
-                FondaSearchActivity.run(mContext);
+                break;
+            case 3:
+                break;
+            case 4:
                 break;
             default:
                 HomeActivity.run(mContext, token);

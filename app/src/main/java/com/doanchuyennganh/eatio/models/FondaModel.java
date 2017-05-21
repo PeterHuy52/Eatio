@@ -5,6 +5,7 @@ import com.doanchuyennganh.eatio.api.FondaApi;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.api.responses.Paging;
+import com.doanchuyennganh.eatio.entity.Culinary;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.entity.Image;
@@ -131,6 +132,11 @@ public class FondaModel {
 
     public void uploadImageFonda(String token, int fondaId, String base64Str, String description, ApiRequestCallback<Image> callback) {
         api.uploadImageFonda(fondaId, token, base64Str, description).enqueue(callback);
+    }
+
+    //Fonda Culinary
+    public void getCulinaries(ApiRequestCallback<Culinary> callback) {
+        api.getCulinaries("").enqueue(callback);
     }
 
 }

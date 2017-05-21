@@ -20,14 +20,24 @@ public class PhotoUtils {
     public static final String PREFIX_BASE64 = "data:image/jpeg;base64,";
 
     public static String convertBitmapToBase64(Bitmap bitmap) {
-        Bitmap bm = resizeBitmap(bitmap, 360, 360, false);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         String base64Str = PREFIX_BASE64 + Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
         return base64Str;
     }
 
+    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+                                   boolean filter) {
+        float ratio = Math.min(
+                (float) maxImageSize / realImage.getWidth(),
+                (float) maxImageSize / realImage.getHeight());
+        int width = Math.round((float) ratio * realImage.getWidth());
+        int height = Math.round((float) ratio * realImage.getHeight());
+
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
+        return newBitmap;
+    }
     public static String convertUriToBase64(Context context, Uri uri) throws IOException {
         Bitmap bm=handleImageIfRotate(context, uri);
         return convertBitmapToBase64(bm);

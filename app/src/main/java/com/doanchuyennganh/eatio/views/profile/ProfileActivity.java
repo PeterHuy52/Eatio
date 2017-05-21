@@ -23,6 +23,8 @@ import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.doanchuyennganh.eatio.utils.PhotoUtils;
 import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -120,10 +122,12 @@ public class ProfileActivity extends BaseActivity implements ProfileView, DatePi
 
     @Click(R.id.img_user_avatar)
     void avatarClick() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), CHOOSE_USER_AVATAR_REQUEST_CODE);
+        CropImage.activity(null)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setCropShape(CropImageView.CropShape.OVAL)
+                .setMultiTouchEnabled(true)
+                .setAspectRatio(1,1)
+                .start(this);
     }
 
     @OnActivityResult(CHOOSE_USER_AVATAR_REQUEST_CODE)
@@ -131,18 +135,39 @@ public class ProfileActivity extends BaseActivity implements ProfileView, DatePi
         if (resultCode == RESULT_OK) {
             Uri avatarUri = data.getData();
             try {
+
+                Picasso.with(this).load(avatarUri).centerCrop().into(imgAvatar);
+                //imgAvatar.setImageURI(avatarUri);
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarUri);
-                imgAvatar.setImageBitmap(bitmap);
+                //imgAvatar.setImageBitmap(bitmap);
                 String base64Str = PhotoUtils.convertBitmapToBase64(bitmap);
-                mPresenter.uploadAvatar(mPref.userId().get(), mPref.userToken().get(), base64Str, "");
-                this.showWaitingDialog();
-                enableView();
+                //mPresenter.uploadAvatar(mPref.userId().get(), mPref.userToken().get(), base64Str, "");
+                //this.showWaitingDialog();
+                //enableView();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
         }
     }
+    @OnActivityResult(CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+    void onCropImageResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            Uri avatarUri = result.getUri();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarUri);
+                imgAvatar.setImageBitmap(bitmap);
+                String base64Str = PhotoUtils.convertBitmapToBase64(bitmap);
+                mPresenter.uploadAvatar(mPref.userId().get(), mPref.userToken().get(), base64Str, "");
+                this.showWaitingDialog();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Click(R.id.btn_birthday)
@@ -184,6 +209,7 @@ public class ProfileActivity extends BaseActivity implements ProfileView, DatePi
         this.dismissWaitingDialog();
         mCurrentImageId = image.id;
         Picasso.with(this).load(image.url).into(imgAvatar);
+        enableView();
     }
 
     @Override

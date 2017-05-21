@@ -16,6 +16,7 @@ import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
 import com.doanchuyennganh.eatio.presensters.map.LocationPresenter;
 import com.doanchuyennganh.eatio.presensters.map.LocationPresenterImpl;
+import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.doanchuyennganh.eatio.views.fonda.FondaDetailActivity;
 import com.doanchuyennganh.eatio.views.fonda.adapter.FondaAdapter;
 import com.doanchuyennganh.eatio.views.mapactivity.LocationView;
@@ -23,6 +24,7 @@ import com.doanchuyennganh.eatio.views.mapactivity.LocationView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -49,6 +51,12 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
     @Bean(FondaListPresenterImpl.class)
     FondaListPresenter mFondaListPresenter;
 
+    @FragmentArg("type")
+    int type;
+
+    @FragmentArg("value")
+    String query;
+
     private final int FIRST_PAGE = 1;
 
     ArrayList<Fonda> mFondaList = new ArrayList<>();
@@ -69,7 +77,8 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
         mLocationPresenter.getLocation();
 
         mFondaListPresenter.setView(this);
-        mFondaListPresenter.getFondas(FIRST_PAGE);
+        //mFondaListPresenter.getFondas(FIRST_PAGE);
+        getFondaListByType(FIRST_PAGE);
 
         mFondaAdapter.setOnClickListener(this);
 
@@ -105,7 +114,8 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
         mDistanceList.clear();
         mLoadMoreRecylerView.onReset();
         swipeRefreshLayout.setRefreshing(true);
-        mFondaListPresenter.getFondas(FIRST_PAGE);
+        //mFondaListPresenter.getFondas(FIRST_PAGE);
+        getFondaListByType(FIRST_PAGE);
     }
 
     private void setOnLoadMore(LinearLayoutManager linearLayoutManager) {
@@ -114,7 +124,8 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
             public void onLoadMore(int current_page) {
                 if (current_page <= mLastPage) {
                     progressBar.setVisibility(View.VISIBLE);
-                    mFondaListPresenter.getFondas(current_page);
+                    //mFondaListPresenter.getFondas(current_page);
+                    getFondaListByType(current_page);
                 }
             }
         };
@@ -126,8 +137,11 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
     }
 
     @Override
-    public void onItemClick(View view, String url) {
+    public void onItemClick(String url, int position) {
+    }
 
+    @Override
+    public void onItemLongClick(int position) {
     }
 
     @Override
@@ -163,5 +177,28 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
         mFondaAdapter.setItems(mFondaList);
         mFondaAdapter.setDistanceList(mDistanceList);
         mFondaAdapter.notifyDataSetChanged();
+    }
+
+    private void getFondaListByType(int currentPage){
+        switch (type) {
+            case AppConstants.TypeToSearch.SEARCH_BY_CITY:
+                mFondaListPresenter.getFondasByCity(query,currentPage);
+                break;
+            case AppConstants.TypeToSearch.SEARCH_BY_CATEGORY:
+                mFondaListPresenter.getFondasByGroup(query,currentPage);
+                break;
+            case AppConstants.TypeToSearch.SEARCH_BY_SCALE:
+                mFondaListPresenter.getFondasByScale(query,currentPage);
+                break;
+            case AppConstants.TypeToSearch.SEARCH_BY_SALE_OFF:
+                mFondaListPresenter.getFondasBySaleOff(query,currentPage);
+                break;
+            case AppConstants.TypeToSearch.SEARCH_BY_CULINARY:
+                mFondaListPresenter.getFondasBySaleOff(query,currentPage);
+                break;
+            default:
+                mFondaListPresenter.getFondas(currentPage);
+                break;
+        }
     }
 }

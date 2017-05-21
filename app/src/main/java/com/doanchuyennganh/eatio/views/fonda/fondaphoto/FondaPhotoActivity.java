@@ -24,6 +24,7 @@ import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.adapter.PhotoAdapter;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.EndlessRecyclerOnScrollListener;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.OnClickListener;
+import com.theartofdev.edmodo.cropper.CropImage;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
@@ -46,6 +47,7 @@ import java.util.List;
 @EActivity(R.layout.activity_fonda_photo)
 public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, SwipeRefreshLayout.OnRefreshListener, OnClickListener {
     private static final int UPLOAD_PHOTO_REQUEST_CODE = 100;
+    private final int FIRST_PAGE = 1;
 
     @ViewById
     SwipeRefreshLayout swipeRefreshLayout;
@@ -56,17 +58,19 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
     @ViewById(R.id.layout_upload)
     LinearLayout layoutUpload;
 
+    @Bean(FondaPhotoPresenterImpl.class)
+    FondaPhotoPresenter mFondaPhotoPresenter;
+
     private PhotoAdapter mPhotoAdapter;
     private EndlessRecyclerOnScrollListener mOnLoadMoreListener;
 
-    private ArrayList<Image> mPhotos;
-    private ArrayList<Uri> mPhotosUpload;
+    private ArrayList<Image> mPhotos = new ArrayList<>();
+    private ArrayList<Uri> mPhotosUpload = new ArrayList<>();
     private int mCountPhotoUploading;
     private int mLastPage;
     private int mFondaId;
-
-    @Bean(FondaPhotoPresenterImpl.class)
-    FondaPhotoPresenter mFondaPhotoPresenter;
+    private int mPositionToCrop;
+    private boolean mUpload = false;
 
     public static void run(Context context, int fondaId) {
         FondaPhotoActivity_.intent(context)
@@ -76,15 +80,14 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
 
     @AfterViews
     void initView() {
-        // set tên set địa chỉ nếu có.
         setUpToolbar("Photo");
-        mPhotos = new ArrayList<>();
-        mPhotosUpload = new ArrayList<>();
         mFondaId = this.getIntent().getIntExtra("id", 0);
+
         mFondaPhotoPresenter.setView(this);
-        mFondaPhotoPresenter.getImages(mFondaId, 1);
-        initRecyclerView();
+        mFondaPhotoPresenter.getImages(mFondaId, FIRST_PAGE);
+
         swipeRefreshLayout.setOnRefreshListener(this);
+        initRecyclerView();
     }
 
     void initRecyclerView() {
@@ -121,6 +124,7 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
                 .thumbnailScale(0.85f)
                 .imageEngine(new PicassoEngine())
                 .forResult(UPLOAD_PHOTO_REQUEST_CODE);
+
     }
 
     @Click(R.id.btn_upload)
@@ -138,7 +142,7 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
     }
 
     @Click(R.id.btn_cancel)
-    void buttonCancelClick(){
+    void buttonCancelClick() {
         setRefreshView();
     }
 
@@ -147,11 +151,22 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
         if (resultCode == RESULT_OK) {
             List<Uri> images = Matisse.obtainResult(data);
             mPhotosUpload.addAll(images);
+            mUpload = true;
             mPhotoAdapter.setUpload(true);
             mPhotoAdapter.setmUries(mPhotosUpload);
             mPhotoAdapter.notifyDataSetChanged();
             enableButtonUpload(true);
             setUpToolbar("Upload photo");
+        }
+    }
+
+    @OnActivityResult(CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+    void onCropImageResult(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            Uri avatarUri = result.getUri();
+            mPhotosUpload.set(mPositionToCrop, avatarUri);
+            mPhotoAdapter.setItemToPosition(avatarUri, mPositionToCrop);
         }
     }
 
@@ -173,8 +188,9 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
-        ArrayList<Image> images=paging.getData();
+        ArrayList<Image> images = paging.getData();
         mPhotos.addAll(images);
+        mUpload = false;
         mPhotoAdapter.setUpload(false);
         mPhotoAdapter.setmPhotos(mPhotos);
         mPhotoAdapter.notifyDataSetChanged();
@@ -211,16 +227,28 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
     public void onRefresh() {
         mPhotos.clear();
         mOnLoadMoreListener.onReset();
-        mFondaPhotoPresenter.getImages(mFondaId, 1);
+        mFondaPhotoPresenter.getImages(mFondaId, FIRST_PAGE);
     }
 
     @Override
     public void onItemClick(View view, int id) {
+    }
+
+    @Override
+    public void onItemClick(String url, int position) {
+        if (mUpload) {
+            mPositionToCrop = position;
+            CropImage.activity(Uri.parse(url))
+                    .start(this);
+        } else {
+            FullPhotoActivity.run(this, url);
+        }
 
     }
 
     @Override
-    public void onItemClick(View view, String url) {
-        FullPhotoActivity.run(this, url);
+    public void onItemLongClick(int position) {
+        mPhotosUpload.remove(position);
+        mPhotoAdapter.removeItem(position);
     }
 }

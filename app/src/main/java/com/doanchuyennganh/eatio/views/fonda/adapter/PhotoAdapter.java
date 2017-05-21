@@ -39,11 +39,11 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     }
 
     @Override
-    public void onBindViewHolder(PhotoAdapter.PhotoViewHolder holder, int position) {
+    public void onBindViewHolder(PhotoAdapter.PhotoViewHolder holder, final int position) {
         final String stringUrl;
         if (isUpload) {
             Uri uri = mUries.get(position);
-            Picasso.with(mContext).load(uri).resize(480, 240).into(holder.photo);
+            Picasso.with(mContext).load(uri).resize(720, 720).into(holder.photo);
             stringUrl = uri.toString();
         } else {
             Image image = mPhotos.get(position);
@@ -53,7 +53,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnClickListener.onItemClick(view, stringUrl);
+                mOnClickListener.onItemClick(stringUrl, position);
+            }
+        });
+        holder.photo.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mOnClickListener.onItemLongClick(position);
+                return false;
             }
         });
     }
@@ -85,6 +92,16 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
     public void setUpload(boolean upload) {
         isUpload = upload;
+    }
+
+    public void setItemToPosition(Uri uri, int position) {
+        mUries.set(position, uri);
+        notifyItemChanged(position);
+    }
+
+    public void removeItem(int position){
+        mUries.remove(position);
+        notifyItemRemoved(position);
     }
 
     public class PhotoViewHolder extends RecyclerView.ViewHolder {

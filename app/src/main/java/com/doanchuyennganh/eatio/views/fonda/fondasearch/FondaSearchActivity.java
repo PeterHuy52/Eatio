@@ -1,190 +1,85 @@
 package com.doanchuyennganh.eatio.views.fonda.fondasearch;
 
 import android.content.Context;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.api.responses.Paging;
-import com.doanchuyennganh.eatio.entity.Fonda;
-import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
-import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
+import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.doanchuyennganh.eatio.views.BaseActivity;
-import com.doanchuyennganh.eatio.views.fonda.FondaDetailActivity;
-import com.doanchuyennganh.eatio.views.fonda.adapter.SearchFondaAdapter;
-import com.doanchuyennganh.eatio.views.fonda.fondalist.EndlessRecyclerOnScrollListener;
-import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListView;
-import com.doanchuyennganh.eatio.views.fonda.fondalist.OnClickListener;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by Nguyen Tan Luan on 5/15/2017.
+ * Created by Nguyen Tan Luan on 5/21/2017.
  */
 @EActivity(R.layout.activity_search)
-@OptionsMenu(R.menu.menu_main)
-public class FondaSearchActivity extends BaseActivity implements FondaListView, SwipeRefreshLayout.OnRefreshListener, OnClickListener {
-    @ViewById
-    RecyclerView recyclerView;
+public class FondaSearchActivity extends BaseActivity {
+    @ViewById(R.id.img_quick_search)
+    CircleImageView imgQuickSearch;
 
-    @ViewById
-    ProgressBar progressBar;
+    @ViewById(R.id.img_search_by_city)
+    CircleImageView imgSearchByCity;
 
-    @ViewById
-    SwipeRefreshLayout swipeRefreshLayout;
+    @ViewById(R.id.img_search_by_group)
+    CircleImageView imgSearchByGroup;
 
-    @Bean
-    SearchFondaAdapter mFondaAdapter;
+    @ViewById(R.id.img_search_by_scale)
+    CircleImageView imgSearchByScale;
 
-    @Bean(FondaListPresenterImpl.class)
-    FondaListPresenter mFondaListPresenter;
+    @ViewById(R.id.img_search_by_sale_off)
+    CircleImageView imgSearchBySaleOff;
 
-    SearchView mSearchView;
+    @ViewById(R.id.img_search_by_culinary)
+    CircleImageView imgSearchByCulinary;
 
-    private final int FIRST_PAGE = 1;
-
-    ArrayList<Fonda> mFondaList;
-
-    private EndlessRecyclerOnScrollListener mLoadMoreRecylerView;
-
-    private int mLastPage;
-
-    private String mQuery = "";
-
-    public static void run(Context context){
+    public static void run(Context context) {
         FondaSearchActivity_.intent(context).start();
     }
 
     @AfterViews
     void afterViews() {
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mFondaList = new ArrayList<>();
-        mFondaListPresenter.setView(this);
-        mFondaAdapter.setOnClickListener(this);
-        mFondaListPresenter.getFondas(FIRST_PAGE);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        setupRecylerView();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        MenuItem item_search = menu.findItem(R.id.menu_search);
-        MenuItem item_edit = menu.findItem(R.id.menu_edit);
-        item_edit.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        mSearchView = new SearchView(this);
-        mSearchView = (SearchView) item_search.getActionView();
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                mQuery = query;
-                mFondaList.clear();
-                if (TextUtils.isEmpty(mQuery)) {
-                    mFondaListPresenter.getFondas(FIRST_PAGE);
-                } else {
-                    mFondaListPresenter.getFondasByName(mQuery, FIRST_PAGE);
-                    //mFondaListPresenter.getFondasByAddress(mQuery, FIRST_PAGE);
-                }
-                mLoadMoreRecylerView.onReset();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                mQuery = newText;
-                mFondaList.clear();
-                if (TextUtils.isEmpty(mQuery)) {
-                    mFondaListPresenter.getFondas(FIRST_PAGE);
-                    mLoadMoreRecylerView.onReset();
-                }/*else {
-                    mFondaListPresenter.getFondasByName(mQuery, FIRST_PAGE);
-                    //mFondaListPresenter.getFondasByAddress(mQuery, FIRST_PAGE);
-                }*/
-
-                return true;
-            }
-        });
-        return true;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @OptionsItem(android.R.id.home)
-    void buttonHomeClick() {
+    void homeButtonClick() {
         this.finish();
     }
 
-    private void setupRecylerView() {
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mFondaAdapter);
-        setOnLoadMore(mLayoutManager);
-        recyclerView.setOnScrollListener(mLoadMoreRecylerView);
+    @Click(R.id.img_quick_search)
+    void quickSearchClick() {
+        FondaQuickSearchActivity.run(this);
     }
 
-    @Override
-    public void updateFondaListView(Paging<Fonda> paging) {
-        mLastPage = paging.getLastPage();
-        ArrayList<Fonda> fondas = paging.getData();
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-        if (progressBar.isShown()) {
-            progressBar.setVisibility(View.GONE);
-        }
-
-        mFondaList.addAll(fondas);
-        mFondaAdapter.setItems(mFondaList);
-        mFondaAdapter.notifyDataSetChanged();
+    @Click(R.id.img_search_by_city)
+    void searchByCityClick() {
+        FondaSearchDetailActivity.run(this, AppConstants.TypeToSearch.SEARCH_BY_CITY);
     }
 
-    @Override
-    public void onRefresh() {
-        mFondaList.clear();
-        mLoadMoreRecylerView.onReset();
-        swipeRefreshLayout.setRefreshing(true);
-        mFondaListPresenter.getFondasByName(mQuery, FIRST_PAGE);
-        //mFondaListPresenter.getFondasByAddress(mQuery, FIRST_PAGE);
+    @Click(R.id.img_search_by_group)
+    void searchByGroupClick() {
+        FondaSearchDetailActivity.run(this, AppConstants.TypeToSearch.SEARCH_BY_CATEGORY);
     }
 
-    private void setOnLoadMore(LinearLayoutManager linearLayoutManager) {
-        mLoadMoreRecylerView = new EndlessRecyclerOnScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int current_page) {
-                if (current_page <= mLastPage) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    if (TextUtils.isEmpty(mQuery)) {
-                        mFondaListPresenter.getFondas(current_page);
-                    } else {
-                        mFondaListPresenter.getFondasByName(mQuery, current_page);
-                        //mFondaListPresenter.getFondasByAddress(mQuery, current_page);
-                    }
-                }
-            }
-        };
+    @Click(R.id.img_search_by_scale)
+    void setImgSearchByScaleClick() {
+        FondaSearchDetailActivity.run(this, AppConstants.TypeToSearch.SEARCH_BY_SCALE);
     }
 
-    @Override
-    public void onItemClick(View view, int id) {
-        FondaDetailActivity.run(this, id);
+    @Click(R.id.img_search_by_sale_off)
+    void searchBySaleOffClick() {
+        FondaSearchDetailActivity.run(this, AppConstants.TypeToSearch.SEARCH_BY_SALE_OFF);
     }
 
-    @Override
-    public void onItemClick(View view, String url) {
-
+    @Click(R.id.img_search_by_culinary)
+    void searchByCulinaryClick() {
+        FondaSearchDetailActivity.run(this, AppConstants.TypeToSearch.SEARCH_BY_CULINARY);
     }
+
+
 }

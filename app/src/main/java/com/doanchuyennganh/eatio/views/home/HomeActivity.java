@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
+import android.view.animation.Animation;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
@@ -16,6 +17,7 @@ import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
 import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment_;
+import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchActivity;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
 
 import org.androidannotations.annotations.AfterViews;
@@ -25,6 +27,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.AnimationRes;
 
 /**
  * Created by TungHo on 05/08/2017.
@@ -59,12 +62,29 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     @ViewById(R.id.fab)
     FloatingActionButton fab;
 
+    @ViewById(R.id.fab_create)
+    FloatingActionButton fabCreate;
+
+    @ViewById(R.id.fab_search)
+    FloatingActionButton fabSearch;
+
+    @AnimationRes
+    Animation fabOpen;
+    @AnimationRes
+    Animation fabClose;
+    @AnimationRes
+    Animation rotateForward;
+    @AnimationRes
+    Animation rotateBackward;
+
     ViewPagerAdapter adapter;
 
     @Bean(ProfilePresenterImpl.class)
     ProfilePresenter profilePresenter;
 
     public static final int UPDATE_PROFILE_REQUEST_CODE = 1;
+
+    private boolean mIsFabOpen;
 
     @AfterViews
     public void getIntentValues() {
@@ -94,7 +114,7 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     public void setupViewPager() {
         adapter = new ViewPagerAdapter(this.getSupportFragmentManager());
         adapter.addFragment(FondaListFragment_.builder().build(), "New");
-//        adapter.addFragment(FondaListFragment_.builder().build(),"Favorite");
+        adapter.addFragment(FondaListFragment_.builder().build(),"Near me");
         viewPager.setAdapter(adapter);
     }
 
@@ -109,11 +129,34 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
 
     @Click(R.id.fab)
     public void fabBtnClick() {
-        CreateFondaActivity.run(this, this.getUserId(), getUserToken());
-        //FondaDetailActivity.run(this, 23);
-        //ProfileActivity_.intent(this).startForResult(UPDATE_PROFILE_REQUEST_CODE);
-//        FondaSearchActivity_.intent(this).start();
+        //CreateFondaActivity.run(this, this.getUserId(), getUserToken());
+        if (mIsFabOpen) {
+            fab.startAnimation(rotateBackward);
+            fabCreate.startAnimation(fabClose);
+            fabSearch.startAnimation(fabClose);
+            fabCreate.setClickable(false);
+            fabSearch.setClickable(false);
+            mIsFabOpen = false;
+        } else {
+            fab.startAnimation(rotateForward);
+            fabCreate.startAnimation(fabOpen);
+            fabSearch.startAnimation(fabOpen);
+            fabCreate.setClickable(true);
+            fabSearch.setClickable(true);
+            mIsFabOpen = true;
+        }
     }
+
+    @Click(R.id.fab_create)
+    public void fabCreateClick() {
+        CreateFondaActivity.run(this, this.getUserId(), getUserToken());
+    }
+
+    @Click(R.id.fab_search)
+    public void setFabSearchClick() {
+        FondaSearchActivity.run(this);
+    }
+
 
     @Override
     protected void onResume() {
