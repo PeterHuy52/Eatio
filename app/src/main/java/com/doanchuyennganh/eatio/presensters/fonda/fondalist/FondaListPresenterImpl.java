@@ -121,7 +121,12 @@ public class FondaListPresenterImpl implements FondaListPresenter {
 
             @Override
             public void responseError(Error error) {
-                super.responseError(error);
+                mView.showEmptyList();
+            }
+
+            @Override
+            public void requestFail(int info) {
+               mView.showEmptyList();
             }
         });
     }

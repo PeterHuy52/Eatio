@@ -1,14 +1,18 @@
 package com.doanchuyennganh.eatio.views.home;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.animation.Animation;
+import android.widget.LinearLayout;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
@@ -25,7 +29,6 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.AnimationRes;
 
@@ -47,6 +50,9 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     @ViewById(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
+    @ViewById
+    Toolbar toolbar;
+
     ActionBarDrawerToggle mToggle;
 
     LeftMenuFragment mLeftMenu;
@@ -67,6 +73,12 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
 
     @ViewById(R.id.fab_search)
     FloatingActionButton fabSearch;
+
+    @ViewById(R.id.ly_fab_search)
+    LinearLayout lyFabSearch;
+
+    @ViewById(R.id.ly_fab_create_fonda)
+    LinearLayout lyFabCreateFonda;
 
     @AnimationRes
     Animation fabOpen;
@@ -93,19 +105,25 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     }
 
     @AfterViews
+    void setUpToolbar(){
+        setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @AfterViews
     public void init() {
         profilePresenter.setLeftMenuHeaderView(this);
         tabLayout.setupWithViewPager(viewPager);
         profilePresenter.getProfile(getUserToken());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @AfterViews
     public void setupLeftMenu() {
         mLeftMenu = LeftMenuFragment_.builder().build();
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.left_menu, mLeftMenu).commit();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.left_menu_open, R.string.left_menu_close);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.left_menu_open, R.string.left_menu_close);
         mDrawerLayout.setDrawerListener(mToggle);
         mToggle.syncState();
     }
@@ -118,29 +136,20 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
         viewPager.setAdapter(adapter);
     }
 
-    @OptionsItem(android.R.id.home)
-    void ClickButtonHome() {
-        if (mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
-            mDrawerLayout.closeDrawers();
-        } else {
-            mDrawerLayout.openDrawer(Gravity.LEFT);
-        }
-    }
-
     @Click(R.id.fab)
     public void fabBtnClick() {
         //CreateFondaActivity.run(this, this.getUserId(), getUserToken());
         if (mIsFabOpen) {
             fab.startAnimation(rotateBackward);
-            fabCreate.startAnimation(fabClose);
-            fabSearch.startAnimation(fabClose);
+            lyFabSearch.startAnimation(fabClose);
+            lyFabCreateFonda.startAnimation(fabClose);
             fabCreate.setClickable(false);
             fabSearch.setClickable(false);
             mIsFabOpen = false;
         } else {
             fab.startAnimation(rotateForward);
-            fabCreate.startAnimation(fabOpen);
-            fabSearch.startAnimation(fabOpen);
+            lyFabCreateFonda.startAnimation(fabOpen);
+            lyFabSearch.startAnimation(fabOpen);
             fabCreate.setClickable(true);
             fabSearch.setClickable(true);
             mIsFabOpen = true;

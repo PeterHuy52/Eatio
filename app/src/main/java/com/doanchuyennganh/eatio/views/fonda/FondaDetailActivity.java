@@ -36,6 +36,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
 import java.text.ParseException;
@@ -149,7 +150,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @AfterViews
     void init() {
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -283,6 +284,10 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         FondaPhotoActivity.run(this, fondaId);
     }
 
+    @OptionsItem(android.R.id.home)
+    void goBack(){
+        this.finish();
+    }
 
     @Override
     public void showInvalidId() {

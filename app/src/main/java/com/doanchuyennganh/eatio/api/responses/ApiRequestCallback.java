@@ -19,6 +19,7 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
 
     public static final int REQUEST_TIME_OUT = 1;
     public static final int NETWORK_ERROR = 2;
+    public static final int UNKNOWN_ERROR = 3;
 
     @Override
     public void onResponse(Call<ApiResponse<TEnityResponse>> call, Response<ApiResponse<TEnityResponse>> response) {
@@ -40,10 +41,10 @@ public abstract class ApiRequestCallback<TEnityResponse> implements Callback<Api
         // TODO: 05/06/2017
         if (t instanceof SocketTimeoutException) {
             requestFail(REQUEST_TIME_OUT);
-        }
-        if (t instanceof NetworkErrorException) {
+        } else if (t instanceof NetworkErrorException) {
             requestFail(NETWORK_ERROR);
-        }
+        }else requestFail(UNKNOWN_ERROR);
+
     }
 
     public void responseData(TEnityResponse data) {

@@ -7,7 +7,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -15,6 +17,26 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical">
         </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:id="@+id/ly_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_disappointed" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/unknown_error"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_small"/>
+        </LinearLayout>
+
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -9,4 +9,6 @@ import com.doanchuyennganh.eatio.entity.Fonda;
 
 public interface FondaListView {
     void updateFondaListView(Paging<Fonda> paging);
+    void showEmptyList();
+    void hideEmptyList();
 }

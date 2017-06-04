@@ -95,6 +95,7 @@
     <string name="err_40901">Username đã tồn tại!</string>
     <string name="err_40902">Email đã tồn tại!</string>
     <string name="not_network">Not network connect</string>
+    <string name="unknown_error">Error, please try again...</string>
 
     <string name="lorem">Lorem ispem lisum</string>
 </resources>

@@ -153,6 +153,16 @@ public class FondaQuickSearchActivity extends BaseActivity implements FondaListV
     }
 
     @Override
+    public void showEmptyList() {
+
+    }
+
+    @Override
+    public void hideEmptyList() {
+
+    }
+
+    @Override
     public void onRefresh() {
         mFondaList.clear();
         mLoadMoreRecylerView.onReset();

@@ -7,7 +7,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.api.responses.Paging;
@@ -44,6 +46,9 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
 
     @ViewById
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @ViewById(R.id.ly_error)
+    LinearLayout lyEmptyList;
 
     @Bean
     FondaAdapter mFondaAdapter;
@@ -102,11 +107,28 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
         if (progressBar.isShown()) {
             progressBar.setVisibility(View.GONE);
         }
+        if (lyEmptyList.getVisibility() == View.VISIBLE) {
+            hideEmptyList();
+        }
         mFondaList.addAll(fondas);
         caculateDistance(fondas);   // sai chính tả
-        //mFondaAdapter.setItems(mFondaList);
-        //mFondaAdapter.notifyDataSetChanged();
+
     }
+
+    @Override
+    public void showEmptyList() {
+        if (mFondaList.isEmpty()) {
+            lyEmptyList.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(getActivity(), "Error, please try again...", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void hideEmptyList() {
+        lyEmptyList.setVisibility(View.GONE);
+    }
+
 
     @Override
     public void onRefresh() {
@@ -179,22 +201,22 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
         mFondaAdapter.notifyDataSetChanged();
     }
 
-    private void getFondaListByType(int currentPage){
+    private void getFondaListByType(int currentPage) {
         switch (type) {
             case AppConstants.TypeToSearch.SEARCH_BY_CITY:
-                mFondaListPresenter.getFondasByCity(query,currentPage);
+                mFondaListPresenter.getFondasByCity(query, currentPage);
                 break;
             case AppConstants.TypeToSearch.SEARCH_BY_CATEGORY:
-                mFondaListPresenter.getFondasByGroup(query,currentPage);
+                mFondaListPresenter.getFondasByGroup(query, currentPage);
                 break;
             case AppConstants.TypeToSearch.SEARCH_BY_SCALE:
-                mFondaListPresenter.getFondasByScale(query,currentPage);
+                mFondaListPresenter.getFondasByScale(query, currentPage);
                 break;
             case AppConstants.TypeToSearch.SEARCH_BY_SALE_OFF:
-                mFondaListPresenter.getFondasBySaleOff(query,currentPage);
+                mFondaListPresenter.getFondasBySaleOff(query, currentPage);
                 break;
             case AppConstants.TypeToSearch.SEARCH_BY_CULINARY:
-                mFondaListPresenter.getFondasBySaleOff(query,currentPage);
+                mFondaListPresenter.getFondasBySaleOff(query, currentPage);
                 break;
             default:
                 mFondaListPresenter.getFondas(currentPage);
