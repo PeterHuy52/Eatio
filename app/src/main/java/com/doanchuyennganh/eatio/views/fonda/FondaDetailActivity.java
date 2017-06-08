@@ -285,7 +285,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     }
 
     @OptionsItem(android.R.id.home)
-    void goBack(){
+    void goBack() {
         this.finish();
     }
 
@@ -311,7 +311,9 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
             refreshLayout.setRefreshing(false);
 
         nameTv.setText(mFonda.name);
-        addressTv.setText(mFonda.location.fullAddress);
+        if (mFonda.location != null) {
+            addressTv.setText(mFonda.location.fullAddress);
+        }
         String open = mFonda.openTime.substring(0, mFonda.openTime.length() - 3);       //  -3 la bỏ cái đuôi giây
         String close = mFonda.closeTime.substring(0, mFonda.closeTime.length() - 3);
         openTimeTv.setText(open);

@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
+import com.doanchuyennganh.eatio.utils.ApplicationPreferences_;
 import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.login.LoginActivity;
 import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
 import com.squareup.picasso.Picasso;
 
@@ -17,6 +19,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
 
@@ -47,6 +50,9 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
     ArrayList<LeftMenuAdapter.ItemLeftMenu> itemLeftMenus;
 
     Context mContext;
+
+    @Pref
+    protected ApplicationPreferences_ mPref;
 
 
     @AfterViews
@@ -99,6 +105,8 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
             case 3:
                 break;
             case 4:
+                mPref.userToken().put("");
+                LoginActivity.run(mContext);
                 break;
             default:
                 HomeActivity.run(mContext, token);

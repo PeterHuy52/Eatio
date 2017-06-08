@@ -31,6 +31,7 @@
         </activity>
 
         <activity android:name="com.doanchuyennganh.eatio.views.login.LoginActivity_">
+
         </activity>
 
         <activity android:name="com.doanchuyennganh.eatio.views.resetpassword.ResetPasswordActivity_">
@@ -38,7 +39,9 @@
 
         <activity android:name="com.doanchuyennganh.eatio.views.register.RegisterActivity_">
         </activity>
-        <activity android:name="com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity_" />
+        <activity android:name="com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity_" >
+
+        </activity>
         <activity android:name="com.doanchuyennganh.eatio.views.home.HomeActivity_"
             android:theme="@style/AppThemeNoActionbar"/>
         <activity android:name="com.doanchuyennganh.eatio.views.mapactivity.SelectLocationActivity_"/>

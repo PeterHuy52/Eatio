@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -21,7 +22,7 @@ public class PhotoUtils {
 
     public static String convertBitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
         String base64Str = PREFIX_BASE64 + Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
         return base64Str;
     }
@@ -38,9 +39,15 @@ public class PhotoUtils {
                 height, filter);
         return newBitmap;
     }
+
     public static String convertUriToBase64(Context context, Uri uri) throws IOException {
-        Bitmap bm=handleImageIfRotate(context, uri);
-        return convertBitmapToBase64(bm);
+        File f = new File(uri.getPath());
+        long size = f.length();
+        Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+        String base64Str = PREFIX_BASE64 + Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+        return base64Str;
     }
 
     public static Bitmap convertBase64ToBitmap(String base64str) {
@@ -56,8 +63,8 @@ public class PhotoUtils {
         return bitmap;
     }
 
-    private static Bitmap handleImageIfRotate(Context context,Uri uri) throws IOException {
-        String path=uri.getPath();
+    private static Bitmap handleImageIfRotate(Context context, Uri uri) throws IOException {
+        String path = uri.getPath();
         Bitmap bm = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
         ExifInterface exif = new ExifInterface(path);
         String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
@@ -70,7 +77,7 @@ public class PhotoUtils {
 
         Matrix matrix = new Matrix();
         matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0,360, 360, matrix, true);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, 360, 360, matrix, true);
         return rotatedBitmap;
 
     }

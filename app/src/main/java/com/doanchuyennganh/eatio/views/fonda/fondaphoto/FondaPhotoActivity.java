@@ -37,6 +37,7 @@ import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -165,6 +166,8 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
         if (resultCode == RESULT_OK) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             Uri avatarUri = result.getUri();
+            File f = new File(avatarUri.getPath());
+            long size = f.length();
             mPhotosUpload.set(mPositionToCrop, avatarUri);
             mPhotoAdapter.setItemToPosition(avatarUri, mPositionToCrop);
         }
