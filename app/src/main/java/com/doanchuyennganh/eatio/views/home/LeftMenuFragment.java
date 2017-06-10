@@ -106,6 +106,7 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
                 break;
             case 4:
                 mPref.userToken().put("");
+                mPref.userId().put(0);
                 LoginActivity.run(mContext);
                 break;
             default:

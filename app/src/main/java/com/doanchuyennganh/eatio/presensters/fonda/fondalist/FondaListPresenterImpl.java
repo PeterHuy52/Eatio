@@ -1,5 +1,7 @@
 package com.doanchuyennganh.eatio.presensters.fonda.fondalist;
 
+import android.location.Location;
+
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Culinary;
@@ -139,5 +141,13 @@ public class FondaListPresenterImpl implements FondaListPresenter {
     @Override
     public void setView(FondaSearchDetailView view) {
         mSearchView = view;
+    }
+
+    @Override
+    public void getFondasByLocation(Location location, int page) {
+        Map<String, String> query = new HashMap<>();
+        query.put("location", location.getLatitude() + "," + location.getLongitude());
+        query.put("page", String.valueOf(page));
+        excuteGetListFonda(query);
     }
 }

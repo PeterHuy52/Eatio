@@ -206,6 +206,8 @@ public class CreateFondaActivity extends BaseActivity implements CreateFondaView
     @OnActivityResult(REQUEST_CODE_SELECT_LOCATION)
     void onLocationSelectResult(Intent intent) {
         // nhận kết quả trả về từ activity map select location
+        if (intent == null)
+            return;
         LatLng location =  intent.getParcelableExtra("location");
         if (location == null)
             return;

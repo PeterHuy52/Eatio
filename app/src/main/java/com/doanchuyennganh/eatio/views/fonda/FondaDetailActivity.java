@@ -517,6 +517,8 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @OnActivityResult(REQUEST_CODE_SELECT_LOCATION)
     void onLocationSelectResult(Intent intent) {
+        if (intent == null)
+            return;
         // nhận kết quả trả về từ activity map select location
         LatLng location = intent.getParcelableExtra("location");
         if (location == null)
@@ -539,6 +541,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @Override
     public void updateMapInfo(String placeId, String fullAddress, String city, String province) {
+        presenter.updateAddress(token, mFonda.id, fullAddress);
         presenter.updateLocation(token, mFonda.id, placeId, city, province);
     }
 }

@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +19,7 @@ import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
 import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenter;
 import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
+import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment_;
@@ -132,7 +134,10 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     public void setupViewPager() {
         adapter = new ViewPagerAdapter(this.getSupportFragmentManager());
         adapter.addFragment(FondaListFragment_.builder().build(), "New");
-        adapter.addFragment(FondaListFragment_.builder().build(),"Near me");
+        Fragment nearbyFragment = FondaListFragment_.builder()
+                .type(AppConstants.TypeToSearch.SEARCH_BY_LOCATION)
+                .build();
+        adapter.addFragment(nearbyFragment,"Near me");
         viewPager.setAdapter(adapter);
     }
 
