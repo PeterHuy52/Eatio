@@ -39,41 +39,40 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
         OnClickListener, LocationView {
 
     @ViewById
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     @ViewById
-    ProgressBar progressBar;
+    protected ProgressBar progressBar;
 
     @ViewById
-    SwipeRefreshLayout swipeRefreshLayout;
+    protected SwipeRefreshLayout swipeRefreshLayout;
 
     @ViewById(R.id.ly_error)
-    LinearLayout lyEmptyList;
+    protected LinearLayout lyEmptyList;
 
     @Bean
-    FondaAdapter mFondaAdapter;
+    protected FondaAdapter mFondaAdapter;
 
     @Bean(FondaListPresenterImpl.class)
-    FondaListPresenter mFondaListPresenter;
+    protected FondaListPresenter mFondaListPresenter;
 
     @FragmentArg("type")
-    int type;
+    protected int type;
 
     @FragmentArg("value")
-    String query;
+    protected String query;
 
-    private final int FIRST_PAGE = 1;
+    protected final int FIRST_PAGE = 1;
 
-    ArrayList<Fonda> mFondaList = new ArrayList<>();
-    ArrayList<String> mDistanceList = new ArrayList<>();
+    protected ArrayList<Fonda> mFondaList = new ArrayList<>();
+    protected ArrayList<String> mDistanceList = new ArrayList<>();
 
-    LocationPresenter mLocationPresenter;
+    protected LocationPresenter mLocationPresenter;
 
-    private EndlessRecyclerOnScrollListener mLoadMoreRecylerView;
+    protected EndlessRecyclerOnScrollListener mLoadMoreRecylerView;
 
-    private Location mCurrentLocation;
-    private int mLastPage;
-
+    protected Location mCurrentLocation;
+    protected int mLastPage;
 
     @AfterViews
     void afterViews() {
@@ -174,6 +173,8 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
     @Override
     public void currentLocation(Location mLastLocation) {
         mCurrentLocation = mLastLocation;
+        if (type == AppConstants.TypeToSearch.SEARCH_BY_LOCATION)
+            this.onRefresh();
 
     }
 
@@ -216,7 +217,11 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
                 mFondaListPresenter.getFondasBySaleOff(query, currentPage);
                 break;
             case AppConstants.TypeToSearch.SEARCH_BY_CULINARY:
-                mFondaListPresenter.getFondasBySaleOff(query, currentPage);
+                mFondaListPresenter.getFondasByCulinary(query, currentPage);
+                break;
+            case AppConstants.TypeToSearch.SEARCH_BY_LOCATION:
+                if (mCurrentLocation != null)
+                    mFondaListPresenter.getFondasByLocation(mCurrentLocation, currentPage);
                 break;
             default:
                 mFondaListPresenter.getFondas(currentPage);

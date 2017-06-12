@@ -23,6 +23,7 @@ public class AppConstants {
         public static final int SEARCH_BY_SCALE = 3;
         public static final int SEARCH_BY_SALE_OFF = 4;
         public static final int SEARCH_BY_CULINARY = 5;
+        public static final int SEARCH_BY_LOCATION = 6;
     }
 
 
