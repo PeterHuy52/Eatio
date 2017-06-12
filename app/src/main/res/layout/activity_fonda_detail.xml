@@ -26,8 +26,13 @@
                 <RelativeLayout
                     android:id="@+id/main_info"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:background="@drawable/def_place_img">
+                    android:layout_height="200dp">
+                    <ImageView
+                        android:id="@+id/fonda_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/def_place_img"/>
 
                     <LinearLayout
                         android:id="@+id/info"

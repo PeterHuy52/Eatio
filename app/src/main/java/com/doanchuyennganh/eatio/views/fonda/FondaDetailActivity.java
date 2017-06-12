@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -30,6 +31,7 @@ import com.doanchuyennganh.eatio.views.ui.EdtDialog;
 import com.doanchuyennganh.eatio.views.ui.FondaUtilitiesHolder;
 import com.doanchuyennganh.eatio.views.ui.TimePickerFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -98,6 +100,9 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
 
     @ViewById(R.id.utilities_holder)
     FondaUtilitiesHolder utilities;
+
+    @ViewById(R.id.fonda_img)
+    ImageView fondaImg;
 
 //    /**
 //     * Danh sách các tiện nghi của quán
@@ -311,6 +316,9 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
             refreshLayout.setRefreshing(false);
 
         nameTv.setText(mFonda.name);
+        if (mFonda.imageEntity != null) {
+            Picasso.with(this).load(mFonda.imageEntity.url).into(fondaImg);
+        }
         if (mFonda.location != null) {
             addressTv.setText(mFonda.location.fullAddress);
         }
