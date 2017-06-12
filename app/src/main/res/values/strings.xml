@@ -49,7 +49,7 @@
     <string name="resend_password">Reset password</string>
 
     <string name="create_fonda_success">Create new place success</string>
-
+    <string name="message_sign_out">Do you want to sign out?</string>
     <string-array name="scale_option">
         <item>Dưới 50 chỗ ngỗi</item>
         <item>50 đến 100 chỗ ngồi</item>

@@ -1,7 +1,9 @@
 package com.doanchuyennganh.eatio.views.home;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -105,8 +107,27 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
             case 3:
                 break;
             case 4:
-                mPref.userToken().put("");
-                LoginActivity.run(mContext);
+                AlertDialog dialog = new AlertDialog.Builder(mContext)
+                        .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                mPref.userToken().put("");
+                                mPref.userId().put(null);
+                                LoginActivity.run(mContext);
+                            }
+                        })
+                        .setPositiveButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setIcon(R.drawable.ic_sign_out)
+                        .setMessage(R.string.message_sign_out)
+                        .create();
+                dialog.show();
                 break;
             default:
                 HomeActivity.run(mContext, token);
