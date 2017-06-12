@@ -113,7 +113,7 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 mPref.userToken().put("");
-                                mPref.userId().put(null);
+                                mPref.userId().put(0);
                                 LoginActivity.run(mContext);
                             }
                         })
