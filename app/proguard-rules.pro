@@ -24,3 +24,20 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -dontwarn com.squareup.okhttp.**
+-dontwarn java.lang.invoke.*
+-dontwarn **$$Lambda$*
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+
+# If you do not use SQLCipher:
+-dontwarn org.greenrobot.greendao.database.**
+# If you do not use Rx:
+-dontwarn rx.**

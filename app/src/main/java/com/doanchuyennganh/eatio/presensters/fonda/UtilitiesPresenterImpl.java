@@ -2,11 +2,10 @@ package com.doanchuyennganh.eatio.presensters.fonda;
 
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Utility;
-import com.doanchuyennganh.eatio.models.CommonDataModel;
-import com.doanchuyennganh.eatio.models.FondaModel;
+import com.doanchuyennganh.eatio.repository.CommonDataRepository;
+import com.doanchuyennganh.eatio.repository.FondaRepository;
 import com.doanchuyennganh.eatio.views.fonda.FondaUtilitiesView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
 
     @Override
     public void getUtilities(String input) {
-        CommonDataModel model = new CommonDataModel();
+        CommonDataRepository model = new CommonDataRepository();
         model.getUtilities(input, new ApiRequestCallback<Utility>(){
             @Override
             public void responseCollection(List<Utility> collection){
@@ -35,7 +34,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
 
     @Override
     public void addFondaUtilities(String token, int fondaId, int utilityId) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.addUtilities(token, fondaId, utilityId, new ApiRequestCallback<Utility>(){
             @Override
             public void responseCollection(List<Utility> collection){
@@ -46,7 +45,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
 
     @Override
     public void addFondaUtilities(String token, int fondaId, String utilityName) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.addUtilities(token, fondaId, utilityName,  new ApiRequestCallback<Utility>(){
             @Override
             public void responseCollection(List<Utility> collection){
@@ -57,7 +56,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
 
     @Override
     public void getFondaUtilities(int fondaId) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.getUtilities(fondaId, new ApiRequestCallback<Utility>(){
             @Override
             public void responseCollection(List<Utility> collection){
@@ -68,7 +67,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
 
     @Override
     public void updateFondaUtility(String mToken, int fondaId, int utilityId, String description) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updateFondaUtility(mToken, fondaId, utilityId, description, new ApiRequestCallback<Utility>(){
             @Override
             public void responseCollection(List<Utility> collection){
@@ -79,7 +78,7 @@ public class UtilitiesPresenterImpl implements UtilitiesPresenter {
 
     @Override
     public void removeFondaUtility(String mToken, int fondaId, int utilityId) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.removeFondaUtility(mToken, fondaId, utilityId, new ApiRequestCallback<Utility>(){
             @Override
             public void responseCollection(List<Utility> collection){

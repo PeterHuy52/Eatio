@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.Repository;
+package com.doanchuyennganh.eatio.repository;
 
 import com.doanchuyennganh.eatio.api.ApiConnection;
 import com.doanchuyennganh.eatio.api.FondaApi;

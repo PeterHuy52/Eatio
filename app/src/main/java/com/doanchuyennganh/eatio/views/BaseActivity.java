@@ -2,28 +2,70 @@ package com.doanchuyennganh.eatio.views;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.doanchuyennganh.eatio.utils .ApplicationPreferences_;
+import com.doanchuyennganh.eatio.application.EatioApplication;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
+import com.doanchuyennganh.eatio.presensters.base.Presenter;
+import com.doanchuyennganh.eatio.utils.ApplicationPreferences_;
 import com.doanchuyennganh.eatio.utils.ConnectionUtils;
+import com.doanchuyennganh.eatio.utils.SharedPrefUtils;
 
-import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+
+import javax.inject.Inject;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by TungHo on 05/06/2017.
  */
-@EActivity()
-public class BaseActivity extends AppCompatActivity implements BaseView {
+public abstract class BaseActivity<P extends Presenter> extends AppCompatActivity implements BaseView {
 
-    private Dialog mDialog;
+    protected Dialog mDialog;
     protected ProgressDialog mProgressDialog;
+
+    @Inject
+    protected P mPresenter;
+
+    @Inject
+    protected Context mContext;
+
+    protected Unbinder mUnbinder;
+
+    @Inject
+    protected SharedPreferences mSharePref;
 
     @Pref
     protected ApplicationPreferences_ mPref;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
+        inject(getAppComponent());
+        mUnbinder = ButterKnife.bind(this);
+        mPresenter.setView(this);
+        initViews();
+
+    }
+
+    private void initViews() {
+
+        mProgressDialog=new ProgressDialog(mContext.getApplicationContext());
+        mProgressDialog.setTitle("Please wait...");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
+        mProgressDialog.setMessage("Loading...");
+    }
 
     @Override
     public void showDialog(String title, String message) {
@@ -50,14 +92,9 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
     @Override
     public void showWaitingDialog() {
-        //
-        if (mProgressDialog == null){
-            mProgressDialog=new ProgressDialog(this);
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(mContext.getApplicationContext());
         }
-        mProgressDialog.setTitle("Please wait...");
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setCancelable(false);
-        mProgressDialog.setMessage("Loading...");
         mProgressDialog.show();
     }
 
@@ -65,8 +102,8 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
     public void dismissWaitingDialog() {
         if(mProgressDialog != null && mProgressDialog.isShowing()){
             mProgressDialog.dismiss();
-            mProgressDialog = null;
         }
+
     }
 
     @Override
@@ -76,12 +113,19 @@ public class BaseActivity extends AppCompatActivity implements BaseView {
 
     @Override
     public boolean isOwner(int checkUserId) {
-        return mPref.userId().getOr(-1).equals(checkUserId);
+        return SharedPrefUtils.loadIntPref("user_id",-1) == checkUserId;
+        //return mPref.userId().getOr(-1).equals(checkUserId);
     }
 
     public String getUserToken(){
-        return mPref.userToken().getOr("");
+        return SharedPrefUtils.loadStringPref("token","");
+        //return mPref.userToken().getOr("");
     }
 
+    protected AppComponent getAppComponent(){
+        return EatioApplication.getInstance().getmAppComponent();
+    }
+    protected abstract int getLayoutId();
+    protected abstract void inject(AppComponent appComponent);
 
 }

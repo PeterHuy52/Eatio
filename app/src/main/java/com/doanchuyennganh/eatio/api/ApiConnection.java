@@ -1,5 +1,7 @@
 package com.doanchuyennganh.eatio.api;
 
+import android.app.Application;
+
 import com.doanchuyennganh.eatio.BuildConfig;
 import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.google.gson.Gson;
@@ -7,11 +9,14 @@ import com.google.gson.GsonBuilder;
 
 import org.androidannotations.annotations.EBean;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -27,6 +32,12 @@ public class ApiConnection {
 
     private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    public Cache provideOkHttpCache(Application application) {
+        int cacheSize = 10 * 1024 * 1024; // 10 MiB
+        File httpCacheFile = new File(application.getCacheDir(), "responses");
+        Cache cache = new Cache(httpCacheFile, cacheSize);
+        return cache;
+    }
     static{
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClient.connectTimeout(60, TimeUnit.SECONDS);
@@ -36,6 +47,7 @@ public class ApiConnection {
 
     private static Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BuildConfig.HOST)
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(httpClient.build())
             .build();

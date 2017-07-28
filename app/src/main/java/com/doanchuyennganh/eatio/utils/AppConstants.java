@@ -6,6 +6,8 @@ package com.doanchuyennganh.eatio.utils;
 
 public class AppConstants {
 
+    public static final int CONNECT_TIME_OUT = 60;
+
     public static final String UNICODE_PLUS_SYMBOL = "\u002B";
 
     public static final String INVALID_ACCOUNT = "Tài khoản này chưa được kích hoạt, vui lòng kích hoạt tài khoản!";

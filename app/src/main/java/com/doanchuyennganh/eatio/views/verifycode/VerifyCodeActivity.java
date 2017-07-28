@@ -7,8 +7,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.presensters.verifycode.VerifyCode;
-import com.doanchuyennganh.eatio.presensters.verifycode.VerifyCodeImpl;
+import com.doanchuyennganh.eatio.presensters.verifycode.VerifyCodePresenter;
+import com.doanchuyennganh.eatio.presensters.verifycode.VerifyCodePresenterImpl;
 import com.doanchuyennganh.eatio.utils.ResourceUtils;
 import com.doanchuyennganh.eatio.views.BaseActivity;
 import com.doanchuyennganh.eatio.views.IMessageView;
@@ -46,7 +46,7 @@ public class VerifyCodeActivity extends BaseActivity implements VerifyCodeView, 
 
     int userId;
 
-    VerifyCode mVerifyCodePresenter;
+    VerifyCodePresenter mVerifyCodePresenterPresenter;
 
 
     @AfterViews
@@ -54,7 +54,7 @@ public class VerifyCodeActivity extends BaseActivity implements VerifyCodeView, 
         this.getSupportActionBar().hide();
         this.disableActionBtn();
         userId = this.getIntent().getIntExtra("user-id", 0);
-        mVerifyCodePresenter = new VerifyCodeImpl(this);
+        mVerifyCodePresenterPresenter = new VerifyCodePresenterImpl(this);
     }
 
     @Click(R.id.btn_active_code)
@@ -64,7 +64,7 @@ public class VerifyCodeActivity extends BaseActivity implements VerifyCodeView, 
             return;
         }
         this.showWaitingDialog();
-        mVerifyCodePresenter.verifyCode(userId, mVerifyCodeEdt.getText().toString());
+        mVerifyCodePresenterPresenter.verifyCode(userId, mVerifyCodeEdt.getText().toString());
 
     }
 
@@ -75,13 +75,13 @@ public class VerifyCodeActivity extends BaseActivity implements VerifyCodeView, 
             return;
         }
         this.showWaitingDialog();
-        mVerifyCodePresenter.sendNewCode(userId);
+        mVerifyCodePresenterPresenter.sendNewCode(userId);
     }
 
     @AfterTextChange({R.id.verify_code})
     public void verifyCodeAfterTextChanged(){
         this.hideMessageText();
-        mVerifyCodePresenter.validateInput(mVerifyCodeEdt.getText().toString());
+        mVerifyCodePresenterPresenter.validateInput(mVerifyCodeEdt.getText().toString());
     }
 
 

@@ -4,10 +4,9 @@ package com.doanchuyennganh.eatio.presensters.fonda;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
-import com.doanchuyennganh.eatio.models.FondaModel;
+import com.doanchuyennganh.eatio.repository.FondaRepository;
 import com.doanchuyennganh.eatio.views.fonda.FondaGroupView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public class FondaGroupPresenterImpl implements FondaGroupPresenter {
 
     @Override
     public void getGroupList() {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.getGroupList(new ApiRequestCallback<FondaGroup>() {
             @Override
             public void responseCollection(List<FondaGroup> collection) {
@@ -36,7 +35,7 @@ public class FondaGroupPresenterImpl implements FondaGroupPresenter {
 
     @Override
     public void createFonda(String token, Fonda fonda) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
 
         model.createFonda(token, fonda,
                 new ApiRequestCallback<Fonda>() {

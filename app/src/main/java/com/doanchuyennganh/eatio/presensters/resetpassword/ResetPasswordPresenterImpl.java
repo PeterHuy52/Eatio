@@ -1,9 +1,9 @@
 package com.doanchuyennganh.eatio.presensters.resetpassword;
 
+import com.doanchuyennganh.eatio.repository.UserRepository;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Error;
 import com.doanchuyennganh.eatio.entity.User;
-import com.doanchuyennganh.eatio.models.UserModel;
 import com.doanchuyennganh.eatio.utils.RegexUtils;
 import com.doanchuyennganh.eatio.views.resetpassword.ResetPasswordView;
 
@@ -23,7 +23,7 @@ public class ResetPasswordPresenterImpl implements ResetPasswrodPresenter {
 
     @Override
     public void resendPassword(String username, String email) {
-        UserModel model = new UserModel();
+        UserRepository model = new UserRepository();
         model.resendPassword(username.trim(), email.trim(), new ApiRequestCallback<User>() {
             @Override
             public void responseData(User data) {

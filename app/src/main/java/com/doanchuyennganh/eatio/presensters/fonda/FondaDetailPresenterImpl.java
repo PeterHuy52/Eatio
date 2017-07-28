@@ -4,7 +4,7 @@ package com.doanchuyennganh.eatio.presensters.fonda;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.responses.ApiResponse;
 import com.doanchuyennganh.eatio.entity.Fonda;
-import com.doanchuyennganh.eatio.models.FondaModel;
+import com.doanchuyennganh.eatio.repository.FondaRepository;
 import com.doanchuyennganh.eatio.views.fonda.FondaDetailView;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,7 +23,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void getFonda(final int fondaId) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.getFonda(fondaId,new  ApiRequestCallback< Fonda> (){
             @Override
             public void responseData(Fonda data){
@@ -34,7 +34,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void updatePhone(String token, int id, String phone) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updatePhone(token, id, phone, new ApiRequestCallback<Fonda>(){
             @Override
             public void responseData(Fonda data){
@@ -45,7 +45,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void updateName(String token, int id, String name) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updateName(token, id, name, new ApiRequestCallback<Fonda>(){
             @Override
             public void responseData(Fonda data){
@@ -56,7 +56,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void updateAddress(String token, int id, String address) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updateAddress(token, id, address, new ApiRequestCallback<Fonda>(){
             @Override
             public void responseData(Fonda data){
@@ -67,7 +67,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void updateOpenTime(String token, int id, String openTime) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updateOpenTime(token, id, openTime, new ApiRequestCallback<Fonda>(){
             @Override
             public void responseData(Fonda data){
@@ -78,7 +78,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void updateCloseTime(String token, int id, String closeTime) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updateCloseTime(token, id, closeTime, new ApiRequestCallback<Fonda>(){
             @Override
             public void responseData(Fonda data){
@@ -89,7 +89,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void updateOpenDay(String token, int id, String openDay) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updateOpenDay(token, id, openDay, new ApiRequestCallback<Fonda>(){
             @Override
             public void responseData(Fonda data){
@@ -100,7 +100,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void updateLocation(String token, int id, LatLng location) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updateLocation(token, id, location, new ApiRequestCallback<Fonda>(){
             @Override
             public void responseData(Fonda data){
@@ -111,7 +111,7 @@ public class FondaDetailPresenterImpl implements FondaDetailPresenter {
 
     @Override
     public void updateLocation(String token, int id, String placeId, String city, String province) {
-        FondaModel model = new FondaModel();
+        FondaRepository model = new FondaRepository();
         model.updateLocation(token, id, placeId, city, province, new ApiRequestCallback<Fonda>(){
             public void responseBody(ApiResponse<Fonda> body){
                 //success

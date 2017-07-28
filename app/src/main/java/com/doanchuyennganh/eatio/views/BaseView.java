@@ -11,8 +11,6 @@ public interface BaseView {
     void dismissWaitingDialog();
 
     boolean isConnected();
-
-
     boolean isOwner(int checkUserId);
 
 

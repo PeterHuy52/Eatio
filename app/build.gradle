@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -27,6 +28,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    lintOptions { disable 'InvalidPackage' }
+
 }
 def AAVersion = '4.3.0'
 
@@ -41,18 +52,33 @@ dependencies {
     //compile 'com.squareup.retrofit2:retrofit-converters:2.1.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     //    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    //Picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
+    //Glide
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     //    compile 'com.google.code.gson:gson:2.8.0'
+    //Okhttp
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
+    //Dagger
+    compile 'com.google.dagger:dagger:2.7'
+    compile 'com.google.dagger:dagger-compiler:2.7'
+    compile 'org.glassfish.main:javax.annotation:4.0-b33'
+    //support
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:design:25.3.1'
+    //rxJava
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'io.reactivex:rxandroid:1.2.1'
+    //ButterKnight
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    //Library Image
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.google.android.gms:play-services-maps:10.2.0'
     testCompile 'junit:junit:4.12'

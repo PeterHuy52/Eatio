@@ -8,7 +8,7 @@ import com.doanchuyennganh.eatio.entity.Culinary;
 import com.doanchuyennganh.eatio.entity.Error;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
-import com.doanchuyennganh.eatio.models.FondaModel;
+import com.doanchuyennganh.eatio.repository.FondaRepository;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListView;
 import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchDetailView;
 
@@ -24,11 +24,11 @@ import java.util.Map;
 @EBean
 public class FondaListPresenterImpl implements FondaListPresenter {
     FondaListView mView;
-    FondaModel model;
+    FondaRepository model;
     FondaSearchDetailView mSearchView;
 
     public FondaListPresenterImpl() {
-        model = new FondaModel();
+        model = new FondaRepository();
     }
 
     @Override

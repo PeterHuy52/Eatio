@@ -1,9 +1,9 @@
 package com.doanchuyennganh.eatio.presensters.register;
 
+import com.doanchuyennganh.eatio.repository.UserRepository;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Error;
 import com.doanchuyennganh.eatio.entity.VerifyStatus;
-import com.doanchuyennganh.eatio.models.UserModel;
 import com.doanchuyennganh.eatio.utils.RegexUtils;
 import com.doanchuyennganh.eatio.views.register.RegisterView;
 
@@ -22,7 +22,7 @@ public class RegisterPresenterImpl  implements RegisterPresenter {
     @Override
     public void signUp(String username, String email, String password) {
 
-        UserModel model = new UserModel();
+        UserRepository model = new UserRepository();
         model.signUp(username, email, password, new ApiRequestCallback<VerifyStatus>() {
             @Override
             public void responseData(VerifyStatus data) {

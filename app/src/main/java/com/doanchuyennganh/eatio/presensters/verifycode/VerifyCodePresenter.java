@@ -4,7 +4,7 @@ package com.doanchuyennganh.eatio.presensters.verifycode;
  * Created by TungHo on 05/08/2017.
  */
 
-public interface VerifyCode {
+public interface VerifyCodePresenter {
 
 
     void verifyCode(int userId, String code);

@@ -4,13 +4,10 @@ import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Error;
 import com.doanchuyennganh.eatio.entity.Image;
-import com.doanchuyennganh.eatio.models.FondaModel;
+import com.doanchuyennganh.eatio.repository.FondaRepository;
 import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FondaPhotoView;
 
 import org.androidannotations.annotations.EBean;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Nguyen Tan Luan on 5/14/2017.
@@ -20,10 +17,10 @@ public class FondaPhotoPresenterImpl implements FondaPhotoPresenter {
 
     FondaPhotoView mView;
 
-    FondaModel mFondaModel;
+    FondaRepository mFondaRepository;
 
     public FondaPhotoPresenterImpl() {
-        mFondaModel = new FondaModel();
+        mFondaRepository = new FondaRepository();
     }
 
     @Override
@@ -33,7 +30,7 @@ public class FondaPhotoPresenterImpl implements FondaPhotoPresenter {
 
     @Override
     public void getImages(int fondaId,int page) {
-        mFondaModel.getImagesFonda(fondaId, page, new ApiRequestCallback<Paging<Image>>() {
+        mFondaRepository.getImagesFonda(fondaId, page, new ApiRequestCallback<Paging<Image>>() {
             @Override
             public void responseData(Paging<Image> data) {
                 mView.updateImages(data);
@@ -49,7 +46,7 @@ public class FondaPhotoPresenterImpl implements FondaPhotoPresenter {
 
     @Override
     public void uploadImages(String token, int fondaId, String base64Str, String description) {
-        mFondaModel.uploadImageFonda(token, fondaId, base64Str, description, new ApiRequestCallback<Image>() {
+        mFondaRepository.uploadImageFonda(token, fondaId, base64Str, description, new ApiRequestCallback<Image>() {
             @Override
             public void responseData(Image data) {
                 mView.uploadPhotoSuccess();

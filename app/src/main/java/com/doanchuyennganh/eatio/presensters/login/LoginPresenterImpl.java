@@ -1,9 +1,9 @@
 package com.doanchuyennganh.eatio.presensters.login;
 
+import com.doanchuyennganh.eatio.repository.UserRepository;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.AccessToken;
 import com.doanchuyennganh.eatio.entity.Error;
-import com.doanchuyennganh.eatio.models.UserModel;
 import com.doanchuyennganh.eatio.utils.RegexUtils;
 import com.doanchuyennganh.eatio.views.IMessageView;
 import com.doanchuyennganh.eatio.views.login.LoginView;
@@ -35,8 +35,8 @@ public class LoginPresenterImpl implements LoginPresenter, IMessageView {
 
     @Override
     public void login(String username, String password) {
-        UserModel userModel = new UserModel();
-        userModel.login(username.trim(), password.trim(), new ApiRequestCallback<AccessToken>() {
+        UserRepository userRepository = new UserRepository();
+        userRepository.login(username.trim(), password.trim(), new ApiRequestCallback<AccessToken>() {
             @Override
             public void responseData(AccessToken data) {
                 mView.loginSuccess(data);

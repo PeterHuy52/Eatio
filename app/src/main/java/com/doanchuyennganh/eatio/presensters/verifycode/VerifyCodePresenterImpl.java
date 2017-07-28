@@ -1,30 +1,30 @@
 package com.doanchuyennganh.eatio.presensters.verifycode;
 
+import com.doanchuyennganh.eatio.repository.UserRepository;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Error;
 import com.doanchuyennganh.eatio.entity.VerifyStatus;
-import com.doanchuyennganh.eatio.models.UserModel;
 import com.doanchuyennganh.eatio.views.verifycode.VerifyCodeView;
 
 /**
  * Created by TungHo on 05/08/2017.
  */
 
-public class VerifyCodeImpl implements VerifyCode {
+public class VerifyCodePresenterImpl implements VerifyCodePresenter {
 
     public static final int VERIFY_STATUS_SUCCESS = 3;
     public static final int VERIFY_STATUS_EXPIRED = 2;
 
     VerifyCodeView mView;
 
-    public VerifyCodeImpl(VerifyCodeView view){
+    public VerifyCodePresenterImpl(VerifyCodeView view){
         mView = view;
     }
 
 
     @Override
     public void verifyCode(int userId, String code) {
-        UserModel model = new UserModel();
+        UserRepository model = new UserRepository();
         model.verifyAccount(userId, code, new ApiRequestCallback<VerifyStatus>() {
             @Override
             public void responseData(VerifyStatus data) {
@@ -63,7 +63,7 @@ public class VerifyCodeImpl implements VerifyCode {
 
     @Override
     public void sendNewCode(int userId) {
-        UserModel model = new UserModel();
+        UserRepository model = new UserRepository();
         model.sendNewCode(userId, new ApiRequestCallback<VerifyStatus>() {
             @Override
             public void responseData(VerifyStatus data) {

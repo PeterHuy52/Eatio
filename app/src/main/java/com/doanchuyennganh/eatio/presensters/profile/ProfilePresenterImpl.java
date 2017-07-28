@@ -1,10 +1,10 @@
 package com.doanchuyennganh.eatio.presensters.profile;
 
+import com.doanchuyennganh.eatio.repository.UserRepository;
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Error;
 import com.doanchuyennganh.eatio.entity.Image;
 import com.doanchuyennganh.eatio.entity.Profile;
-import com.doanchuyennganh.eatio.models.UserModel;
 import com.doanchuyennganh.eatio.views.home.LeftMenuHeaderView;
 import com.doanchuyennganh.eatio.views.profile.ProfileView;
 
@@ -18,10 +18,10 @@ public class ProfilePresenterImpl implements ProfilePresenter {
 
     LeftMenuHeaderView mLeftMenuHeaderView;
     ProfileView mProfileView;
-    UserModel mUserModel;
+    UserRepository mUserRepository;
 
     public ProfilePresenterImpl() {
-        mUserModel = new UserModel();
+        mUserRepository = new UserRepository();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ProfilePresenterImpl implements ProfilePresenter {
 
     @Override
     public void getProfile(String tokenString) {
-        mUserModel.getProfile(tokenString, new ApiRequestCallback<Profile>() {
+        mUserRepository.getProfile(tokenString, new ApiRequestCallback<Profile>() {
             @Override
             public void responseData(Profile data) {
                 if (mLeftMenuHeaderView != null) {
@@ -61,7 +61,7 @@ public class ProfilePresenterImpl implements ProfilePresenter {
 
     @Override
     public void updateProfileUser(int userId, String token, Profile profile) {
-        mUserModel.updateProfile(userId, token, profile.firstname, profile.lastname, profile.birthday, profile.gender, profile.profilePictureId, new ApiRequestCallback<Profile>() {
+        mUserRepository.updateProfile(userId, token, profile.firstname, profile.lastname, profile.birthday, profile.gender, profile.profilePictureId, new ApiRequestCallback<Profile>() {
             @Override
             public void responseData(Profile data) {
                 mProfileView.updateProfileView(data);
@@ -76,7 +76,7 @@ public class ProfilePresenterImpl implements ProfilePresenter {
 
     @Override
     public void uploadAvatar(int userId, String token, String base64Str, String description) {
-        mUserModel.uploadUserAvatar(userId, token, base64Str, description, new ApiRequestCallback<Image>() {
+        mUserRepository.uploadUserAvatar(userId, token, base64Str, description, new ApiRequestCallback<Image>() {
             @Override
             public void responseData(Image data) {
                 mProfileView.updateAvatar(data);
@@ -91,7 +91,7 @@ public class ProfilePresenterImpl implements ProfilePresenter {
 
     @Override
     public void updateAvatar(int userId, int imageId, String token, String base64Str, String description) {
-        mUserModel.updateUserAvatar(userId, imageId, token, base64Str, description, new ApiRequestCallback<Image>() {
+        mUserRepository.updateUserAvatar(userId, imageId, token, base64Str, description, new ApiRequestCallback<Image>() {
             @Override
             public void responseData(Image data) {
                 mProfileView.updateAvatar(data);
