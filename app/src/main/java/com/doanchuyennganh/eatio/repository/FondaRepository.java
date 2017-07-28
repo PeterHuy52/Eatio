@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.models;
+package com.doanchuyennganh.eatio.Repository;
 
 import com.doanchuyennganh.eatio.api.ApiConnection;
 import com.doanchuyennganh.eatio.api.FondaApi;
@@ -20,11 +20,11 @@ import retrofit2.Callback;
  * Created by TungHo on 05/09/2017.
  */
 
-public class FondaModel {
+public class FondaRepository {
 
     FondaApi api;
 
-    public FondaModel() {
+    public FondaRepository() {
         api = ApiConnection.createService(FondaApi.class);
     }
 

@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.models;
+package com.doanchuyennganh.eatio.Repository;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.api.ApiConnection;
@@ -13,12 +13,12 @@ import retrofit2.Callback;
  * Created by TungHo on 05/10/2017.
  */
 
-public class GoogleApiModel {
+public class GoogleApiRepository {
 
     GoogleMapGeocodingApi api;
     public static String KEY;
 
-    public GoogleApiModel(){
+    public GoogleApiRepository(){
         api = ApiConnection.googleMapGeocodingApi();
         try {
             KEY = EatioApplication.getAppContext().getString(R.string.google_maps_geocording_api_key);

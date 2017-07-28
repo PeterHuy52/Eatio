@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.models;
+package com.doanchuyennganh.eatio.Repository;
 
 import com.doanchuyennganh.eatio.api.ApiConnection;
 import com.doanchuyennganh.eatio.api.UserApi;
@@ -16,11 +16,11 @@ import retrofit2.Call;
  * Created by TungHo on 05/06/2017.
  */
 
-public class UserModel {
+public class UserRepository {
 
     UserApi api;
 
-    public UserModel(){
+    public UserRepository(){
         api = ApiConnection.createService(UserApi.class);
     }
 

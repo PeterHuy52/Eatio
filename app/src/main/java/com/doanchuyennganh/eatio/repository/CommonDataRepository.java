@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.models;
+package com.doanchuyennganh.eatio.Repository;
 
 import com.doanchuyennganh.eatio.api.ApiConnection;
 import com.doanchuyennganh.eatio.api.CommonApi;
@@ -9,11 +9,11 @@ import com.doanchuyennganh.eatio.entity.Utility;
  * Created by TungHo on 05/13/2017.
  */
 
-public class CommonDataModel {
+public class CommonDataRepository {
 
     CommonApi api;
 
-    public CommonDataModel(){
+    public CommonDataRepository(){
         api = ApiConnection.createService(CommonApi.class);
     }
 
