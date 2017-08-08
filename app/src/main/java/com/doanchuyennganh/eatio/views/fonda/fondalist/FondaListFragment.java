@@ -1,7 +1,8 @@
 package com.doanchuyennganh.eatio.views.fonda.fondalist;
 
 import android.location.Location;
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,41 +14,42 @@ import android.widget.Toast;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.api.responses.Paging;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
 import com.doanchuyennganh.eatio.presensters.map.LocationPresenter;
-import com.doanchuyennganh.eatio.presensters.map.LocationPresenterImpl;
 import com.doanchuyennganh.eatio.utils.AppConstants;
+import com.doanchuyennganh.eatio.views.base.BaseFragment;
 import com.doanchuyennganh.eatio.views.fonda.FondaDetailActivity;
 import com.doanchuyennganh.eatio.views.fonda.adapter.FondaAdapter;
 import com.doanchuyennganh.eatio.views.mapactivity.LocationView;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
-import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
 
 /**
  * Created by Nguyen Tan Luan on 5/13/2017.
  */
-@EFragment(R.layout.fragment_fonda_list)
-public class FondaListFragment extends Fragment implements FondaListView, SwipeRefreshLayout.OnRefreshListener,
+public class FondaListFragment extends BaseFragment<FondaListPresenter> implements FondaListView, SwipeRefreshLayout.OnRefreshListener,
         OnClickListener, LocationView {
 
-    @ViewById
+    @BindView(R.id.recyclerView)
     protected RecyclerView recyclerView;
 
-    @ViewById
+    @BindView(R.id.progressBar)
     protected ProgressBar progressBar;
 
-    @ViewById
+    @BindView(R.id.swipeRefreshLayout)
     protected SwipeRefreshLayout swipeRefreshLayout;
 
-    @ViewById(R.id.ly_error)
+    @BindView(R.id.ly_error)
     protected LinearLayout lyEmptyList;
 
     @Bean
@@ -67,6 +69,7 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
     protected ArrayList<Fonda> mFondaList = new ArrayList<>();
     protected ArrayList<String> mDistanceList = new ArrayList<>();
 
+    @Inject
     protected LocationPresenter mLocationPresenter;
 
     protected EndlessRecyclerOnScrollListener mLoadMoreRecylerView;
@@ -74,12 +77,16 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
     protected Location mCurrentLocation;
     protected int mLastPage;
 
-    @AfterViews
-    void afterViews() {
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initViews();
+    }
 
-        mLocationPresenter = new LocationPresenterImpl(this);
+
+    public void initViews() {
+
         mLocationPresenter.getLocation();
-
         mFondaListPresenter.setView(this);
         //mFondaListPresenter.getFondas(FIRST_PAGE);
         getFondaListByType(FIRST_PAGE);
@@ -227,5 +234,15 @@ public class FondaListFragment extends Fragment implements FondaListView, SwipeR
                 mFondaListPresenter.getFondas(currentPage);
                 break;
         }
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_fonda_list;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
     }
 }

@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.Map;
 
 import retrofit2.Callback;
+import rx.Observable;
 
 /**
  * Created by TungHo on 05/09/2017.
@@ -45,8 +46,9 @@ public class FondaRepository {
         api.getFonda(fondaId).enqueue(callback);
     }
 
-    public void getListFonda(Map<String, String> query, ApiRequestCallback<Paging<Fonda>> callback) {
-        api.getListFonda(query).enqueue(callback);
+    public Observable<Paging<Fonda>> getListFonda(Map<String, String> query) {
+        return api.getListFonda(query)
+                .map(response -> response.getData());
     }
 
     public void updatePhone(String token, int id, String phone, ApiRequestCallback<Fonda> callback) {

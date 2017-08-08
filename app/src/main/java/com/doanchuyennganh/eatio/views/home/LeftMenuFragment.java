@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
 import com.doanchuyennganh.eatio.utils.ApplicationPreferences_;
-import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
 import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
 import com.squareup.picasso.Picasso;

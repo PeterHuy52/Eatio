@@ -1,58 +1,57 @@
 package com.doanchuyennganh.eatio.views.resetpassword;
 
-import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.presensters.resetpassword.ResetPasswordPresenterImpl;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
+import com.doanchuyennganh.eatio.views.base.Navigator;
 import com.doanchuyennganh.eatio.presensters.resetpassword.ResetPasswrodPresenter;
 import com.doanchuyennganh.eatio.utils.ResourceUtils;
-import com.doanchuyennganh.eatio.views.BaseActivity;
-import com.doanchuyennganh.eatio.views.IMessageView;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
 
 import org.androidannotations.annotations.AfterTextChange;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by TungHo on 05/06/2017.
  */
-@EActivity(R.layout.activity_resend_password)
-public class ResetPasswordActivity extends BaseActivity implements ResetPasswordView, IMessageView {
 
-    public static void run(Context context){
-        ResetPasswordActivity_.intent(context).start();
-    }
+public class ResetPasswordActivity extends BaseActivity<ResetPasswrodPresenter> implements ResetPasswordView, Navigator {
 
-    ResetPasswrodPresenter mPresenter;
-
-    @ViewById(R.id.username)
+    @BindView(R.id.username)
     EditText mEdtUsername;
 
-    @ViewById(R.id.email)
+    @BindView(R.id.email)
     EditText mEdtEmail;
 
-    @ViewById(R.id.massage_tv)
+    @BindView(R.id.massage_tv)
     TextView mMessageTv;
 
-    @ViewById(R.id.btn_resend_password)
+    @BindView(R.id.btn_resend_password)
     Button resendPwdBtn;
 
-    @AfterViews
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
+
     void initView() {
         this.getSupportActionBar().hide();
-        mPresenter = new ResetPasswordPresenterImpl(this);
         this.disableActionBtn();
     }
 
     // Event View
-    @Click(R.id.btn_resend_password)
+    @OnClick(R.id.btn_resend_password)
     void resendPassword() {
         this.showWaitingDialog();
         String username = mEdtUsername.getText().toString();
@@ -73,8 +72,14 @@ public class ResetPasswordActivity extends BaseActivity implements ResetPassword
     }
 
     @Override
+    public void goToHome() {
+
+    }
+
+    @Override
     public void goToLogin() {
-        LoginActivity.run(this);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
         this.finish();
     }
 
@@ -116,6 +121,16 @@ public class ResetPasswordActivity extends BaseActivity implements ResetPassword
     public void hideMessageText() {
         mMessageTv.setText("");
         mMessageTv.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_resend_password;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
     }
 }
 

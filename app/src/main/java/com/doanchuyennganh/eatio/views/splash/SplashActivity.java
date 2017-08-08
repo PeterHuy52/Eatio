@@ -1,6 +1,5 @@
 package com.doanchuyennganh.eatio.views.splash;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -11,7 +10,7 @@ import android.widget.ProgressBar;
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.presensters.splash.SplashPresenter;
-import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.home.HomeActivity;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
 
@@ -22,10 +21,6 @@ import butterknife.BindView;
  */
 
 public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashView, SplashNavigator {
-
-    public static void run(Context context){
-        SplashActivity_.intent(context).flags(Intent.FLAG_ACTIVITY_CLEAR_TASK).start();
-    }
 
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
@@ -44,13 +39,15 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void goToHome() {
-        HomeActivity.run(this, mPref.userToken().get());
+        Intent intent= new Intent(this, HomeActivity.class);
+        startActivity(intent);
         this.finish();
     }
 
     @Override
     public void goToLogin() {
-        LoginActivity.run(this);
+        Intent intent= new Intent(this, LoginActivity.class);
+        startActivity(intent);
         this.finish();
     }
 

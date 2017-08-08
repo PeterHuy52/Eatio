@@ -16,6 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by Nguyen Tan Luan on 3/24/2017.
@@ -25,21 +26,21 @@ public interface UserApi {
 
     @FormUrlEncoded
     @POST("/login")
-    Call<ApiResponse<AccessToken>> loginUser(@Field("username") String username, @Field("password") String password);
-
+    //Call<ApiResponse<AccessToken>> loginUser(@Field("username") String username, @Field("password") String password);
+    Observable<ApiResponse<AccessToken>> loginUser(@Field("username") String username, @Field("password") String password);
     @FormUrlEncoded
     @POST("/register")
-    Call<ApiResponse<VerifyStatus>> registerUser(@Field("username") String username, @Field("email") String email, @Field("password") String password);
+    Observable<ApiResponse<VerifyStatus>> registerUser(@Field("username") String username, @Field("email") String email, @Field("password") String password);
 
     @FormUrlEncoded
     @PUT("/users/{id}/verify")
-    Call<ApiResponse<VerifyStatus>> verifyAccount(@Path("id") int userId, @Field("code") String verifycode);
+    Observable<ApiResponse<VerifyStatus>> verifyAccount(@Path("id") int userId, @Field("code") String verifycode);
 
     @GET("/users/{id}/verify")
-    Call<ApiResponse<VerifyStatus>> sendNewVerifyCode(@Path("id") int user);
+    Observable<ApiResponse<VerifyStatus>> sendNewVerifyCode(@Path("id") int user);
 
     @GET("/resend_password")
-    Call<ApiResponse<User>> resendPasswordUser(@Query("username") String username, @Query("email") String email);
+    Observable<ApiResponse<User>> resendPasswordUser(@Query("username") String username, @Query("email") String email);
 
     @FormUrlEncoded
     @POST("/users/profile")

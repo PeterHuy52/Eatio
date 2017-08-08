@@ -17,7 +17,7 @@ import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
-import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.FondaDetailActivity;
 import com.doanchuyennganh.eatio.views.fonda.adapter.SearchFondaAdapter;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.EndlessRecyclerOnScrollListener;

@@ -19,4 +19,8 @@ public class Error implements Serializable{
     @SerializedName("reason")
     public String reason;
 
+    public Error(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }

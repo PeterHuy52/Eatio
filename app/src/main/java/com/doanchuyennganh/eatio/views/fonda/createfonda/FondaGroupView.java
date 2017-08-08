@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.views.fonda;
+package com.doanchuyennganh.eatio.views.fonda.createfonda;
 
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 

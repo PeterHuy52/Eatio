@@ -69,4 +69,5 @@ public class LocationPresenterImpl implements LocationPresenter,
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         mView.failLocation();
     }
+
 }

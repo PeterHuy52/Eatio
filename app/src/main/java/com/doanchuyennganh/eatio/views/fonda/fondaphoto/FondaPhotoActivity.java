@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,11 +18,13 @@ import android.widget.LinearLayout;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.api.responses.Paging;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.entity.Image;
 import com.doanchuyennganh.eatio.presensters.fonda.fondaphoto.FondaPhotoPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondaphoto.FondaPhotoPresenterImpl;
 import com.doanchuyennganh.eatio.utils.PhotoUtils;
-import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.utils.SharedPrefUtils;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.adapter.PhotoAdapter;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.EndlessRecyclerOnScrollListener;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.OnClickListener;
@@ -29,7 +33,6 @@ import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -46,7 +49,7 @@ import java.util.List;
  * Created by Nguyen Tan Luan on 5/14/2017.
  */
 @EActivity(R.layout.activity_fonda_photo)
-public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, SwipeRefreshLayout.OnRefreshListener, OnClickListener {
+public class FondaPhotoActivity extends BaseActivity<FondaPhotoPresenter> implements FondaPhotoView, SwipeRefreshLayout.OnRefreshListener, OnClickListener {
     private static final int UPLOAD_PHOTO_REQUEST_CODE = 100;
     private final int FIRST_PAGE = 1;
 
@@ -74,19 +77,23 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
     private boolean mUpload = false;
 
     public static void run(Context context, int fondaId) {
-        FondaPhotoActivity_.intent(context)
+        /*FondaPhotoActivity_.intent(context)
                 .extra("id", fondaId)
-                .start();
+                .start();*/
     }
 
-    @AfterViews
-    void initView() {
+
+
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews();
+        mFondaId = this.getIntent().getIntExtra("id",0);
+        mPresenter.getImages(mFondaId, FIRST_PAGE);
+    }
+    void initViews() {
         setUpToolbar("Photo");
-        mFondaId = this.getIntent().getIntExtra("id", 0);
-
-        mFondaPhotoPresenter.setView(this);
-        mFondaPhotoPresenter.getImages(mFondaId, FIRST_PAGE);
-
         swipeRefreshLayout.setOnRefreshListener(this);
         initRecyclerView();
     }
@@ -135,7 +142,8 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                 String base64str = PhotoUtils.convertBitmapToBase64(bitmap);
-                mFondaPhotoPresenter.uploadImages(mPref.userToken().get(), mFondaId, base64str, "");
+                //mFondaPhotoPresenter.uploadImages(mPref.userToken().get(), mFondaId, base64str, "");
+                mPresenter.uploadImages(SharedPrefUtils.loadStringPref("token",""),mFondaId,base64str,"");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -253,5 +261,25 @@ public class FondaPhotoActivity extends BaseActivity implements FondaPhotoView, 
     public void onItemLongClick(int position) {
         mPhotosUpload.remove(position);
         mPhotoAdapter.removeItem(position);
+    }
+
+    @Override
+    public void goToHome() {
+
+    }
+
+    @Override
+    public void goToLogin() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_fonda_photo;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
     }
 }

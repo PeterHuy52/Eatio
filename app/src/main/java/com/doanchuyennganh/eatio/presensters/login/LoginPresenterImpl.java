@@ -1,32 +1,43 @@
 package com.doanchuyennganh.eatio.presensters.login;
 
-import com.doanchuyennganh.eatio.repository.UserRepository;
-import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
-import com.doanchuyennganh.eatio.entity.AccessToken;
+import android.content.SharedPreferences;
+
 import com.doanchuyennganh.eatio.entity.Error;
+import com.doanchuyennganh.eatio.presensters.base.BasePresenter;
+import com.doanchuyennganh.eatio.repository.UserRepository;
 import com.doanchuyennganh.eatio.utils.RegexUtils;
-import com.doanchuyennganh.eatio.views.IMessageView;
+import com.doanchuyennganh.eatio.utils.SharedPrefUtils;
+import com.doanchuyennganh.eatio.views.login.LoginNavigator;
 import com.doanchuyennganh.eatio.views.login.LoginView;
+
+import javax.inject.Inject;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by TungHo on 05/06/2017.
  */
 
-public class LoginPresenterImpl implements LoginPresenter, IMessageView {
+public class LoginPresenterImpl extends BasePresenter<LoginView, LoginNavigator> implements LoginPresenter {
 
-    LoginView mView;
+    UserRepository mUserRepository;
 
-    public LoginPresenterImpl(LoginView view){
-        mView = view;
+    SharedPreferences mSharePref;
+
+    @Inject
+    public LoginPresenterImpl(UserRepository userRepository, SharedPreferences sharedPreferences) {
+        mUserRepository = userRepository;
+        mSharePref = sharedPreferences;
     }
 
     @Override
     public void validateInput(String username, String password) {
-        if (RegexUtils.isValidUsername(username.trim()) == false){
+        if (RegexUtils.isValidUsername(username.trim()) == false) {
             mView.disableLoginBtn();
             return;
         }
-        if (RegexUtils.isValidPassword(password.trim()) == false){
+        if (RegexUtils.isValidPassword(password.trim()) == false) {
             mView.disableLoginBtn();
             return;
         }
@@ -35,33 +46,26 @@ public class LoginPresenterImpl implements LoginPresenter, IMessageView {
 
     @Override
     public void login(String username, String password) {
-        UserRepository userRepository = new UserRepository();
-        userRepository.login(username.trim(), password.trim(), new ApiRequestCallback<AccessToken>() {
-            @Override
-            public void responseData(AccessToken data) {
-                mView.loginSuccess(data);
-            }
+        mUserRepository.login(username, password)
+                .subscribeOn(Schedulers.io())
+                .retry()
+                .filter(accessToken -> accessToken != null)
+                .doOnNext(accessToken -> {
+                    SharedPrefUtils.saveStringPref("token", accessToken.token);
+                    SharedPrefUtils.saveIntPref("user-id", accessToken.userId);
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(accessToken -> {
+                    mView.loginSuccess(accessToken);
+                },
+                        error->{
+                            Error e = getError(error);
+                            if(e.code == 40101)
+                                mView.loginFail();
+                            else if(e.code == 40102)
+                                mNavigator.goToVerifyCode();
 
-            @Override
-            public void responseError(Error data) {
-                if (data.code == 40101){
-                    // sai password
-                    mView.loginFail();
-                }
-                else if (data.code == 40102) {
-                    mView.goToVerifyCode();
-                }
-            }
-        });
+                });
     }
 
-    @Override
-    public void setMessageText(String text, boolean isPositive) {
-
-    }
-
-    @Override
-    public void hideMessageText() {
-
-    }
 }

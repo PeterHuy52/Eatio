@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.utils.AppConstants;
-import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;

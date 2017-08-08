@@ -1,55 +1,53 @@
 package com.doanchuyennganh.eatio.views.home;
 
-import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.animation.Animation;
-import android.widget.LinearLayout;
 
 import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.entity.Profile;
-import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenter;
-import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
-import com.doanchuyennganh.eatio.utils.AppConstants;
-import com.doanchuyennganh.eatio.views.BaseActivity;
-import com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity;
-import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment_;
-import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchActivity;
-import com.doanchuyennganh.eatio.views.login.LoginActivity;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
+import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment;
+import com.roughike.bottombar.BottomBar;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.AnimationRes;
+import butterknife.BindView;
 
 /**
  * Created by TungHo on 05/08/2017.
  */
-@EActivity(R.layout.activity_home)
-public class HomeActivity extends BaseActivity implements HomeFragmentContainer, LeftMenuHeaderView {
+public class HomeActivity extends BaseActivity {
+    @BindView(R.id.bottom_bar_main)
+    BottomBar mBottomBar;
 
-    public static void run(Context context, String token) {
-        HomeActivity_.intent(context)
-                .extra("token", token).start();
+    Fragment mCurrentFragment;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        mBottomBar.setOnTabReselectListener(tabId -> {
+            switch (tabId){
+                case R.id.tab_home:
+                    mCurrentFragment = new FondaListFragment();
+                    break;
+                case R.id.tab_search:
+                    break;
+                case R.id.tab_shop:
+                    break;
+                case R.id.tab_profile:
+                    break;
+                case R.id.tab_more:
+                    break;
+                default:
+                    mCurrentFragment = new FondaListFragment();
+                    break;
+            }
+        });
+        //FragmentManager fragmentManager = getSupportFragmentManager();
+        //fragmentManager.beginTransaction().replace(R.id.frame_container, mCurrentFragment);
 
     }
 
-    int userId;
-    String tokenString;
-
-    @ViewById(R.id.drawer_layout)
+    /*@ViewById(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
     @ViewById
@@ -68,9 +66,9 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     ViewPager viewPager;
 
     @ViewById(R.id.fab)
-    FloatingActionButton fab;
+    FloatingActionButton fab;*/
 
-    @ViewById(R.id.fab_create)
+    /*@ViewById(R.id.fab_create)
     FloatingActionButton fabCreate;
 
     @ViewById(R.id.fab_search)
@@ -80,9 +78,9 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     LinearLayout lyFabSearch;
 
     @ViewById(R.id.ly_fab_create_fonda)
-    LinearLayout lyFabCreateFonda;
+    LinearLayout lyFabCreateFonda;*/
 
-    @AnimationRes
+    /*@AnimationRes
     Animation fabOpen;
     @AnimationRes
     Animation fabClose;
@@ -141,7 +139,7 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
         viewPager.setAdapter(adapter);
     }
 
-    @Click(R.id.fab)
+    @Click(fab)
     public void fabBtnClick() {
         //CreateFondaActivity.run(this, this.getUserId(), getUserToken());
         if (mIsFabOpen) {
@@ -161,15 +159,15 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
         }
     }
 
-    @Click(R.id.fab_create)
+    *//*@Click(R.id.fab_create)
     public void fabCreateClick() {
-        CreateFondaActivity.run(this, this.getUserId(), getUserToken());
+        CreateFondaActivity.run(this);
     }
 
     @Click(R.id.fab_search)
     public void setFabSearchClick() {
         FondaSearchActivity.run(this);
-    }
+    }*//*
 
 
     @Override
@@ -190,7 +188,7 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
         // TODO: 05/08/2017
     }
 
-    @Override
+   *//* @Override
     public int getUserId() {
         return userId;
     }
@@ -198,13 +196,13 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
     @Override
     public String getTokenString() {
         return tokenString;
-    }
+    }*//*
 
 
     @Override
     public void updateProfileView(Profile profile) {
         mPref.userId().put(profile.userId);
-        this.userId = profile.userId;
+        //this.userId = profile.userId;
         mLeftMenu.updateProfileView(profile);
 
     }
@@ -220,6 +218,15 @@ public class HomeActivity extends BaseActivity implements HomeFragmentContainer,
         if (resultCode == RESULT_OK) {
             profilePresenter.getProfile(getUserToken());
         }
+    }*/
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_home;
     }
 
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
+    }
 }

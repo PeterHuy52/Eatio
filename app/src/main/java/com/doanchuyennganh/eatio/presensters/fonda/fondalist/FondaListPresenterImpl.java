@@ -3,32 +3,33 @@ package com.doanchuyennganh.eatio.presensters.fonda.fondalist;
 import android.location.Location;
 
 import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
-import com.doanchuyennganh.eatio.api.responses.Paging;
 import com.doanchuyennganh.eatio.entity.Culinary;
-import com.doanchuyennganh.eatio.entity.Error;
-import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
+import com.doanchuyennganh.eatio.presensters.base.BasePresenter;
 import com.doanchuyennganh.eatio.repository.FondaRepository;
+import com.doanchuyennganh.eatio.repository.GoogleApiRepository;
+import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListNavigator;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListView;
 import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchDetailView;
-
-import org.androidannotations.annotations.EBean;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by Nguyen Tan Luan on 5/13/2017.
  */
-@EBean
-public class FondaListPresenterImpl implements FondaListPresenter {
-    FondaListView mView;
-    FondaRepository model;
+public class FondaListPresenterImpl extends BasePresenter<FondaListView, FondaListNavigator> implements FondaListPresenter {
+    FondaRepository mFondaRepository;
+    GoogleApiRepository mGgApiRepository;
     FondaSearchDetailView mSearchView;
 
-    public FondaListPresenterImpl() {
-        model = new FondaRepository();
+    public FondaListPresenterImpl(FondaRepository fondaRepository, GoogleApiRepository googleApiRepository) {
+        mFondaRepository = fondaRepository;
+        mGgApiRepository = googleApiRepository;
     }
 
     @Override
@@ -96,7 +97,7 @@ public class FondaListPresenterImpl implements FondaListPresenter {
 
     @Override
     public void getFondaGroupList() {
-        model.getGroupList(new ApiRequestCallback<FondaGroup>() {
+        mFondaRepository.getGroupList(new ApiRequestCallback<FondaGroup>() {
             @Override
             public void responseCollection(List<FondaGroup> collection) {
                 mSearchView.updateFondaGroupSpinner(collection);
@@ -106,7 +107,7 @@ public class FondaListPresenterImpl implements FondaListPresenter {
 
     @Override
     public void getFondaCulinaryList() {
-        model.getCulinaries(new ApiRequestCallback<Culinary>() {
+        mFondaRepository.getCulinaries(new ApiRequestCallback<Culinary>() {
             @Override
             public void responseCollection(List<Culinary> collection) {
                 mSearchView.updateCulinarySpinner(collection);
@@ -115,7 +116,7 @@ public class FondaListPresenterImpl implements FondaListPresenter {
     }
 
     private void excuteGetListFonda(Map<String, String> query) {
-        model.getListFonda(query, new ApiRequestCallback<Paging<Fonda>>() {
+        /*mFondaRepository.getListFonda(query, new ApiRequestCallback<Paging<Fonda>>() {
             @Override
             public void responseData(Paging<Fonda> data) {
                 mView.updateFondaListView(data);
@@ -130,13 +131,18 @@ public class FondaListPresenterImpl implements FondaListPresenter {
             public void requestFail(int info) {
                mView.showEmptyList();
             }
-        });
+        });*/
+        mFondaRepository.getListFonda(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(fondaPaging -> mView.updateFondaListView(fondaPaging)
+                        , throwable -> {
+                            mView.showEmptyList();
+                        });
+
+
     }
 
-    @Override
-    public void setView(FondaListView view) {
-        mView = view;
-    }
 
     @Override
     public void setView(FondaSearchDetailView view) {

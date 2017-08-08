@@ -6,11 +6,12 @@ import com.doanchuyennganh.eatio.application.appcomponent.modules.DatabaseModule
 import com.doanchuyennganh.eatio.application.appcomponent.modules.PresenterModule;
 import com.doanchuyennganh.eatio.application.appcomponent.modules.RepositoryModule;
 import com.doanchuyennganh.eatio.application.appcomponent.modules.RetrofitModule;
-import com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity;
+import com.doanchuyennganh.eatio.views.fonda.createfonda.CreateFondaActivity;
 import com.doanchuyennganh.eatio.views.fonda.FondaDetailActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment;
 import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FondaPhotoActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FullPhotoActivity;
+import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchDetailActivity;
 import com.doanchuyennganh.eatio.views.home.HomeActivity;
 import com.doanchuyennganh.eatio.views.home.LeftMenuFragment;
 import com.doanchuyennganh.eatio.views.login.LoginActivity;
@@ -51,6 +52,7 @@ public interface AppComponent {
     void inject(VerifyCodeActivity verifyCodeActivity);
     void inject(SplashActivity splashActivity);
     void inject(SelectLocationActivity selectLocationActivity);
+    void inject(FondaSearchDetailActivity activity);
 
     //Inject Fragment
     void inject(FondaListFragment fondaListFragment);

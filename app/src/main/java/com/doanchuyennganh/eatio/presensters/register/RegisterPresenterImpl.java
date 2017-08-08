@@ -1,44 +1,48 @@
 package com.doanchuyennganh.eatio.presensters.register;
 
-import com.doanchuyennganh.eatio.repository.UserRepository;
-import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Error;
-import com.doanchuyennganh.eatio.entity.VerifyStatus;
+import com.doanchuyennganh.eatio.presensters.base.BasePresenter;
+import com.doanchuyennganh.eatio.repository.UserRepository;
 import com.doanchuyennganh.eatio.utils.RegexUtils;
+import com.doanchuyennganh.eatio.views.register.RegisterNavigator;
 import com.doanchuyennganh.eatio.views.register.RegisterView;
+
+import javax.inject.Inject;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by TungHo on 05/07/2017.
  */
 
-public class RegisterPresenterImpl  implements RegisterPresenter {
+public class RegisterPresenterImpl  extends BasePresenter<RegisterView, RegisterNavigator>implements RegisterPresenter {
 
-    RegisterView mView;
+    UserRepository mUserRepository;
 
-    public RegisterPresenterImpl(RegisterView view) {
-        mView = view;
+    @Inject
+    public RegisterPresenterImpl(UserRepository userRepository) {
+
+        mUserRepository = userRepository;
     }
 
     @Override
     public void signUp(String username, String email, String password) {
 
-        UserRepository model = new UserRepository();
-        model.signUp(username, email, password, new ApiRequestCallback<VerifyStatus>() {
-            @Override
-            public void responseData(VerifyStatus data) {
-                mView.goToVerifyCode(data.userId);
-            }
-
-            @Override
-            public void responseError(Error data) {
-                if (data.code == 40901){
-                    mView.usernameExists();
-                }
-                else if (data.code == 40902){
-                    mView.emailExists();
-                }
-            }
-        });
+        mUserRepository.signUp(username,email,password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(verifyStatus -> {
+                    if(verifyStatus != null){
+                        mNavigator.goToVerifyCode(verifyStatus.userId);
+                    }
+                }, error->{
+                    Error e = getError(error);
+                    if(e.code == 40901)
+                        mView.usernameExists();
+                    else if(e.code == 40902)
+                        mView.emailExists();
+                });
     }
 
     @Override

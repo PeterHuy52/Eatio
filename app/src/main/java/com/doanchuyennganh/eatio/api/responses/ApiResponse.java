@@ -16,7 +16,7 @@ public class ApiResponse<T > {
     private String version;
 
     @SerializedName("status")
-    private String status;
+    private int status;
 
     @SerializedName("method")
     private String request;
@@ -38,11 +38,11 @@ public class ApiResponse<T > {
         this.version = version;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

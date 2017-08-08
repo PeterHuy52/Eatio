@@ -7,12 +7,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.entity.Culinary;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
 import com.doanchuyennganh.eatio.utils.AppConstants;
-import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment_;
 import com.doanchuyennganh.eatio.views.ui.CustomViewInputSpinner;
@@ -30,21 +31,20 @@ import java.util.List;
 /**
  * Created by Nguyen Tan Luan on 5/21/2017.
  */
-@EActivity(R.layout.activity_search_fonda_detail)
-public class FondaSearchDetailActivity extends BaseActivity implements FondaSearchDetailView, AdapterView.OnItemSelectedListener {
+public class FondaSearchDetailActivity extends BaseActivity<FondaListPresenter> implements FondaSearchDetailView, AdapterView.OnItemSelectedListener {
 
     @ViewById(R.id.spinner_type_search)
     CustomViewInputSpinner spinner;
 
     public static void run(Context context, int searchkey) {
-        FondaSearchDetailActivity_.intent(context).extra("type", searchkey).start();
+        /*FondaSearchDetailActivity_.intent(context).extra("type", searchkey).start();*/
     }
 
     @Extra("type")
     int type;
 
-    @Bean(FondaListPresenterImpl.class)
-    FondaListPresenter mPresenter;
+    /*@Bean(FondaListPresenterImpl.class)
+    FondaListPresenter mPresenter;*/
 
     FondaListFragment mFondaListFragment;
 
@@ -77,6 +77,16 @@ public class FondaSearchDetailActivity extends BaseActivity implements FondaSear
                 break;
         }
 
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_search_fonda_detail;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
     }
 
     @OptionsItem(android.R.id.home)

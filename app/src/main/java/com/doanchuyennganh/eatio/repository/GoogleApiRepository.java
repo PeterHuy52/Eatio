@@ -1,36 +1,17 @@
 package com.doanchuyennganh.eatio.repository;
 
-import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.api.ApiConnection;
-import com.doanchuyennganh.eatio.api.GoogleMapGeocodingApi;
+import android.location.Location;
+
 import com.doanchuyennganh.eatio.entity.GoogleGeoCodingApi.ggGeocodingResponse;
-import com.doanchuyennganh.eatio.utils.EatioApplication;
 import com.google.android.gms.maps.model.LatLng;
 
-import retrofit2.Callback;
+import rx.Observable;
 
 /**
- * Created by TungHo on 05/10/2017.
+ * Created by lap10515 on 30/07/2017.
  */
 
-public class GoogleApiRepository {
-
-    GoogleMapGeocodingApi api;
-    public static String KEY;
-
-    public GoogleApiRepository(){
-        api = ApiConnection.googleMapGeocodingApi();
-        try {
-            KEY = EatioApplication.getAppContext().getString(R.string.google_maps_geocording_api_key);
-        }
-        catch(Exception e){
-            KEY = "AIzaSyCX0BzPwh0lB4vtUDG0cQb0ykpdCXUQavo";
-        }
-    }
-
-    public void getGeocodinByLocation(LatLng location, Callback<ggGeocodingResponse> callback){
-        api.getGeocodingByLocation(location.latitude + "," + location.longitude, KEY).enqueue(callback);
-    }
-
-
+public interface GoogleApiRepository {
+    Observable<ggGeocodingResponse> getGeocodinByLocation(LatLng location);
+    Observable<Location> getCurrentLocation();
 }

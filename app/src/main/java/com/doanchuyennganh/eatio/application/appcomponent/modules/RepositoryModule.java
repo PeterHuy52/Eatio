@@ -1,8 +1,12 @@
 package com.doanchuyennganh.eatio.application.appcomponent.modules;
 
+import android.content.Context;
+
 import com.doanchuyennganh.eatio.repository.CommonDataRepository;
 import com.doanchuyennganh.eatio.repository.FondaRepository;
 import com.doanchuyennganh.eatio.repository.GoogleApiRepository;
+import com.doanchuyennganh.eatio.repository.GoogleApiRepositoryImpl;
+import com.doanchuyennganh.eatio.repository.LocationManager;
 import com.doanchuyennganh.eatio.repository.UserRepository;
 
 import dagger.Module;
@@ -30,7 +34,12 @@ public class RepositoryModule {
     }
 
     @Provides
-    public GoogleApiRepository provideGoogleApiRepository(GoogleApiRepository repository){
+    public GoogleApiRepository provideGoogleApiRepository(GoogleApiRepositoryImpl repository){
         return repository;
+    }
+
+    @Provides
+    public LocationManager provideLocationManagerModule(Context context){
+        return new LocationManager(context);
     }
 }

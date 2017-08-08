@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,79 +16,82 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.entity.Image;
 import com.doanchuyennganh.eatio.entity.Profile;
 import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenter;
-import com.doanchuyennganh.eatio.presensters.profile.ProfilePresenterImpl;
 import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.doanchuyennganh.eatio.utils.PhotoUtils;
-import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.utils.SharedPrefUtils;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.ViewById;
 
 import java.io.IOException;
 
+import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Nguyen Tan Luan on 5/12/2017.
  */
-@EActivity(R.layout.activity_profile)
-@OptionsMenu(R.menu.menu_main)
-public class ProfileActivity extends BaseActivity implements ProfileView, DatePickerDialog.OnDateSetListener {
 
-    @ViewById(R.id.img_user_avatar)
+public class ProfileActivity extends BaseActivity<ProfilePresenter> implements ProfileView, DatePickerDialog.OnDateSetListener {
+
+    @BindView(R.id.img_user_avatar)
     CircleImageView imgAvatar;
 
-    @ViewById(R.id.edt_firstname)
+    @BindView(R.id.edt_firstname)
     EditText edtFirstname;
 
-    @ViewById(R.id.edt_lastname)
+    @BindView(R.id.edt_lastname)
     EditText edtLastname;
 
-    @ViewById(R.id.txt_birthday)
+    @BindView(R.id.txt_birthday)
     TextView txtBirthday;
 
-    @ViewById(R.id.btn_birthday)
+    @BindView(R.id.btn_birthday)
     ImageButton btnBirthday;
 
-    @ViewById(R.id.rb_male)
+    @BindView(R.id.rb_male)
     RadioButton rbMale;
 
-    @ViewById(R.id.rb_female)
+    @BindView(R.id.rb_female)
     RadioButton rbFemale;
 
-    @ViewById(R.id.btn_submit)
+    @BindView(R.id.btn_submit)
     Button btnSubmit;
-
-    @Bean(ProfilePresenterImpl.class)
-    ProfilePresenter mPresenter;
 
     private String mGender;
     private int mCurrentImageId;
 
+    private final int mUserId = SharedPrefUtils.loadIntPref("user-id",0);
+    private final String mToken = SharedPrefUtils.loadStringPref("token","");
+
     public static final int CHOOSE_USER_AVATAR_REQUEST_CODE = 1;
 
-    @AfterViews
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initViews();
+    }
+
     void initViews() {
         getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mPresenter.setProfileView(this);
-        mPresenter.getProfile(mPref.userToken().get());
+        mPresenter.getProfile(mToken);
         this.showWaitingDialog();
     }
+
+
 
     @OptionsItem(R.id.menu_edit)
     void editProfile() {
@@ -136,7 +141,7 @@ public class ProfileActivity extends BaseActivity implements ProfileView, DatePi
             Uri avatarUri = data.getData();
             try {
 
-                Picasso.with(this).load(avatarUri).centerCrop().into(imgAvatar);
+                Glide.with(this).load(avatarUri).centerCrop().into(imgAvatar);
                 //imgAvatar.setImageURI(avatarUri);
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarUri);
                 //imgAvatar.setImageBitmap(bitmap);
@@ -150,6 +155,8 @@ public class ProfileActivity extends BaseActivity implements ProfileView, DatePi
 
         }
     }
+
+
     @OnActivityResult(CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
     void onCropImageResult(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -159,7 +166,7 @@ public class ProfileActivity extends BaseActivity implements ProfileView, DatePi
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), avatarUri);
                 imgAvatar.setImageBitmap(bitmap);
                 String base64Str = PhotoUtils.convertBitmapToBase64(bitmap);
-                mPresenter.uploadAvatar(mPref.userId().get(), mPref.userToken().get(), base64Str, "");
+                mPresenter.uploadAvatar(mUserId,mToken, base64Str, "");
                 this.showWaitingDialog();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -185,7 +192,7 @@ public class ProfileActivity extends BaseActivity implements ProfileView, DatePi
         profile.birthday = txtBirthday.getText().toString();
         profile.gender = mGender;
         profile.profilePictureId = mCurrentImageId;
-        mPresenter.updateProfileUser(mPref.userId().get(), mPref.userToken().get(), profile);
+        mPresenter.updateProfileUser(mUserId,mToken, profile);
         this.showWaitingDialog();
     }
 
@@ -221,5 +228,15 @@ public class ProfileActivity extends BaseActivity implements ProfileView, DatePi
     @Override
     public void showError() {
         this.dismissWaitingDialog();
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_profile;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
     }
 }

@@ -15,15 +15,11 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.doanchuyennganh.eatio.R;
-import com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity;
+import com.doanchuyennganh.eatio.views.fonda.createfonda.CreateFondaActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataApi;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceDetectionApi;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -40,7 +36,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import static com.doanchuyennganh.eatio.views.fonda.CreateFondaActivity.REQUEST_CODE_SELECT_LOCATION;
+import static com.doanchuyennganh.eatio.views.fonda.createfonda.CreateFondaActivity.REQUEST_CODE_SELECT_LOCATION;
 
 /**
  * Created by TungHo on 05/10/2017.

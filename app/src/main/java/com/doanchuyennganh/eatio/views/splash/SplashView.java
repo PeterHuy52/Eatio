@@ -1,6 +1,6 @@
 package com.doanchuyennganh.eatio.views.splash;
 
-import com.doanchuyennganh.eatio.views.BaseView;
+import com.doanchuyennganh.eatio.views.base.BaseView;
 
 /**
  * Created by TungHo on 05/06/2017.

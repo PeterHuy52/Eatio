@@ -1,68 +1,63 @@
 package com.doanchuyennganh.eatio.views.register;
 
-import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.presensters.register.RegisterPresenter;
-import com.doanchuyennganh.eatio.presensters.register.RegisterPresenterImpl;
 import com.doanchuyennganh.eatio.utils.ResourceUtils;
-import com.doanchuyennganh.eatio.views.BaseActivity;
-import com.doanchuyennganh.eatio.views.IMessageView;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.verifycode.VerifyCodeActivity;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.TextChange;
-import org.androidannotations.annotations.ViewById;
+import java.util.concurrent.TimeUnit;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import rx.Observable;
 
 /**
  * Created by TungHo on 05/07/2017.
  */
-@EActivity(R.layout.activity_sign_up)
-public class RegisterActivity extends BaseActivity implements RegisterView, IMessageView {
+public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterView,RegisterNavigator {
 
-    public static void run(Context context){
-        RegisterActivity_.intent(context).start();
-    }
-
-    RegisterPresenter mPresenter;
-
-    @ViewById(R.id.username)
+    @BindView(R.id.username)
     EditText mEdtUsername;
 
-    @ViewById(R.id.email)
+    @BindView(R.id.email)
     EditText mEdtEmail;
 
-    @ViewById(R.id.password)
+    @BindView(R.id.password)
     EditText mEdtPassword;
 
-    @ViewById(R.id.confirm_password)
+    @BindView(R.id.confirm_password)
     EditText mEdtConfirmPwd;
 
-    @ViewById(R.id.massage_tv)
+    @BindView(R.id.massage_tv)
     TextView mMessageTv;
 
-    @ViewById(R.id.btn_sign_up)
+    @BindView(R.id.btn_sign_up)
     Button mSignUpBtn;
 
-    @AfterViews
-    void initView(){
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initView();
+    }
+
+    private void initView(){
         this.getSupportActionBar().hide();
-        mPresenter = new RegisterPresenterImpl(this);
         this.disableRegisterBtn();
     }
 
-    @Click(R.id.btn_sign_up)
+    @OnClick(R.id.btn_sign_up)
     void signUpBtnClick(){
-        if (this.isConnected() == false){
-            this.setMessageText(getString(R.string.not_network), false);
-            return;
-        }
         this.showWaitingDialog();
         mPresenter.signUp(
                 mEdtUsername.getText().toString(),
@@ -70,9 +65,9 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
                 mEdtPassword.getText().toString());
     }
 
-    @Click(R.id.btn_sign_in)
+    @OnClick(R.id.btn_sign_in)
     void signInBtnClick(){
-        this.finish();
+        this.goToLogin();
     }
 
     @Override
@@ -85,7 +80,7 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
         mSignUpBtn.setEnabled(true);
     }
 
-    @TextChange({R.id.email, R.id.username, R.id.password, R.id.confirm_password})
+    /*@TextChange({R.id.email, R.id.username, R.id.password, R.id.confirm_password})
     @Override
     public void inputTextChanged() {
         this.hideMessageText();
@@ -95,13 +90,36 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
                 mEdtPassword.getText().toString(),
                 mEdtConfirmPwd.getText().toString());
 
+    }*/
+
+    @OnTextChanged({R.id.email, R.id.username, R.id.password, R.id.confirm_password})
+    public void inputTextChanged() {
+        Observable.just(1)
+                .debounce(400, TimeUnit.MILLISECONDS)
+                .subscribe(i->{
+                    this.hideMessageText();
+                    mPresenter.validateInput(
+                            mEdtUsername.getText().toString(),
+                            mEdtEmail.getText().toString(),
+                            mEdtPassword.getText().toString(),
+                            mEdtConfirmPwd.getText().toString());
+                });
+        /*this.hideMessageText();
+        mPresenter.validateInput(
+                mEdtUsername.getText().toString(),
+                mEdtEmail.getText().toString(),
+                mEdtPassword.getText().toString(),
+                mEdtConfirmPwd.getText().toString());*/
     }
 
     @Override
     public void goToVerifyCode(int userId) {
         // TODO: 05/07/2017 goto verrify
         this.dismissWaitingDialog();
-        VerifyCodeActivity.run(this, userId);
+        Intent intent = new Intent(this, VerifyCodeActivity.class);
+        intent.putExtra("user-id", userId);
+        startActivity(intent);
+
     }
 
     @Override
@@ -131,5 +149,25 @@ public class RegisterActivity extends BaseActivity implements RegisterView, IMes
     public void hideMessageText() {
         mMessageTv.setText("");
         mMessageTv.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_sign_up;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
+    }
+
+    @Override
+    public void goToHome() {
+
+    }
+
+    @Override
+    public void goToLogin() {
+        this.finish();
     }
 }

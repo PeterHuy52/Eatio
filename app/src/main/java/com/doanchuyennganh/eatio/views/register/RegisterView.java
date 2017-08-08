@@ -1,10 +1,12 @@
 package com.doanchuyennganh.eatio.views.register;
 
+import com.doanchuyennganh.eatio.views.base.BaseView;
+
 /**
  * Created by TungHo on 05/07/2017.
  */
 
-public interface RegisterView {
+public interface RegisterView extends BaseView {
 
     void disableRegisterBtn();
 
@@ -12,9 +14,13 @@ public interface RegisterView {
 
     void inputTextChanged();
 
+    void setMessageText(String text, boolean isPositive);
+
+    void hideMessageText();
 
 
-    void goToVerifyCode(int userId);
+
+
 
     void usernameExists();
 

@@ -3,6 +3,7 @@ package com.doanchuyennganh.eatio.application.appcomponent.modules;
 import android.app.Application;
 
 import com.doanchuyennganh.eatio.BuildConfig;
+import com.doanchuyennganh.eatio.api.RxErrorHandlingCallAdapterFactory;
 import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.doanchuyennganh.eatio.utils.ConnectionUtils;
 import com.google.gson.Gson;
@@ -22,7 +23,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -85,8 +85,8 @@ public class RetrofitModule {
 
     @Provides
     @Singleton
-    public RxJavaCallAdapterFactory provideRxJavaCallAdapterFactory() {
-        return RxJavaCallAdapterFactory.create();
+    public RxErrorHandlingCallAdapterFactory provideRxJavaCallAdapterFactory() {
+        return new RxErrorHandlingCallAdapterFactory();
     }
 
     @Provides
@@ -97,7 +97,7 @@ public class RetrofitModule {
 
     @Provides
     @Singleton
-    public Retrofit provideRetrofitModule(OkHttpClient.Builder httpClient, Gson gson, RxJavaCallAdapterFactory rxJavaCallAdapterFactory) {
+    public Retrofit provideRetrofitModule(OkHttpClient.Builder httpClient, Gson gson, RxErrorHandlingCallAdapterFactory rxJavaCallAdapterFactory) {
 
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.HOST)

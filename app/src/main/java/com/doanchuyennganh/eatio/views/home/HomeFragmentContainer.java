@@ -10,7 +10,7 @@ public interface HomeFragmentContainer {
 
     void showFondaDetailFragment();
 
-    int getUserId();
+    /*int getUserId();
 
-    String getTokenString();
+    String getTokenString();*/
 }

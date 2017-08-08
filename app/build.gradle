@@ -82,7 +82,10 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.google.android.gms:play-services-maps:10.2.0'
     testCompile 'junit:junit:4.12'
+    //Bottom bar
+    compile 'com.roughike:bottom-bar:2.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.zhihu.android:matisse:0.4.3'
     compile 'com.theartofdev.edmodo:android-image-cropper:2.4.4'
+    compile 'com.android.support:support-annotations:25.3.1'
 }

@@ -21,6 +21,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import rx.Observable;
 
 /**
  * Created by Nguyen Tan Luan on 4/16/2017.
@@ -40,7 +41,7 @@ public interface FondaApi {
 //    Observable<FondaResponse> createFonda(@Body CreateFondaRequest request);
 //
     @GET("/fonda")
-    Call<ApiResponse<Paging<Fonda>>> getListFonda(@QueryMap Map<String, String> query);
+    Observable<ApiResponse<Paging<Fonda>>> getListFonda(@QueryMap Map<String, String> query);
 
     @GET("/fonda/{id}")
     Call<ApiResponse<Fonda>> getFonda(@Path("id") int fondaId);

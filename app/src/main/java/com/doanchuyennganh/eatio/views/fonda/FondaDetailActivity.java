@@ -22,7 +22,7 @@ import com.doanchuyennganh.eatio.presensters.map.LocationPresenter;
 import com.doanchuyennganh.eatio.presensters.map.LocationPresenterImpl;
 import com.doanchuyennganh.eatio.presensters.map.MapPresenter;
 import com.doanchuyennganh.eatio.presensters.map.MapPresenterImpl;
-import com.doanchuyennganh.eatio.views.BaseActivity;
+import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FondaPhotoActivity;
 import com.doanchuyennganh.eatio.views.mapactivity.LocationView;
 import com.doanchuyennganh.eatio.views.mapactivity.MapInfoView;

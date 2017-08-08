@@ -1,84 +1,79 @@
 package com.doanchuyennganh.eatio.presensters.verifycode;
 
-import com.doanchuyennganh.eatio.repository.UserRepository;
-import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Error;
-import com.doanchuyennganh.eatio.entity.VerifyStatus;
+import com.doanchuyennganh.eatio.views.base.Navigator;
+import com.doanchuyennganh.eatio.presensters.base.BasePresenter;
+import com.doanchuyennganh.eatio.repository.UserRepository;
 import com.doanchuyennganh.eatio.views.verifycode.VerifyCodeView;
+
+import javax.inject.Inject;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by TungHo on 05/08/2017.
  */
 
-public class VerifyCodePresenterImpl implements VerifyCodePresenter {
+public class VerifyCodePresenterImpl extends BasePresenter<VerifyCodeView, Navigator> implements VerifyCodePresenter {
 
     public static final int VERIFY_STATUS_SUCCESS = 3;
     public static final int VERIFY_STATUS_EXPIRED = 2;
 
-    VerifyCodeView mView;
+    UserRepository mUserRepository;
 
-    public VerifyCodePresenterImpl(VerifyCodeView view){
-        mView = view;
+    @Inject
+    public VerifyCodePresenterImpl(UserRepository userRepository) {
+        mUserRepository = userRepository;
     }
-
 
     @Override
     public void verifyCode(int userId, String code) {
-        UserRepository model = new UserRepository();
-        model.verifyAccount(userId, code, new ApiRequestCallback<VerifyStatus>() {
-            @Override
-            public void responseData(VerifyStatus data) {
-                if (data.status == VERIFY_STATUS_SUCCESS){
-                    mView.goToLogin();
-                }
-                else {
-                    if (data.status == VERIFY_STATUS_EXPIRED ||
-                            (data.status == 1 && data.triedTime == 3)){
-                        mView.codeExpired();
-                    }
-                    else {
-                        mView.verifyFailed();
-                    }
-                }
-            }
 
-            @Override
-            public void responseError(Error data) {
-                if (data.code == 40404){
-                    mView.restart();
-                }
-            }
-        });
+        mUserRepository.verifyAccount(userId, code)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(verifyStatus -> {
+                    if (verifyStatus.status == VERIFY_STATUS_SUCCESS) {
+                        mNavigator.goToHome();
+                    } else {
+                        if (verifyStatus.status == VERIFY_STATUS_EXPIRED ||
+                                (verifyStatus.status == 1 && verifyStatus.triedTime == 3)) {
+                            mView.codeExpired();
+                        } else {
+                            mView.verifyFailed();
+                        }
+                    }
+                }, throwable -> {
+                    Error error = getError(throwable);
+                    if (error.code == 40404) {
+                        mView.restart();
+                    }
+                });
     }
 
     @Override
     public void validateInput(String code) {
-        if (code.length() < 6){
+        if (code.length() < 6) {
             mView.disableActionBtn();
-        }
-        else {
+        } else {
             mView.enableActionBtn();
         }
     }
 
     @Override
     public void sendNewCode(int userId) {
-        UserRepository model = new UserRepository();
-        model.sendNewCode(userId, new ApiRequestCallback<VerifyStatus>() {
-            @Override
-            public void responseData(VerifyStatus data) {
-                mView.newCodeSent();
-            }
-
-            @Override
-            public void responseError(Error error) {
-                if (error.code == 40404){
-                    mView.restart();
-                }
-                else if (error.code == 40903){
-                    mView.goToLogin();
-                }
-            }
-        });
+        mUserRepository.sendNewCode(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(verifyStatus -> mView.newCodeSent()
+                        , throwable -> {
+                            Error error = getError(throwable);
+                            if (error.code == 40404) {
+                                mView.restart();
+                            } else if (error.code == 40903) {
+                                mNavigator.goToLogin();
+                            }
+                        });
     }
 }

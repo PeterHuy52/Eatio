@@ -2,7 +2,7 @@ package com.doanchuyennganh.eatio.presensters.map;
 
 import com.doanchuyennganh.eatio.entity.GoogleGeoCodingApi.Address;
 import com.doanchuyennganh.eatio.entity.GoogleGeoCodingApi.ggGeocodingResponse;
-import com.doanchuyennganh.eatio.repository.GoogleApiRepository;
+import com.doanchuyennganh.eatio.repository.GoogleApiRepositoryImpl;
 import com.doanchuyennganh.eatio.views.mapactivity.MapInfoView;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -26,7 +26,7 @@ public class MapPresenterImpl implements MapPresenter {
 
     @Override
     public void getLocationInfo(LatLng location) {
-        GoogleApiRepository model = new GoogleApiRepository();
+        GoogleApiRepositoryImpl model = new GoogleApiRepositoryImpl();
         model.getGeocodinByLocation(location, new Callback<ggGeocodingResponse>() {
             @Override
             public void onResponse(Call<ggGeocodingResponse> call, Response<ggGeocodingResponse> response) {

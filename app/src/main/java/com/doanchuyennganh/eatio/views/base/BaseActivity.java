@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.views;
+package com.doanchuyennganh.eatio.views.base;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -14,11 +14,7 @@ import android.widget.Toast;
 import com.doanchuyennganh.eatio.application.EatioApplication;
 import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.presensters.base.Presenter;
-import com.doanchuyennganh.eatio.utils.ApplicationPreferences_;
-import com.doanchuyennganh.eatio.utils.ConnectionUtils;
 import com.doanchuyennganh.eatio.utils.SharedPrefUtils;
-
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import javax.inject.Inject;
 
@@ -44,8 +40,8 @@ public abstract class BaseActivity<P extends Presenter> extends AppCompatActivit
     @Inject
     protected SharedPreferences mSharePref;
 
-    @Pref
-    protected ApplicationPreferences_ mPref;
+    /*@Pref
+    protected ApplicationPreferences_ mPref;*/
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +50,7 @@ public abstract class BaseActivity<P extends Presenter> extends AppCompatActivit
         inject(getAppComponent());
         mUnbinder = ButterKnife.bind(this);
         mPresenter.setView(this);
+        mPresenter.setNavigator(this);
         initViews();
 
     }
@@ -106,13 +103,8 @@ public abstract class BaseActivity<P extends Presenter> extends AppCompatActivit
 
     }
 
-    @Override
-    public boolean isConnected() {
-        return ConnectionUtils.hasInternetConnection(this);
-    }
 
-    @Override
-    public boolean isOwner(int checkUserId) {
+    protected boolean isOwner(int checkUserId) {
         return SharedPrefUtils.loadIntPref("user_id",-1) == checkUserId;
         //return mPref.userId().getOr(-1).equals(checkUserId);
     }

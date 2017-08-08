@@ -5,7 +5,7 @@ import com.doanchuyennganh.eatio.api.responses.ApiRequestCallback;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.repository.FondaRepository;
-import com.doanchuyennganh.eatio.views.fonda.FondaGroupView;
+import com.doanchuyennganh.eatio.views.fonda.createfonda.FondaGroupView;
 
 import java.util.List;
 

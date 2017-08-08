@@ -1,4 +1,4 @@
-package com.doanchuyennganh.eatio.views;
+package com.doanchuyennganh.eatio.views.base;
 
 /**
  * Created by TungHo on 05/07/2017.
