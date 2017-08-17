@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import com.doanchuyennganh.eatio.BuildConfig;
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.presensters.fonda.FondaDetailPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.FondaDetailPresenterImpl;
@@ -50,7 +51,7 @@ import java.util.Date;
  * Created by TungHo on 05/11/2017.
  */
 @EActivity(R.layout.activity_fonda_detail)
-public class FondaDetailActivity extends BaseActivity implements FondaDetailView, LocationView, MapInfoView {
+public class FondaDetailActivity extends BaseActivity<FondaDetailPresenter> implements FondaDetailView, LocationView, MapInfoView {
 
     private static final String TAG = FondaDetailActivity.class.getSimpleName();
 
@@ -142,15 +143,15 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     String token;
 
     public static void run(Context context, int fondaId) {
-        FondaDetailActivity_.intent(context)
-                .extra("id", fondaId).start();
+        /*FondaDetailActivity_.intent(context)
+                .extra("id", fondaId).start();*/
     }
 
     public static void run(Context context, int fondaId, String name, String address) {
-        FondaDetailActivity_.intent(context)
+        /*FondaDetailActivity_.intent(context)
                 .extra("id", fondaId)
                 .extra("address", address)
-                .extra("name", name).start();
+                .extra("name", name).start();*/
     }
 
     @AfterViews
@@ -191,7 +192,7 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
         presenter.getFonda(fondaId);
         locationPresenter = new LocationPresenterImpl(this);
         mapPresenter = new MapPresenterImpl(this);
-        token = mPref.userToken().getOr("");
+        //token = mPref.userToken().getOr("");
 
     }
 
@@ -551,5 +552,15 @@ public class FondaDetailActivity extends BaseActivity implements FondaDetailView
     public void updateMapInfo(String placeId, String fullAddress, String city, String province) {
         presenter.updateAddress(token, mFonda.id, fullAddress);
         presenter.updateLocation(token, mFonda.id, placeId, city, province);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_fonda_detail;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
     }
 }

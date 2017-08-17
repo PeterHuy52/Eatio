@@ -98,7 +98,7 @@ public class RxErrorHandlingCallAdapterFactory extends CallAdapter.Factory {
                 }
 
                 if (throwable instanceof ApiException) {
-                    int code = ((ApiException) throwable).getErrorCode();
+                    int code = ((ApiException) throwable).getmErrorCode();
                     String message = throwable.getMessage();
                     return new ApiException(code, message);
                 }

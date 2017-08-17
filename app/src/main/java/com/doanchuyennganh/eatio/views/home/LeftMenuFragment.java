@@ -1,9 +1,7 @@
 package com.doanchuyennganh.eatio.views.home;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -11,23 +9,15 @@ import android.widget.TextView;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.entity.Profile;
-import com.doanchuyennganh.eatio.utils.ApplicationPreferences_;
-import com.doanchuyennganh.eatio.views.base.BaseActivity;
-import com.doanchuyennganh.eatio.views.login.LoginActivity;
-import com.doanchuyennganh.eatio.views.profile.ProfileActivity_;
 import com.squareup.picasso.Picasso;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.doanchuyennganh.eatio.views.home.HomeActivity.UPDATE_PROFILE_REQUEST_CODE;
 
 /**
  * Created by TungHo on 05/08/2017.
@@ -53,8 +43,8 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
 
     Context mContext;
 
-    @Pref
-    protected ApplicationPreferences_ mPref;
+    //@Pref
+    //protected ApplicationPreferences_ mPref;
 
 
     @AfterViews
@@ -88,7 +78,12 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
         // do nothing
     }
 
-    @Click(R.id.nav_header)
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    /*@Click(R.id.nav_header)
     void navHeaderClick() {
         ProfileActivity_.intent(mContext).startForResult(UPDATE_PROFILE_REQUEST_CODE);
     }
@@ -132,5 +127,5 @@ public class LeftMenuFragment extends Fragment implements LeftMenuHeaderView, Ad
             default:
                 HomeActivity.run(mContext, token);
         }
-    }
+    }*/
 }

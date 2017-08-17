@@ -11,16 +11,12 @@ import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.entity.Culinary;
 import com.doanchuyennganh.eatio.entity.FondaGroup;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
-import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
 import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.doanchuyennganh.eatio.views.base.BaseActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment;
-import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment_;
 import com.doanchuyennganh.eatio.views.ui.CustomViewInputSpinner;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.ViewById;
@@ -156,7 +152,7 @@ public class FondaSearchDetailActivity extends BaseActivity<FondaListPresenter> 
     }
 
     private void getListFondaByType(String query) {
-        mFondaListFragment = FondaListFragment_.builder().arg("type", type).arg("value", query).build();
+        //mFondaListFragment = FondaListFragment_.builder().arg("type", type).arg("value", query).build();
         FragmentManager framentManager = getSupportFragmentManager();
         framentManager.beginTransaction().replace(R.id.layout_search_list, mFondaListFragment).commit();
     }

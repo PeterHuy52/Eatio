@@ -26,7 +26,7 @@ public class MapPresenterImpl implements MapPresenter {
 
     @Override
     public void getLocationInfo(LatLng location) {
-        GoogleApiRepositoryImpl model = new GoogleApiRepositoryImpl();
+        //GoogleApiRepositoryImpl model = new GoogleApiRepositoryImpl();
         model.getGeocodinByLocation(location, new Callback<ggGeocodingResponse>() {
             @Override
             public void onResponse(Call<ggGeocodingResponse> call, Response<ggGeocodingResponse> response) {

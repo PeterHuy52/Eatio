@@ -11,6 +11,8 @@ import com.doanchuyennganh.eatio.views.fonda.FondaDetailActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondalist.FondaListFragment;
 import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FondaPhotoActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondaphoto.FullPhotoActivity;
+import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaQuickSearchActivity;
+import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchActivity;
 import com.doanchuyennganh.eatio.views.fonda.fondasearch.FondaSearchDetailActivity;
 import com.doanchuyennganh.eatio.views.home.HomeActivity;
 import com.doanchuyennganh.eatio.views.home.LeftMenuFragment;
@@ -53,6 +55,8 @@ public interface AppComponent {
     void inject(SplashActivity splashActivity);
     void inject(SelectLocationActivity selectLocationActivity);
     void inject(FondaSearchDetailActivity activity);
+    void inject(FondaSearchActivity activity);
+    void inject(FondaQuickSearchActivity activity);
 
     //Inject Fragment
     void inject(FondaListFragment fondaListFragment);

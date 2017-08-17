@@ -3,6 +3,7 @@ package com.doanchuyennganh.eatio.views.fonda.fondasearch;
 import android.content.Context;
 
 import com.doanchuyennganh.eatio.R;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.utils.AppConstants;
 import com.doanchuyennganh.eatio.views.base.BaseActivity;
 
@@ -38,7 +39,7 @@ public class FondaSearchActivity extends BaseActivity {
     CircleImageView imgSearchByCulinary;
 
     public static void run(Context context) {
-        FondaSearchActivity_.intent(context).start();
+        //FondaSearchActivity_.intent(context).start();
     }
 
     @AfterViews
@@ -82,4 +83,13 @@ public class FondaSearchActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_search;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
+    }
 }

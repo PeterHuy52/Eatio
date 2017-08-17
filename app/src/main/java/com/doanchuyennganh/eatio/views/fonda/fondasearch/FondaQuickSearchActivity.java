@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.doanchuyennganh.eatio.R;
 import com.doanchuyennganh.eatio.api.responses.Paging;
+import com.doanchuyennganh.eatio.application.appcomponent.AppComponent;
 import com.doanchuyennganh.eatio.entity.Fonda;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenter;
 import com.doanchuyennganh.eatio.presensters.fonda.fondalist.FondaListPresenterImpl;
@@ -38,7 +39,7 @@ import java.util.ArrayList;
  */
 @EActivity(R.layout.activity_quick_search)
 @OptionsMenu(R.menu.menu_main)
-public class FondaQuickSearchActivity extends BaseActivity implements FondaListView, SwipeRefreshLayout.OnRefreshListener, OnClickListener {
+public class FondaQuickSearchActivity extends BaseActivity<FondaListPresenter> implements FondaListView, SwipeRefreshLayout.OnRefreshListener, OnClickListener {
     @ViewById
     RecyclerView recyclerView;
 
@@ -67,7 +68,7 @@ public class FondaQuickSearchActivity extends BaseActivity implements FondaListV
     private String mQuery = "";
 
     public static void run(Context context){
-        FondaQuickSearchActivity_.intent(context).start();
+        //FondaQuickSearchActivity_.intent(context).start();
     }
 
     @AfterViews
@@ -198,5 +199,15 @@ public class FondaQuickSearchActivity extends BaseActivity implements FondaListV
     }
     @Override
     public void onItemLongClick(int position) {
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_quick_search;
+    }
+
+    @Override
+    protected void inject(AppComponent appComponent) {
+        appComponent.inject(this);
     }
 }
